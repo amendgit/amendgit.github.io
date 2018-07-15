@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="一、操作系统的基础1.存储程序计算机由美籍匈牙利数学家冯·诺依曼于1946年提出的，把程序本身当作数据来对待，程序和该程序处理的数据用同样的方式储存。冯·诺依曼和同事们依据此原理设计出了一个完整的现代计算机雏形，并确定了存储程序计算机的五大组成部分和基本工作方法。冯·诺依曼的这一设计思想被誉为计算机发展史上的里程碑，标志着计算机时代的真正开始。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解Linux之操作系统是如何工作的">
+<meta property="og:url" content="http://www.amendgit.com/2017/linux-how-os-works/index.html">
+<meta property="og:site_name" content="amendgit&#39;s blog">
+<meta property="og:description" content="一、操作系统的基础1.存储程序计算机由美籍匈牙利数学家冯·诺依曼于1946年提出的，把程序本身当作数据来对待，程序和该程序处理的数据用同样的方式储存。冯·诺依曼和同事们依据此原理设计出了一个完整的现代计算机雏形，并确定了存储程序计算机的五大组成部分和基本工作方法。冯·诺依曼的这一设计思想被誉为计算机发展史上的里程碑，标志着计算机时代的真正开始。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.amendgit.com/2017/linux-how-os-works/computer-arch.png">
+<meta property="og:image" content="http://www.amendgit.com/2017/linux-how-os-works/function-call-stack.png">
+<meta property="og:image" content="http://www.amendgit.com/2017/linux-how-os-works/interuption-detection.png">
+<meta property="og:image" content="http://www.amendgit.com/2017/linux-how-os-works/interuption-routine.png">
+<meta property="og:image" content="http://www.amendgit.com/2017/linux-how-os-works/process-schedule.png">
+<meta property="og:image" content="http://www.amendgit.com/2017/linux-how-os-works/between-process.png">
+<meta property="og:updated_time" content="2018-07-13T07:35:00.428Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解Linux之操作系统是如何工作的">
+<meta name="twitter:description" content="一、操作系统的基础1.存储程序计算机由美籍匈牙利数学家冯·诺依曼于1946年提出的，把程序本身当作数据来对待，程序和该程序处理的数据用同样的方式储存。冯·诺依曼和同事们依据此原理设计出了一个完整的现代计算机雏形，并确定了存储程序计算机的五大组成部分和基本工作方法。冯·诺依曼的这一设计思想被誉为计算机发展史上的里程碑，标志着计算机时代的真正开始。">
+<meta name="twitter:image" content="http://www.amendgit.com/2017/linux-how-os-works/computer-arch.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>深入理解Linux之操作系统是如何工作的</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/amendgit">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        <li><a class="icon" href="#"><i class="fa fa-bars fa-lg" aria-hidden="true" onmouseover='$("#i-toc").toggle();' onmouseout='$("#i-toc").toggle();' onclick='$("#toc").toggle();return false;'></i></a></li>
+        
+        <li><a class="icon" href="/2017/linux-how-computer-works/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/leetcode-solutions-010-050/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-toc" class="info" style="display:none;">Table of content</span>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.amendgit.com/2017/linux-how-os-works/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.amendgit.com/2017/linux-how-os-works/&text=深入理解Linux之操作系统是如何工作的"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.amendgit.com/2017/linux-how-os-works/&title=深入理解Linux之操作系统是如何工作的"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.amendgit.com/2017/linux-how-os-works/&is_video=false&description=深入理解Linux之操作系统是如何工作的"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=深入理解Linux之操作系统是如何工作的&body=Check out this article: http://www.amendgit.com/2017/linux-how-os-works/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.amendgit.com/2017/linux-how-os-works/&title=深入理解Linux之操作系统是如何工作的"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.amendgit.com/2017/linux-how-os-works/&title=深入理解Linux之操作系统是如何工作的"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.amendgit.com/2017/linux-how-os-works/&title=深入理解Linux之操作系统是如何工作的"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.amendgit.com/2017/linux-how-os-works/&title=深入理解Linux之操作系统是如何工作的"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.amendgit.com/2017/linux-how-os-works/&name=深入理解Linux之操作系统是如何工作的&description=&lt;h2 id=&#34;一、操作系统的基础&#34;&gt;&lt;a href=&#34;#一、操作系统的基础&#34; class=&#34;headerlink&#34; title=&#34;一、操作系统的基础&#34;&gt;&lt;/a&gt;一、操作系统的基础&lt;/h2&gt;&lt;h3 id=&#34;1-存储程序计算机&#34;&gt;&lt;a href=&#34;#1-存储程序计算机&#34; class=&#34;headerlink&#34; title=&#34;1.存储程序计算机&#34;&gt;&lt;/a&gt;1.存储程序计算机&lt;/h3&gt;&lt;p&gt;由美籍匈牙利数学家冯·诺依曼于1946年提出的，把程序本身当作数据来对待，程序和该程序处理的数据用同样的方式储存。冯·诺依曼和同事们依据此原理设计出了一个完整的现代计算机雏形，并确定了存储程序计算机的五大组成部分和基本工作方法。冯·诺依曼的这一设计思想被誉为计算机发展史上的里程碑，标志着计算机时代的真正开始。&lt;/p&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、操作系统的基础"><span class="toc-number">1.</span> <span class="toc-text">一、操作系统的基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-存储程序计算机"><span class="toc-number">1.1.</span> <span class="toc-text">1.存储程序计算机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-堆栈（函数调用堆栈）机制"><span class="toc-number">1.2.</span> <span class="toc-text">2.堆栈（函数调用堆栈）机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-中断机制"><span class="toc-number">1.3.</span> <span class="toc-text">3.中断机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、操作系统是如何工作的"><span class="toc-number">2.</span> <span class="toc-text">二、操作系统是如何工作的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、总结"><span class="toc-number">3.</span> <span class="toc-text">三、总结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        深入理解Linux之操作系统是如何工作的
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">amendgit's blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-03-28T10:51:52.000Z" itemprop="datePublished">2017-03-28</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="一、操作系统的基础"><a href="#一、操作系统的基础" class="headerlink" title="一、操作系统的基础"></a>一、操作系统的基础</h2><h3 id="1-存储程序计算机"><a href="#1-存储程序计算机" class="headerlink" title="1.存储程序计算机"></a>1.存储程序计算机</h3><p>由美籍匈牙利数学家冯·诺依曼于1946年提出的，把程序本身当作数据来对待，程序和该程序处理的数据用同样的方式储存。冯·诺依曼和同事们依据此原理设计出了一个完整的现代计算机雏形，并确定了存储程序计算机的五大组成部分和基本工作方法。冯·诺依曼的这一设计思想被誉为计算机发展史上的里程碑，标志着计算机时代的真正开始。</p>
+<a id="more"></a>
+<p>虽然计算机技术发展很快，但“存储程序原理”至今仍然是计算机内在的基本工作原理。自计算机诞生的那一天起，这一原理就决定了人们使用计算机的主要方式——编写程序和运行程序。</p>
+<p><img src="/2017/linux-how-os-works/computer-arch.png" alt=""></p>
+<p>存储程序计算机主要的特点有：</p>
+<ol>
+<li>在执行程序和处理数据时必需将程序和数据装入存储器中，然后才能使计算机在工作时能够自动地从存储器中取出指令并加以执行。</li>
+<li>用二进制形式表示数据和指令。</li>
+<li>对计算进行集中的顺序控制。</li>
+<li>计算机系统由运算器、存储器、控制器、输入设备、输出设备等5大部件组成。</li>
+</ol>
+<p>冯·诺依曼“存储程序”工作原理的核心包含两层含义：首先，将编写好的程序和原始的数据存储在计算机的存储器中，即“存储程序”；其次，计算机按照存储的程序逐条取出指令加以分析，并执行指令所规定的操作，即“程序控制”。</p>
+<h3 id="2-堆栈（函数调用堆栈）机制"><a href="#2-堆栈（函数调用堆栈）机制" class="headerlink" title="2.堆栈（函数调用堆栈）机制"></a>2.堆栈（函数调用堆栈）机制</h3><p><img src="/2017/linux-how-os-works/function-call-stack.png" alt=""></p>
+<p>Linux操作系统是由大量的C语言和少量的汇编完成的。在操作系统中整体是由栈和堆构建起来的，具体栈的变化情况参见深入理解Linux之计算机是怎样工作的”C程序的运行”。</p>
+<h3 id="3-中断机制"><a href="#3-中断机制" class="headerlink" title="3.中断机制"></a>3.中断机制</h3><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>程序中断</td>
+<td>在某些条件下由指令的结果产生，例如算术溢出、除数为0、试图执行一条非法的机器指令和访问到用户不允许的机器位置等。</td>
+</tr>
+<tr>
+<td>时钟中断</td>
+<td>由处理器内部的计时器产生，允许操作系统以一定的规律执行函数。</td>
+</tr>
+<tr>
+<td>IO中断</td>
+<td>由IO控制器产生，用于发信号通知一个操作的正常完成或各种错误条件。</td>
+</tr>
+<tr>
+<td>硬件故障中断</td>
+<td>由诸如掉电或者存储器奇偶错误之类的鼓掌产生。</td>
+</tr>
+</tbody>
+</table>
+<p>因此，在CPU执行周期中，要加入一个中断周期用于检测是否发生了中断。</p>
+<p><img src="/2017/linux-how-os-works/interuption-detection.png" alt=""></p>
+<p>在操作系统中，操作系统内核实现中断处理程序。而CPU与操作系统通过“默契”协作完成对中断的处理。当有中断发生时，CPU进入中断处理流程，保存现场，查找中断向量表，进入对应的中断处理例程，并且调用。</p>
+<p><img src="/2017/linux-how-os-works/interuption-routine.png" alt=""></p>
+<p>同时，在操作系统中存在一些软中断，tasklet和工作队列：由于中断是随机发生的，其需要能被快速的处理。因此一些复杂耗时的操作就交由内核线程实现的软中断和tasklet、工作队列来完成。</p>
+<h2 id="二、操作系统是如何工作的"><a href="#二、操作系统是如何工作的" class="headerlink" title="二、操作系统是如何工作的"></a>二、操作系统是如何工作的</h2><p>操作系统可以看成是一系列的进程在交替运行，同时操作系统内核会在进程切换期间做一些事情。</p>
+<p><img src="/2017/linux-how-os-works/process-schedule.png" alt=""></p>
+<p>在进程之间会有一些内核处理的动作：</p>
+<p><img src="/2017/linux-how-os-works/between-process.png" alt=""></p>
+<p>操作系统的简化理解就可以如上所述。而进程切换中的动作是由switch_to宏完成的，具体涉及到进程的task队列的修改和寄存器的保存和恢复等。</p>
+<h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>操作系统是运行在硬件上的一个特殊的程序，操作系统的任务是资源管理和分配，进程的创建和调度等。操作系统和进程一样也是存储在内存中，并且需要CPU等资源去运行，只不过操作系统内核是在进程切换时完成大部分工作的。为了能定时的运行操作系统，硬件中的时钟会定时产生时钟中断，在时钟中断的处理函数中会进行决策是否该运行操作系统的内核了。在进程切换过程中，操作系统主要完成的事情是：中断处理、进程调度、信号量处理。而这些是对用户隐藏的，在用户的视角来看，操作系统就是一系列的进程交替运行。</p>
+<p>同时，计算机并非是线性的执行下去的，否则就无法与用户进行交互。在计算机运行的时候，会存在一系列的中断，中断是硬件的功能，操作系统则提供了中断处理例程。在CPU周期中，会检测中断，当有中断发生时，计算机会优先处理中断。而这些中断处理例程，实在计算机开机时就已经在内存中注册好了，CPU会去对应的位置找到入口进行调用。由于中断是随机产生，对中断的处理必须非常块。因此，有时中断的处理只是将某个需要处理的任务加入到队列中。如加入到tasklet和工作队列。这些任务有内核线程运行。他们的运行时间就是在上图中的进程切换期间。在进程切换期间还有很多其他的事情，比如信号量处理，这是用来进程间通信的。</p>
+
+  </div>
+</article>
+
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/amendgit">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、操作系统的基础"><span class="toc-number">1.</span> <span class="toc-text">一、操作系统的基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-存储程序计算机"><span class="toc-number">1.1.</span> <span class="toc-text">1.存储程序计算机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-堆栈（函数调用堆栈）机制"><span class="toc-number">1.2.</span> <span class="toc-text">2.堆栈（函数调用堆栈）机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-中断机制"><span class="toc-number">1.3.</span> <span class="toc-text">3.中断机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、操作系统是如何工作的"><span class="toc-number">2.</span> <span class="toc-text">二、操作系统是如何工作的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、总结"><span class="toc-number">3.</span> <span class="toc-text">三、总结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.amendgit.com/2017/linux-how-os-works/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.amendgit.com/2017/linux-how-os-works/&text=深入理解Linux之操作系统是如何工作的"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.amendgit.com/2017/linux-how-os-works/&title=深入理解Linux之操作系统是如何工作的"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.amendgit.com/2017/linux-how-os-works/&is_video=false&description=深入理解Linux之操作系统是如何工作的"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=深入理解Linux之操作系统是如何工作的&body=Check out this article: http://www.amendgit.com/2017/linux-how-os-works/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.amendgit.com/2017/linux-how-os-works/&title=深入理解Linux之操作系统是如何工作的"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.amendgit.com/2017/linux-how-os-works/&title=深入理解Linux之操作系统是如何工作的"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.amendgit.com/2017/linux-how-os-works/&title=深入理解Linux之操作系统是如何工作的"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.amendgit.com/2017/linux-how-os-works/&title=深入理解Linux之操作系统是如何工作的"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.amendgit.com/2017/linux-how-os-works/&name=深入理解Linux之操作系统是如何工作的&description=&lt;h2 id=&#34;一、操作系统的基础&#34;&gt;&lt;a href=&#34;#一、操作系统的基础&#34; class=&#34;headerlink&#34; title=&#34;一、操作系统的基础&#34;&gt;&lt;/a&gt;一、操作系统的基础&lt;/h2&gt;&lt;h3 id=&#34;1-存储程序计算机&#34;&gt;&lt;a href=&#34;#1-存储程序计算机&#34; class=&#34;headerlink&#34; title=&#34;1.存储程序计算机&#34;&gt;&lt;/a&gt;1.存储程序计算机&lt;/h3&gt;&lt;p&gt;由美籍匈牙利数学家冯·诺依曼于1946年提出的，把程序本身当作数据来对待，程序和该程序处理的数据用同样的方式储存。冯·诺依曼和同事们依据此原理设计出了一个完整的现代计算机雏形，并确定了存储程序计算机的五大组成部分和基本工作方法。冯·诺依曼的这一设计思想被誉为计算机发展史上的里程碑，标志着计算机时代的真正开始。&lt;/p&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 amendgit
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/amendgit">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+

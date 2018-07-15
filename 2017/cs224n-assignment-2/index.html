@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="1 Tensorflow Softmax本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax 123456789101112131415161718192021222324def softmax(x):    &quot;&quot;&quot;    Compute the softmax function in tensorflow.    You might find">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs224n-assignment-2">
+<meta property="og:url" content="http://www.amendgit.com/2017/cs224n-assignment-2/index.html">
+<meta property="og:site_name" content="amendgit&#39;s blog">
+<meta property="og:description" content="1 Tensorflow Softmax本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax 123456789101112131415161718192021222324def softmax(x):    &quot;&quot;&quot;    Compute the softmax function in tensorflow.    You might find">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-02-25T13:36:38.578Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cs224n-assignment-2">
+<meta name="twitter:description" content="1 Tensorflow Softmax本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax 123456789101112131415161718192021222324def softmax(x):    &quot;&quot;&quot;    Compute the softmax function in tensorflow.    You might find">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>cs224n-assignment-2</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/amendgit">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        <li><a class="icon" href="#"><i class="fa fa-bars fa-lg" aria-hidden="true" onmouseover='$("#i-toc").toggle();' onmouseout='$("#i-toc").toggle();' onclick='$("#toc").toggle();return false;'></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/leetcode-solutions-050-N/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-toc" class="info" style="display:none;">Table of content</span>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.amendgit.com/2017/cs224n-assignment-2/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.amendgit.com/2017/cs224n-assignment-2/&text=cs224n-assignment-2"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.amendgit.com/2017/cs224n-assignment-2/&title=cs224n-assignment-2"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.amendgit.com/2017/cs224n-assignment-2/&is_video=false&description=cs224n-assignment-2"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=cs224n-assignment-2&body=Check out this article: http://www.amendgit.com/2017/cs224n-assignment-2/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.amendgit.com/2017/cs224n-assignment-2/&title=cs224n-assignment-2"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.amendgit.com/2017/cs224n-assignment-2/&title=cs224n-assignment-2"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.amendgit.com/2017/cs224n-assignment-2/&title=cs224n-assignment-2"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.amendgit.com/2017/cs224n-assignment-2/&title=cs224n-assignment-2"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.amendgit.com/2017/cs224n-assignment-2/&name=cs224n-assignment-2&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Tensorflow-Softmax"><span class="toc-number">1.</span> <span class="toc-text">1 Tensorflow Softmax</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Neural-Transition-Based-Dependency-Parsing"><span class="toc-number">2.</span> <span class="toc-text">2 Neural Transition-Based Dependency Parsing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#b"><span class="toc-number">3.</span> <span class="toc-text">(b)</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        cs224n-assignment-2
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">amendgit's blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-09-28T13:17:10.000Z" itemprop="datePublished">2017-09-28</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="1-Tensorflow-Softmax"><a href="#1-Tensorflow-Softmax" class="headerlink" title="1 Tensorflow Softmax"></a>1 Tensorflow Softmax</h2><p>本题主要是实现一个线性分类器，以交叉熵作为损失函数。</p>
+<p>(a) 使用tensorflow实现softmax</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Compute the softmax function in tensorflow.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    You might find the tensorflow functions tf.exp, tf.reduce_max,</span></span><br><span class="line"><span class="string">    tf.reduce_sum, tf.expand_dims useful. (Many solutions are possible, so you may</span></span><br><span class="line"><span class="string">    not need to use all of these functions). Recall also that many common</span></span><br><span class="line"><span class="string">    tensorflow operations are sugared (e.g. x * y does a tensor multiplication</span></span><br><span class="line"><span class="string">    if x and y are both tensors). Make sure to implement the numerical stability</span></span><br><span class="line"><span class="string">    fixes as in the previous homework!</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        x:   tf.Tensor with shape (n_samples, n_features). Note feature vectors are</span></span><br><span class="line"><span class="string">                  represented by row-vectors. (For simplicity, no need to handle 1-d</span></span><br><span class="line"><span class="string">                  input as in the previous homework)</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        out: tf.Tensor with shape (n_sample, n_features). You need to construct this</span></span><br><span class="line"><span class="string">                  tensor in this problem.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    exp = tf.exp(x - tf.reduce_min(x, axis=<span class="number">1</span>, keep_dims=<span class="keyword">True</span>))</span><br><span class="line">    out = exp / tf.reduce_sum(exp, axis=<span class="number">1</span>, keep_dims=<span class="keyword">True</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+<p>(b) 使用tensorflow实现cross entropy</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy_loss</span><span class="params">(y, yhat)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Compute the cross entropy loss in tensorflow.</span></span><br><span class="line"><span class="string">    The loss should be summed over the current minibatch.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    y is a one-hot tensor of shape (n_samples, n_classes) and yhat is a tensor</span></span><br><span class="line"><span class="string">    of shape (n_samples, n_classes). y should be of dtype tf.int32, and yhat should</span></span><br><span class="line"><span class="string">    be of dtype tf.float32.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The functions tf.to_float, tf.reduce_sum, and tf.log might prove useful. (Many</span></span><br><span class="line"><span class="string">    solutions are possible, so you may not need to use all of these functions).</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Note: You are NOT allowed to use the tensorflow built-in cross-entropy</span></span><br><span class="line"><span class="string">                functions.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        y:    tf.Tensor with shape (n_samples, n_classes). One-hot encoded.</span></span><br><span class="line"><span class="string">        yhat: tf.Tensor with shape (n_samples, n_classes). Each row encodes a</span></span><br><span class="line"><span class="string">                    probability distribution and should sum to 1.</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        out:  tf.Tensor with shape (1,) (Scalar output). You need to construct this</span></span><br><span class="line"><span class="string">                    tensor in the problem.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    out = - tf.reduce_sum(tf.to_float(y) * tf.log(yhat))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+<p>(c) 阅读 model.py，解释 tensorflow的 placeholders 和 feed dictionaries，完成 q1_classifier.py 的 add_placeholders 和 create_feed_dict 方法</p>
+<p><strong>placeholder</strong>：tensorflow使用placeholder表示计算图中数据被插入的位置，placehodlers将会作为构建模型其他部分的输入，并且会在训练模型的过程中被填充数据。</p>
+<p><strong>feeddictionaries</strong>：feed_dictionaries是在训练的过程中，作为填充placeholders的数据。dictionry的key应该是placeholders的子集，value是填充到对应的placeholder的数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SoftmaxModel</span><span class="params">(Model)</span>:</span></span><br><span class="line">    <span class="string">"""Implements a Softmax classifier with cross-entropy loss."""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_placeholders</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""Generates placeholder variables to represent the input tensors.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        These placeholders are used as inputs by the rest of the model building</span></span><br><span class="line"><span class="string">        and will be fed data during training.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Adds following nodes to the computational graph</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        input_placeholder: Input placeholder tensor of shape</span></span><br><span class="line"><span class="string">                                              (batch_size, n_features), type tf.float32</span></span><br><span class="line"><span class="string">        labels_placeholder: Labels placeholder tensor of shape</span></span><br><span class="line"><span class="string">                                              (batch_size, n_classes), type tf.int32</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Add these placeholders to self as the instance variables</span></span><br><span class="line"><span class="string">            self.input_placeholder</span></span><br><span class="line"><span class="string">            self.labels_placeholder</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.input_placeholder = tf.placeholder(tf.float32, shape=(self.config.batch_size, self.config.n_features))</span><br><span class="line">        self.labels_placeholder = tf.placeholder(tf.int32, shape=(self.config.batch_size, self.config.n_classes))</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_feed_dict</span><span class="params">(self, inputs_batch, labels_batch=None)</span>:</span></span><br><span class="line">        <span class="string">"""Creates the feed_dict for training the given step.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        A feed_dict takes the form of:</span></span><br><span class="line"><span class="string">        feed_dict = &#123;</span></span><br><span class="line"><span class="string">                &lt;placeholder&gt;: &lt;tensor of values to be passed for placeholder&gt;,</span></span><br><span class="line"><span class="string">                ....</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        If label_batch is None, then no labels are added to feed_dict.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Hint: The keys for the feed_dict should be the placeholder</span></span><br><span class="line"><span class="string">                tensors created in add_placeholders.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            inputs_batch: A batch of input data.</span></span><br><span class="line"><span class="string">            labels_batch: A batch of label data.</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            feed_dict: The feed dictionary mapping from placeholders to values.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        feed_dict = &#123;</span><br><span class="line">            self.input_placeholder: inputs_batch,</span><br><span class="line">            self.labels_placeholder: labels_batch,</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> feed_dict</span><br></pre></td></tr></table></figure>
+<p>(d) 完成q1_classifier.py里的add_prediction_op方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_prediction_op</span><span class="params">(self)</span>:</span></span><br><span class="line">   <span class="string">"""Adds the core transformation for this model which transforms a batch of input</span></span><br><span class="line"><span class="string">   data into a batch of predictions. In this case, the transformation is a linear layer plus a</span></span><br><span class="line"><span class="string">   softmax transformation:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   y = softmax(Wx + b)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   Hint: Make sure to create tf.Variable as needed.</span></span><br><span class="line"><span class="string">   Hint: For this simple use-case, it's sufficient to initialize both weights W</span></span><br><span class="line"><span class="string">               and biases b with zeros.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   Args:</span></span><br><span class="line"><span class="string">       input_data: A tensor of shape (batch_size, n_features).</span></span><br><span class="line"><span class="string">   Returns:</span></span><br><span class="line"><span class="string">       pred: A tensor of shape (batch_size, n_classes)</span></span><br><span class="line"><span class="string">   """</span></span><br><span class="line">   W = tf.Variable(tf.zeros([self.config.n_features, self.config.n_classes]))</span><br><span class="line">   b = tf.Variable(tf.zeros([self.config.batch_size, self.config.n_classes]))</span><br><span class="line">   pred = softmax(tf.matmul(self.input_placeholder, W) + b)</span><br><span class="line">   <span class="keyword">return</span> pred</span><br></pre></td></tr></table></figure>
+<p>(e) 完成q1_classifier.py里的add_training_op方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_training_op</span><span class="params">(self, loss)</span>:</span></span><br><span class="line">   <span class="string">"""Sets up the training Ops.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   Creates an optimizer and applies the gradients to all trainable variables.</span></span><br><span class="line"><span class="string">   The Op returned by this function is what must be passed to the</span></span><br><span class="line"><span class="string">   `sess.run()` call to cause the model to train. See</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   https://www.tensorflow.org/versions/r0.7/api_docs/python/train.html#Optimizer</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   for more information.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   Hint: Use tf.train.GradientDescentOptimizer to get an optimizer object.</span></span><br><span class="line"><span class="string">               Calling optimizer.minimize() will return a train_op object.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   Args:</span></span><br><span class="line"><span class="string">       loss: Loss tensor, from cross_entropy_loss.</span></span><br><span class="line"><span class="string">   Returns:</span></span><br><span class="line"><span class="string">       train_op: The Op for training.</span></span><br><span class="line"><span class="string">   """</span></span><br><span class="line">   optimizer = tf.train.GradientDescentOptimizer(self.config.lr)</span><br><span class="line">   train_op = optimizer.minimize(loss)</span><br><span class="line">   <span class="keyword">return</span> train_op</span><br></pre></td></tr></table></figure>
+<h2 id="2-Neural-Transition-Based-Dependency-Parsing"><a href="#2-Neural-Transition-Based-Dependency-Parsing" class="headerlink" title="2 Neural Transition-Based Dependency Parsing"></a>2 Neural Transition-Based Dependency Parsing</h2><p>实现一个基于神经网络的依赖解析器</p>
+<p>(a) </p>
+<table>
+<thead>
+<tr>
+<th>stack</th>
+<th>buffer</th>
+<th>new dependency</th>
+<th>transition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[ROOT]</td>
+<td>[I, parsed, this, sentence, correctly]</td>
+<td></td>
+<td>Initial Configation</td>
+</tr>
+<tr>
+<td>[ROOT, I]</td>
+<td>[parsed, this, sentence, correctly]</td>
+<td></td>
+<td>SHIFT</td>
+</tr>
+<tr>
+<td>[ROOT, I, parsed]</td>
+<td>[this, sentence, correctly]</td>
+<td></td>
+<td>SHIFT</td>
+</tr>
+<tr>
+<td>[ROOT, parsed]</td>
+<td>[this, sentence, correctly]</td>
+<td>parsed -&gt; I</td>
+<td>LEFT-ARC</td>
+</tr>
+<tr>
+<td>[ROOT, parsed, this]</td>
+<td>[sentence, correctly]</td>
+<td></td>
+<td>SHIFT</td>
+</tr>
+<tr>
+<td>[ROOT, parsed, this, sentence]</td>
+<td>[correctly]</td>
+<td></td>
+<td>SHIFT</td>
+</tr>
+<tr>
+<td>[ROOT, parsed, sentence]</td>
+<td>[correctly]</td>
+<td>sentence -&gt; parsed</td>
+<td>LEFT-ARC</td>
+</tr>
+<tr>
+<td>[ROOT, parsed]</td>
+<td>[correctly]</td>
+<td>parsed -&gt; sentence</td>
+<td>RIGHT-ARC</td>
+</tr>
+<tr>
+<td>[ROOT, parsed, correctly]</td>
+<td>[]</td>
+<td></td>
+<td>SHIFT</td>
+</tr>
+<tr>
+<td>[ROOT, parsed]</td>
+<td>[]</td>
+<td>parsed -&gt; correctly</td>
+<td>SHIFT</td>
+</tr>
+<tr>
+<td>[ROOT]</td>
+<td>[]</td>
+<td>ROOT -&gt; parsed</td>
+<td>RIGHT-SHIFT</td>
+</tr>
+</tbody>
+</table>
+<h2 id="b"><a href="#b" class="headerlink" title="(b)"></a>(b)</h2>
+  </div>
+</article>
+
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/amendgit">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Tensorflow-Softmax"><span class="toc-number">1.</span> <span class="toc-text">1 Tensorflow Softmax</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Neural-Transition-Based-Dependency-Parsing"><span class="toc-number">2.</span> <span class="toc-text">2 Neural Transition-Based Dependency Parsing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#b"><span class="toc-number">3.</span> <span class="toc-text">(b)</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.amendgit.com/2017/cs224n-assignment-2/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.amendgit.com/2017/cs224n-assignment-2/&text=cs224n-assignment-2"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.amendgit.com/2017/cs224n-assignment-2/&title=cs224n-assignment-2"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.amendgit.com/2017/cs224n-assignment-2/&is_video=false&description=cs224n-assignment-2"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=cs224n-assignment-2&body=Check out this article: http://www.amendgit.com/2017/cs224n-assignment-2/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.amendgit.com/2017/cs224n-assignment-2/&title=cs224n-assignment-2"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.amendgit.com/2017/cs224n-assignment-2/&title=cs224n-assignment-2"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.amendgit.com/2017/cs224n-assignment-2/&title=cs224n-assignment-2"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.amendgit.com/2017/cs224n-assignment-2/&title=cs224n-assignment-2"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.amendgit.com/2017/cs224n-assignment-2/&name=cs224n-assignment-2&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 amendgit
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/amendgit">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
