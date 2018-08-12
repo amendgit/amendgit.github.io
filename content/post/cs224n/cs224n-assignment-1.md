@@ -3,6 +3,7 @@ title: "cs224n assignment 1"
 date: 2017-07-12T19:43:09+08:00
 mathjax: true
 mathjaxEnableSingleDollar: true
+tags: ["cs224n"]
 ---
 
 cs224n（nlp with dl）的assigment 1，纯属个人学习和爱好。

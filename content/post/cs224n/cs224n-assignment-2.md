@@ -1,6 +1,7 @@
 ---
 title: "cs224n assignment 2"
 date: 2017-09-12T22:52:06+08:00
+tags: ["cs224n"]
 ---
 
 ## 1 Tensorflow Softmax
