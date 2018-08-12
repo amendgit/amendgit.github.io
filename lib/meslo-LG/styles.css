@@ -1,9 +1,0 @@
-@font-face {
-  font-family: 'Meslo LG';
-  font-style: normal;
-  src: local('Meslo LG S'), url(fonts/MesloLGS-Regular.ttf) format('truetype');
-}
-
-/* workaround for custom yuntie comments theme */ 
-#yun-tie-sdk-wrap{background-color:#1d1f21}
-#yun-tie-sdk-wrap .input-box .tie-textarea,#yun-tie-sdk-wrap .input-box .input-tips{background-color:#1d1f21}
