@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>深入理解Linux之进程初探 - amendgit`s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="amendgit" />
+  <meta name="description" content="一. 关于fork调用 fork()调用创建一个新的进程，该进程几乎是当前进程的一个完全拷贝。由fork()创建的新进程被称为子进程。fork函" />
+
+  <meta name="keywords" content="amendgit, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/linux/linux-understand-process/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="深入理解Linux之进程初探" />
+<meta property="og:description" content="一. 关于fork调用 fork()调用创建一个新的进程，该进程几乎是当前进程的一个完全拷贝。由fork()创建的新进程被称为子进程。fork函" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/linux/linux-understand-process/" />
+
+
+
+<meta property="article:published_time" content="2017-05-12T22:54:41&#43;08:00"/>
+
+<meta property="article:modified_time" content="2017-05-12T22:54:41&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="深入理解Linux之进程初探">
+<meta itemprop="description" content="一. 关于fork调用 fork()调用创建一个新的进程，该进程几乎是当前进程的一个完全拷贝。由fork()创建的新进程被称为子进程。fork函">
+
+
+<meta itemprop="datePublished" content="2017-05-12T22:54:41&#43;08:00" />
+<meta itemprop="dateModified" content="2017-05-12T22:54:41&#43;08:00" />
+<meta itemprop="wordCount" content="6969">
+
+
+
+<meta itemprop="keywords" content="linux," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="深入理解Linux之进程初探"/>
+<meta name="twitter:description" content="一. 关于fork调用 fork()调用创建一个新的进程，该进程几乎是当前进程的一个完全拷贝。由fork()创建的新进程被称为子进程。fork函"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">amendgit&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">amendgit&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">深入理解Linux之进程初探</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-12 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#一-关于fork调用">一. 关于fork调用</a></li>
+<li><a href="#二-关于execl调用">二. 关于execl调用</a></li>
+<li><a href="#三-使用汇编进行系统调用">三. 使用汇编进行系统调用</a></li>
+<li><a href="#四-系统调用过程详解">四.系统调用过程详解</a></li>
+<li><a href="#四-do-fork源码分析">四.do_fork源码分析</a></li>
+<li><a href="#五-do-execve的分析">五.do_execve的分析</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="一-关于fork调用">一. 关于fork调用</h2>
+
+<p>　　fork()调用创建一个新的进程，该进程几乎是当前进程的一个完全拷贝。由fork()创建的新进程被称为子进程。fork函数被调用一次但返回两次。两次返回的唯一区别是子进程中返回0值，而父进程中返回子进程ID。子进程是父进程的副本，它将获得父进程数据空间、堆、栈等资源的副本。注意，子进程持有的是上述存储空间的“副本”，这意味着父子进程间不共享这些存储空间。Linux将复制父进程的地址空间内容给子进程，因此，子进程拥有独立的地址空间。
+　　我们来看一个DEMO:</p>
+
+<pre><code class="language-cpp">// fork_example.c
+#include &lt;memory.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(int argc, const char *argv[]) 
+{
+    pid_t pid;
+    
+    char stack_data[] = &quot;stack_data&quot;;
+
+    char *heap_data = malloc(10 * sizeof(char));    
+    strcpy(heap_data, &quot;heap_data&quot;);
+    
+    pid = fork();
+    if (pid == 0) {
+        printf(&quot;CHILD PROCESS: %s, %s\n&quot;, stack_data, heap_data);
+    } else if (pid &gt; 0) {
+        printf(&quot;PARENT PROCESS: %s, %s\n&quot;, stack_data, heap_data);
+    } else {
+        printf(&quot;FORK FAILED.&quot;);
+    }
+
+    return 0;
+}
+</code></pre>
+
+<p>运行的输出结果为：</p>
+
+<pre><code>CHILD PROCESS: stack_data, heap_data
+PARENT PROCESS: stack_data, heap_data
+</code></pre>
+
+<p>可以看出，父进程和子进程的栈和堆的数据是相同的。这些数据在创建子进程时是通过拷贝产生的。</p>
+
+<h2 id="二-关于execl调用">二. 关于execl调用</h2>
+
+<p>系统调用exec是以新的进程去代替原来的进程，但进程的PID保持不变。因此，可以这样认为，exec系统调用并没有创建新的进程，只是替换了原来进程上下文的内容。原进程的代码段，数据段，堆栈段被新的进程所代替。</p>
+
+<p>我们来看一个例子：</p>
+
+<pre><code class="language-cpp">// execl_example.c
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(int argc, const char *argv[])
+{
+    execl(&quot;./hello_world&quot;, NULL, NULL);
+    
+    /* We can only reach this code when there is an error in execl */    
+    printf(&quot;The execl must be failed!\n&quot;);
+
+    return 1;
+}
+</code></pre>
+
+<p>我们执行一个不存在的hello_world程序，看看输出结果：</p>
+
+<pre><code>The execl must be failed!
+</code></pre>
+
+<p>现在我们创建一个hello_world程序，该程序简单的打印一个Hello World.</p>
+
+<pre><code class="language-cpp">// hello_world.c
+#include &lt;stdio.h&gt;
+
+int main(int argc, const char *argv[])
+{
+    printf(&quot;Hello World!\n&quot;);
+}
+</code></pre>
+
+<p>现在我们继续运行execl_example程序，这时输出为：</p>
+
+<pre><code>Hello World!
+</code></pre>
+
+<h2 id="三-使用汇编进行系统调用">三. 使用汇编进行系统调用</h2>
+
+<p>我们知道在Linux中，每个系统调用都对应一个系统调用号。这个系统调用号是在unistd.h中定义的。在我的机器上文件的位置是在：</p>
+
+<pre><code>/usr/src/linux-headers-2.6.28-11-generic/arch/x86/include/asm/unistd_32.h
+</code></pre>
+
+<p>如果找不到，可以尝试使用以下命令查找：</p>
+
+<p>locate unistd.h | xargs grep -ri &ldquo;__NR_fork&rdquo;</p>
+
+<pre><code class="language-cpp">... ...
+#define __NR_restart_syscall      0
+#define __NR_exit          1
+#define __NR_fork          2
+#define __NR_read          3
+#define __NR_write          4
+#define __NR_open          5
+#define __NR_close          6
+#define __NR_waitpid          7
+#define __NR_creat          8
+#define __NR_link          9
+#define __NR_unlink         10
+#define __NR_execve         11
+... ...
+</code></pre>
+
+<p><strong>使用汇编调用fork:</strong></p>
+
+<p>可以看到fork的系统调用号是2，我们现在使用汇编代码重新编写fork_example.c</p>
+
+<pre><code class="language-cpp">#include &lt;memory.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+
+int  main()
+{
+    pid_t pid;
+    
+    char stack_data[] = &quot;stack_data&quot;;
+
+    char *heap_data = malloc(10 * sizeof(char));    
+    strcpy(heap_data, &quot;heap_data&quot;);
+
+    // pid = fork();
+    asm volatile(
+        &quot;mov $0x2, %%eax\n\t&quot; // 将fork的系统调用号2存到eax寄存器  
+        &quot;int $0x80\n\t&quot;       // 产生int 0x80中断
+        &quot;mov %%eax,%0\n\t&quot;    // 将结果存入pid中
+        : &quot;=m&quot; (pid) 
+    );
+    
+    if (pid == 0) {
+        printf(&quot;CHILD PROCESS: %s, %s\n&quot;, stack_data, heap_data);
+    } else if (pid &gt; 0) {
+        printf(&quot;PARENT PROCESS: %s, %s\n&quot;, stack_data, heap_data);
+    } else {
+        printf(&quot;FORK FAILED.\n&quot;);
+    }
+
+    return 0;
+}
+</code></pre>
+
+<p>运行输出结果是：</p>
+
+<pre><code>CHILD PROCESS: stack_data, heap_data
+PARENT PROCESS: stack_data, heap_data
+</code></pre>
+
+<p>可以尝试将调用号替换一下，改成$0x3，得到的结果是：</p>
+
+<pre><code>FORK FAILED.
+</code></pre>
+
+<p><strong>使用汇编调用execl:</strong></p>
+
+<p>我们再尝试一下使用汇编调用execl。通过上面的观察我们可以看到execl的系统调用号是11.</p>
+
+<pre><code class="language-cpp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(int argc, const char *argv[])
+{
+    // execl(&quot;./hello_world&quot;, NULL, NULL);
+    const char *program = &quot;./hello_world&quot;;
+    asm volatile (
+        &quot;mov %0,%%ebx\n\t&quot;   // 使用program做为参数1
+        &quot;mov $0,%%ecx\n\t&quot;   // 参数2为NULL
+        &quot;mov $0,%%edx\n\t&quot;   // 参数3为NULL
+        &quot;mov $0xb,%%eax\n\t&quot; // 将execl的系统调用好11存入eax中
+        &quot;int $0x80\n\t&quot;      // 产生0x80中断
+        : &quot;=m&quot; (program)
+    );
+    
+    /* We can only reach this code when there is an error in execl */    
+    printf(&quot;The execl must be failed!\n&quot;);
+
+    return 1;
+}
+</code></pre>
+
+<p>运行结果为：</p>
+
+<pre><code>Hello World!
+</code></pre>
+
+<p>如果将系统调用号改为0x3，输出结果为：</p>
+
+<pre><code>The execl must be failed!
+</code></pre>
+
+<h2 id="四-系统调用过程详解">四.系统调用过程详解</h2>
+
+<p>通过第三步的过程，我们了解到，系统调用在内核中的执行是依靠中断实现的。如果我们想进一步定位fork和execl的代码，我们需要先了解系统调用的详细过程。即回答以下两个问题：</p>
+
+<p>1.中断是怎么工作的？
+2.int 0x80中断是怎么工作的？</p>
+
+<p>中断是怎么工作的</p>
+
+<p>在Linux操作系统中，中断是通过中断描述符表工作的。中断描述符表（Interrupt Descriptor Table, IDT）是一个系统表，它与每一个中断或者异常向量相联系，每一个向量在表中有相应的中断或者异常处理程序的入口地址。内核在允许中断发生前，必须适当的初始化IDT。对于每个中断，都会有对应的中断处理程序。当产生一个中断时，Linux根据中断向量表中对应的项找到存储中断处理程序的地址，然后调用相应的中断处理程序。中段描述符表在内存中的地址存储在idtr寄存器中。内核在启动中断前，必须初始化IDT，然后将IDT的地址壮载到idtr中。</p>
+
+<p>内核初始化的时候调用trap_init()函数和init_IRQ()函数初始化中断向量表。</p>
+
+<p>int 0x80中断是怎么工作的</p>
+
+<p>通过上面的分析，我们知道每个中断都有对应的处理程序。在系统调用的过程中，会有一个系统调用分派表，每个表项存储了一个系统调用。系统调用中断处理程序，根据系统调用号找到对应的系统调用执行。对于系统调用，参数的传递是通过寄存器ebx ecx edx进行传递的。eax中存储的是系统调用号。系统调用最大为__NR_syscalls个。</p>
+
+<p><img src="/2017/linux-understand-process/system_call.png" alt="" /></p>
+
+<p>在arch/x86/include/asm/irq_vectors.h中定义了</p>
+
+<pre><code class="language-cpp"># define SYSCALL_VECTOR            0x80
+</code></pre>
+
+<p>现在我们查找trap_init函数，在arch/x86/kernel/traps.c中</p>
+
+<pre><code class="language-cpp">set_system_trap_gate(SYSCALL_VECTOR, &amp;system_call);
+</code></pre>
+
+<p>现在，查找system_call函数，在arch/x86/kernel/entry_32.s中：</p>
+
+<pre><code class="language-assembly">ENTRY(system_call)
+    RING0_INT_FRAME            # can't unwind into user space anyway
+    ASM_CLAC
+    pushl_cfi %eax            # save orig_eax
+    SAVE_ALL
+    GET_THREAD_INFO(%ebp)
+                    # system call tracing in operation / emulation
+    testl $_TIF_WORK_SYSCALL_ENTRY,TI_flags(%ebp)
+    jnz syscall_trace_entry
+    cmpl $(NR_syscalls), %eax
+    jae syscall_badsys
+syscall_call:
+    call *sys_call_table(,%eax,4)
+    movl %eax,PT_EAX(%esp)        # store the return value
+syscall_exit:
+    LOCKDEP_SYS_EXIT
+    DISABLE_INTERRUPTS(CLBR_ANY)    # make sure we don't miss an interrupt
+                    # setting need_resched or sigpending
+                    # between sampling and the iret
+    TRACE_IRQS_OFF
+    movl TI_flags(%ebp), %ecx
+    testl $_TIF_ALLWORK_MASK, %ecx    # current-&gt;work
+    jne syscall_exit_work
+</code></pre>
+
+<p>在include/uapi/asm_generic/unistd.h中找到：</p>
+
+<pre><code class="language-cpp">__SYSCALL(__NR_fork, sys_fork)
+</code></pre>
+
+<p>fork的系统调用号是2，对应的系统调用分派表中为sys_fork函数。在kernel/fork.c中找到如下代码：</p>
+
+<pre><code class="language-cpp">#ifdef __ARCH_WANT_SYS_FORK
+SYSCALL_DEFINE0(fork)
+{
+#ifdef CONFIG_MMU
+    return do_fork(SIGCHLD, 0, 0, NULL, NULL);
+#else
+    /* can not support in nommu mode */
+    return(-EINVAL);
+#endif
+}
+#endif
+</code></pre>
+
+<h2 id="四-do-fork源码分析">四.do_fork源码分析</h2>
+
+<p>现在查找do_fork函数，也在kernel/fork.c中：</p>
+
+<pre><code class="language-cpp">/*
+ *  Ok, 这就是fork例程的主要部分。
+ *
+ * 函数执行进程的复制，如果成功则启动新进程。并且等待新进程完成VM的使用。
+ */
+long do_fork(unsigned long clone_flags,
+          unsigned long stack_start,
+          unsigned long stack_size,
+          int __user *parent_tidptr,
+          int __user *child_tidptr)
+{
+    struct task_struct *p;
+    int trace = 0;
+    long nr;
+
+    /*
+     * 在分配之前做一些参数和权限检查。
+     */
+    if (clone_flags &amp; (CLONE_NEWUSER | CLONE_NEWPID)) {
+        if (clone_flags &amp; (CLONE_THREAD|CLONE_PARENT))
+            return -EINVAL;
+    }
+
+    /*
+     * 确定是否需要报告给ptracer，或者哪些需要汇报给ptracer。如果是调用者内核线程
+     * 或者标志了CLONE_UNTRACED，则不报告任何跟踪信息。否则，报告相应fork的跟踪信息。
+     */
+    if (!(clone_flags &amp; CLONE_UNTRACED)) {
+        if (clone_flags &amp; CLONE_VFORK)
+            trace = PTRACE_EVENT_VFORK;
+        else if ((clone_flags &amp; CSIGNAL) != SIGCHLD)
+            trace = PTRACE_EVENT_CLONE;
+        else
+            trace = PTRACE_EVENT_FORK;
+
+        if (likely(!ptrace_event_enabled(current, trace)))
+            trace = 0;
+    }
+　　
+    /* copy_process函数创建进程描述符和子进程需要的其他数据结构。*/
+    p = copy_process(clone_flags, stack_start, stack_size,
+             child_tidptr, NULL, trace);
+             
+    /* 现在唤醒新线程。*/
+    if (!IS_ERR(p)) {
+        struct completion vfork;
+
+        trace_sched_process_fork(current, p);
+
+        nr = task_pid_vnr(p);
+
+        if (clone_flags &amp; CLONE_PARENT_SETTID)
+            put_user(nr, parent_tidptr);
+
+        if (clone_flags &amp; CLONE_VFORK) {
+            p-&gt;vfork_done = &amp;vfork;
+            init_completion(&amp;vfork);
+            get_task_struct(p);
+        }
+
+        wake_up_new_task(p);
+
+        /* fork已经完成，子进程也已经启动。现在通知ptracer。 */
+        if (unlikely(trace))
+            ptrace_event(trace, nr);
+
+        if (clone_flags &amp; CLONE_VFORK) {
+            if (!wait_for_vfork_done(p, &amp;vfork))
+                ptrace_event(PTRACE_EVENT_VFORK_DONE, nr);
+        }
+    } else {
+        nr = PTR_ERR(p);
+    }
+    return nr;
+}
+</code></pre>
+
+<p>可以看到do_fork调用了copy_process完成了绝大部分的工作。copy_process位于同一个文件当中：</p>
+
+<pre><code class="language-cpp">/*
+ * 以复制的方式创建一个新的进程。但不启动运行新创建的进程。
+ *
+ * 主要复制寄存器和其它进程环境中的相应的合适部分。真正的
+ * 启动工作则交由调用者完成。
+ */
+static struct task_struct *copy_process(unsigned long clone_flags,
+                    unsigned long stack_start,
+                    unsigned long stack_size,
+                    int __user *child_tidptr,
+                    struct pid *pid,
+                    int trace)
+{
+    int retval;
+    struct task_struct *p; // 保存新的进程描述符。
+    
+    /* 删除了对标志位的一致性和合法性的检查 */
+    
+    // security_task_create和security_task_alloc()执行所有附加的安全检查。
+    retval = security_task_create(clone_flags);
+    // dup_task_struct为子进程获取进程描述符。稍后分析。
+    p = dup_task_struct(current);
+    // task结构中ftrace_ret_stack结构变量的初始化，即函数返回用的栈。
+    ftrace_graph_init_task(p);
+    get_seccomp_filter(p);
+    // task中互斥变量的初始化。
+    rt_mutex_init_task(p);
+    // 第1个if对进程占用的资源数做出限制，task_rlimit(p, RLIMIT_NPROC)
+    // 限制了改进程用户可以拥有的进程总数。 
+    if (atomic_read(&amp;p-&gt;real_cred-&gt;user-&gt;processes) &gt;= task_rlimit(p, RLIMIT_NPROC)) {
+        // 第2个if使用了capable（）函数来对权限做出检查，检查是否有权对指定
+        // 的资源进行操作，该函数返回0则代表无权操作。
+        if (!capable(CAP_SYS_ADMIN) &amp;&amp; !capable(CAP_SYS_RESOURCE) &amp;&amp; p-&gt;real_cred-&gt;user != INIT_USER)
+            goto bad_fork_free;
+    }
+    
+    current-&gt;flags &amp;= ~PF_NPROC_EXCEEDED; // 将当前进程标志位中的PF_NPROC_EXCEEDED置0。
+    copy_creds(p, clone_flags); // copy_creds()复制证书，应该是复制权限及身份信息。
+
+    // 检查创建的线程是否超过了系统进程总量。
+    if (nr_threads &gt;= max_threads)
+        goto bad_fork_cleanup_count;
+    
+    // 增加执行实体的模块引用计数。
+    if (!try_module_get(task_thread_info(p)-&gt;exec_domain-&gt;module))
+        goto bad_fork_cleanup_count;
+
+    p-&gt;did_exec = 0;
+    delayacct_tsk_init(p);    /* Must remain after dup_task_struct() */
+    copy_flags(clone_flags, p); // 更新task_struct结构中flags成员
+    INIT_LIST_HEAD(&amp;p-&gt;children); // 初始化task_struct结构中的子进程链表
+    INIT_LIST_HEAD(&amp;p-&gt;sibling); // 初始化task_struct结构中的兄弟进程链表
+    rcu_copy_process(p); // rcu相关变量的初始化
+    p-&gt;vfork_done = NULL; 
+    spin_lock_init(&amp;p-&gt;alloc_lock); 
+
+    init_sigpending(&amp;p-&gt;pending);
+
+    p-&gt;utime = p-&gt;stime = p-&gt;gtime = 0;
+    p-&gt;utimescaled = p-&gt;stimescaled = 0;
+    p-&gt;prev_cputime.utime = p-&gt;prev_cputime.stime = 0;
+    seqlock_init(&amp;p-&gt;vtime_seqlock);
+    p-&gt;vtime_snap = 0;
+    p-&gt;vtime_snap_whence = VTIME_SLEEPING;
+
+    memset(&amp;p-&gt;rss_stat, 0, sizeof(p-&gt;rss_stat));
+
+    p-&gt;default_timer_slack_ns = current-&gt;timer_slack_ns;
+
+    task_io_accounting_init(&amp;p-&gt;ioac); // 进程描述符中的io数据记录的初始化
+    acct_clear_integrals(p);
+
+    posix_cpu_timers_init(p); // timer初始化
+
+    do_posix_clock_monotonic_gettime(&amp;p-&gt;start_time);
+    p-&gt;real_start_time = p-&gt;start_time;
+    monotonic_to_bootbased(&amp;p-&gt;real_start_time);
+    p-&gt;io_context = NULL;
+    p-&gt;audit_context = NULL;
+    if (clone_flags &amp; CLONE_THREAD)
+        threadgroup_change_begin(current);
+    cgroup_fork(p);
+#ifdef CONFIG_NUMA
+    p-&gt;mempolicy = mpol_dup(p-&gt;mempolicy);
+    if (IS_ERR(p-&gt;mempolicy)) {
+        retval = PTR_ERR(p-&gt;mempolicy);
+        p-&gt;mempolicy = NULL;
+        goto bad_fork_cleanup_cgroup;
+    }
+    mpol_fix_fork_child_flag(p);
+#endif
+    /* 设置CPU */
+    p-&gt;cpuset_mem_spread_rotor = NUMA_NO_NODE;
+    p-&gt;cpuset_slab_spread_rotor = NUMA_NO_NODE;
+    seqcount_init(&amp;p-&gt;mems_allowed_seq);
+    /* 设置跟踪中断标志 */ 
+    p-&gt;irq_events = 0;
+    p-&gt;hardirqs_enabled = 0;
+    p-&gt;hardirq_enable_ip = 0;
+    p-&gt;hardirq_enable_event = 0;
+    p-&gt;hardirq_disable_ip = _THIS_IP_;
+    p-&gt;hardirq_disable_event = 0;
+    p-&gt;softirqs_enabled = 1;
+    p-&gt;softirq_enable_ip = _THIS_IP_;
+    p-&gt;softirq_enable_event = 0;
+    p-&gt;softirq_disable_ip = 0;
+    p-&gt;softirq_disable_event = 0;
+    p-&gt;hardirq_context = 0;
+    p-&gt;softirq_context = 0;
+    /* 设置锁深度 */
+    p-&gt;lockdep_depth = 0; /* no locks held yet */
+    p-&gt;curr_chain_key = 0;
+    p-&gt;lockdep_recursion = 0;
+
+#ifdef CONFIG_DEBUG_MUTEXES
+    p-&gt;blocked_on = NULL; /* not blocked yet */
+#endif
+#ifdef CONFIG_MEMCG
+    p-&gt;memcg_batch.do_batch = 0;
+    p-&gt;memcg_batch.memcg = NULL;
+#endif
+
+    sched_fork(p); // 调度相关初始化,将新进程分配到某个CPU上。
+
+    perf_event_init_task(p);
+    audit_alloc(p);
+        
+    /* 以下根据clone_flags的设置复制相应的部分，进行重新分配或者共享父进程的内容 */
+    copy_semundo(clone_flags, p);
+    copy_files(clone_flags, p);
+    copy_fs(clone_flags, p);
+    copy_sighand(clone_flags, p);
+    copy_signal(clone_flags, p);
+    copy_mm(clone_flags, p);
+    copy_namespaces(clone_flags, p);
+    copy_io(clone_flags, p);
+    copy_thread(clone_flags, stack_start, stack_size, p);
+
+    if (pid != &amp;init_struct_pid) {
+        retval = -ENOMEM;
+        pid = alloc_pid(p-&gt;nsproxy-&gt;pid_ns);
+        if (!pid)
+            goto bad_fork_cleanup_io;
+    }
+
+    p-&gt;pid = pid_nr(pid);
+    p-&gt;tgid = p-&gt;pid;
+    // 如果设置了同在一个线程组则继承TGID。 
+    // 对于普通进程来说TGID和PID相等， 
+    // 对于线程来说，同一线程组内的所有线程的TGID都相等， 
+    // 这使得这些多线程可以通过调用getpid()获得相同的PID。
+    if (clone_flags &amp; CLONE_THREAD)
+        p-&gt;tgid = current-&gt;tgid;
+
+    p-&gt;set_child_tid = (clone_flags &amp; CLONE_CHILD_SETTID) ? child_tidptr : NULL;
+    /*
+     * Clear TID on mm_release()?
+     */
+    p-&gt;clear_child_tid = (clone_flags &amp; CLONE_CHILD_CLEARTID) ? child_tidptr : NULL;
+    uprobe_copy_process(p);
+    /*
+     * sigaltstack should be cleared when sharing the same VM
+     */
+    if ((clone_flags &amp; (CLONE_VM|CLONE_VFORK)) == CLONE_VM)
+        p-&gt;sas_ss_sp = p-&gt;sas_ss_size = 0;
+
+    /*
+     * Syscall tracing and stepping should be turned off in the
+     * child regardless of CLONE_PTRACE.
+     */
+    user_disable_single_step(p);
+    clear_tsk_thread_flag(p, TIF_SYSCALL_TRACE);
+#ifdef TIF_SYSCALL_EMU
+    clear_tsk_thread_flag(p, TIF_SYSCALL_EMU);
+#endif
+    clear_all_latency_tracing(p);
+
+    /* ok, now we should be set up.. */
+    if (clone_flags &amp; CLONE_THREAD)
+        p-&gt;exit_signal = -1;
+    else if (clone_flags &amp; CLONE_PARENT)
+        p-&gt;exit_signal = current-&gt;group_leader-&gt;exit_signal;
+    else
+        p-&gt;exit_signal = (clone_flags &amp; CSIGNAL);
+
+    p-&gt;pdeath_signal = 0;
+    p-&gt;exit_state = 0;
+
+    p-&gt;nr_dirtied = 0;
+    p-&gt;nr_dirtied_pause = 128 &gt;&gt; (PAGE_SHIFT - 10);
+    p-&gt;dirty_paused_when = 0;
+
+    /*
+     * Ok, make it visible to the rest of the system.
+     * We dont wake it up yet.
+     */
+    p-&gt;group_leader = p;
+    INIT_LIST_HEAD(&amp;p-&gt;thread_group);
+    p-&gt;task_works = NULL;
+
+    /* Need tasklist lock for parent etc handling! */
+    write_lock_irq(&amp;tasklist_lock);
+
+    // 如果这两个标志设定了，那么和父进程有相同的父进程
+    if (clone_flags &amp; (CLONE_PARENT|CLONE_THREAD)) {
+        p-&gt;real_parent = current-&gt;real_parent;
+        p-&gt;parent_exec_id = current-&gt;parent_exec_id;
+    } else { 
+    // 否则父进程为实际父进程
+        p-&gt;real_parent = current;
+        p-&gt;parent_exec_id = current-&gt;self_exec_id;
+    }
+
+    spin_lock(¤t-&gt;sighand-&gt;siglock);
+
+    /*
+     * Process group and session signals need to be delivered to just the
+     * parent before the fork or both the parent and the child after the
+     * fork. Restart if a signal comes in before we add the new process to
+     * it's process group.
+     * A fatal signal pending means that current will exit, so the new
+     * thread can't slip out of an OOM kill (or normal SIGKILL).
+    */
+    recalc_sigpending();
+    if (signal_pending(current)) {
+        spin_unlock(¤t-&gt;sighand-&gt;siglock);
+        write_unlock_irq(&amp;tasklist_lock);
+        retval = -ERESTARTNOINTR;
+        goto bad_fork_free_pid;
+    }
+    
+    // 如果和父进程有相同的线程组
+    if (clone_flags &amp; CLONE_THREAD) {
+        current-&gt;signal-&gt;nr_threads++;
+        atomic_inc(¤t-&gt;signal-&gt;live);
+        atomic_inc(¤t-&gt;signal-&gt;sigcnt);
+        p-&gt;group_leader = current-&gt;group_leader;
+        list_add_tail_rcu(&amp;p-&gt;thread_group, &amp;p-&gt;group_leader-&gt;thread_group);
+    }
+
+    if (likely(p-&gt;pid)) {
+        ptrace_init_task(p, (clone_flags &amp; CLONE_PTRACE) || trace); // ptrace的相关初始化
+        
+        // 如果进程p是线程组leader
+        if (thread_group_leader(p)) {
+            if (is_child_reaper(pid)) {
+                ns_of_pid(pid)-&gt;child_reaper = p;
+                p-&gt;signal-&gt;flags |= SIGNAL_UNKILLABLE;
+            }
+
+            p-&gt;signal-&gt;leader_pid = pid;
+            p-&gt;signal-&gt;tty = tty_kref_get(current-&gt;signal-&gt;tty);
+            
+            /* 加入对应的PID哈希表 */
+            attach_pid(p, PIDTYPE_PGID, task_pgrp(current));
+            attach_pid(p, PIDTYPE_SID, task_session(current));
+            
+            list_add_tail(&amp;p-&gt;sibling, &amp;p-&gt;real_parent-&gt;children);
+            list_add_tail_rcu(&amp;p-&gt;tasks, &amp;init_task.tasks); // 加入队列
+            __this_cpu_inc(process_counts); // 将per cpu变量加一
+        }
+        attach_pid(p, PIDTYPE_PID, pid); // 维护pid变量
+        nr_threads++; // 线程数加1。
+    }
+
+    total_forks++; // 将全局变量total_forks加1.
+    spin_unlock(¤t-&gt;sighand-&gt;siglock);
+    write_unlock_irq(&amp;tasklist_lock);
+    proc_fork_connector(p);
+    cgroup_post_fork(p);
+    if (clone_flags &amp; CLONE_THREAD)
+        threadgroup_change_end(current);
+    perf_event_fork(p);
+
+    trace_task_newtask(p, clone_flags);
+
+    return p;
+}
+</code></pre>
+
+<p>dup_task_struct也在fork.c文件中</p>
+
+<pre><code class="language-cpp">static struct task_struct *dup_task_struct(struct task_struct *orig)
+{
+    struct task_struct *tsk; // 存放新的task_sturct结构体
+    struct thread_info *ti; // 存放线程信息
+    unsigned long *stackend; 
+    int node = tsk_fork_get_node(orig); 
+    int err;
+
+    tsk = alloc_task_struct_node(node); // 通过alloc_task_struct()函数创建task_struct结构空间
+
+    ti = alloc_thread_info_node(tsk, node); // 分配thread_info结构空间
+
+    err = arch_dup_task_struct(tsk, orig); // 关于浮点结构的复制
+    
+    tsk-&gt;stack = ti; // task的对应栈
+
+    setup_thread_stack(tsk, orig);
+    clear_user_return_notifier(tsk);
+    clear_tsk_need_resched(tsk);
+    stackend = end_of_stack(tsk);
+    *stackend = STACK_END_MAGIC;    /* for overflow detection */
+
+#ifdef CONFIG_CC_STACKPROTECTOR
+    tsk-&gt;stack_canary = get_random_int(); // 金丝雀的设置，用于防御栈溢出攻击
+#endif
+
+    /*
+     * One for us, one for whoever does the &quot;release_task()&quot; (usually
+     * parent)
+     */
+    atomic_set(&amp;tsk-&gt;usage, 2); // 设置进程块的使用计数。
+#ifdef CONFIG_BLK_DEV_IO_TRACE
+    tsk-&gt;btrace_seq = 0;
+#endif
+    tsk-&gt;splice_pipe = NULL;
+    tsk-&gt;task_frag.page = NULL;
+
+    account_kernel_stack(ti, 1);
+
+    return tsk;
+}
+</code></pre>
+
+<p>通过上面的代码，可以总结出fork的工作的基本流程是：</p>
+
+<h2 id="五-do-execve的分析">五.do_execve的分析</h2>
+
+<p>execve对应的内核服务例程位于fs/exec.c中</p>
+
+<pre><code class="language-cpp">/*
+ * sys_execve() 服务例程执行一个程序.
+ * filename需要执行的文件的绝对路径
+ * argv传入系统调用的参数
+ * regs是系统调用时系统堆栈的情况
+ */
+static int do_execve_common(const char *filename,
+                struct user_arg_ptr argv,
+                struct user_arg_ptr envp)
+{
+    struct linux_binprm *bprm;
+    struct file *file;
+    struct files_struct *displaced;
+    bool clear_in_exec;
+    int retval;
+    const struct cred *cred = current_cred(); 
+
+    unshare_files(&amp;displaced); 
+    // 动态分配一个linux_binprm数据结构，并用新的可执行文件的数据填充这个结构
+    bprm = kzalloc(sizeof(*bprm), GFP_KERNEL); 
+
+    retval = prepare_bprm_creds(bprm);
+
+    retval = check_unsafe_exec(bprm); 
+    clear_in_exec = retval;
+    current-&gt;in_execve = 1;
+
+    file = open_exec(filename); // 打开可执行文件并读入到内存。
+    retval = PTR_ERR(file);
+
+    sched_exec(); // 确定最小负载的CPU以执行新程序，并把当前进程转移过去。
+
+    bprm-&gt;file = file;
+    bprm-&gt;filename = filename;
+    bprm-&gt;interp = filename;
+
+    bprm_mm_init(bprm);
+
+    bprm-&gt;argc = count(argv, MAX_ARG_STRINGS);
+
+    bprm-&gt;envc = count(envp, MAX_ARG_STRINGS);
+    
+    // prepare_binprm()填充linux_binprm数据结构，这个函数依次执行：
+    // a.检查文件是否可执行。
+    // b.初始化bprm的e_uid和e_gid字段。
+    // c.用可执行文件的前128个字节填充bprm的buf字段。
+    prepare_binprm(bprm); 
+    
+    /* 把文件路径名拷贝、命令行参数及环境串拷贝到一个或多个新分配的页框中 */
+    copy_strings_kernel(1, &amp;bprm-&gt;filename, bprm);
+    bprm-&gt;exec = bprm-&gt;p;
+    copy_strings(bprm-&gt;envc, envp, bprm);
+    copy_strings(bprm-&gt;argc, argv, bprm);
+    
+    // 扫描formats链表，并尽力应用每个元素的load_binary方法，把bprm传递给这个
+    // 函数。只要load_binary方法成功应答了文件的可执行格式，对formats扫描终止。
+    search_binary_handler(bprm);
+
+    /* 成功,释放bprm，返回从该文件可执行格式的load_binary方法中所获得的代码。 */
+    current-&gt;fs-&gt;in_exec = 0;
+    current-&gt;in_execve = 0;
+    acct_update_integrals(current);
+    free_bprm(bprm);
+    if (displaced)
+        put_files_struct(displaced);
+    return retval;
+}
+</code></pre>
+
+<p>下面我们看看load_elf_binary函数，该函数位于fs/binfmt_elf.c中</p>
+
+<pre><code class="language-cpp">static int load_elf_binary(struct linux_binprm *bprm)
+{
+    struct file *interpreter = NULL; /* to shut gcc up */
+     unsigned long load_addr = 0, load_bias = 0;
+    int load_addr_set = 0;
+    char * elf_interpreter = NULL;
+    unsigned long error;
+    struct elf_phdr *elf_ppnt, *elf_phdata;
+    unsigned long elf_bss, elf_brk;
+    int retval, i;
+    unsigned int size;
+    unsigned long elf_entry;
+    unsigned long interp_load_addr = 0;
+    unsigned long start_code, end_code, start_data, end_data;
+    unsigned long reloc_func_desc __maybe_unused = 0;
+    int executable_stack = EXSTACK_DEFAULT;
+    unsigned long def_flags = 0;
+    struct pt_regs *regs = current_pt_regs();
+    struct {
+        struct elfhdr elf_ex;
+        struct elfhdr interp_elf_ex;
+    } *loc;
+
+    loc = kmalloc(sizeof(*loc), GFP_KERNEL);
+    
+    /* 读取可执行文件的首部。首部描述程序的段和所需的共享库。 */
+    loc-&gt;elf_ex = *((struct elfhdr *)bprm-&gt;buf);
+
+    /* 检测一致性 */
+    if (memcmp(loc-&gt;elf_ex.e_ident, ELFMAG, SELFMAG) != 0)
+        goto out;
+
+    if (loc-&gt;elf_ex.e_type != ET_EXEC &amp;&amp; loc-&gt;elf_ex.e_type != ET_DYN)
+        goto out;
+    if (!elf_check_arch(&amp;loc-&gt;elf_ex))
+        goto out;
+    if (!bprm-&gt;file-&gt;f_op || !bprm-&gt;file-&gt;f_op-&gt;mmap)
+        goto out;
+
+    /* 读取所有的首部信息 */
+    loc-&gt;elf_ex.e_phentsize != sizeof(struct elf_phdr);
+    if (loc-&gt;elf_ex.e_phnum &lt; 1 || loc-&gt;elf_ex.e_phnum &gt; 65536U / sizeof(struct elf_phdr))
+        goto out;
+    size = loc-&gt;elf_ex.e_phnum * sizeof(struct elf_phdr);
+    retval = -ENOMEM;
+    elf_phdata = kmalloc(size, GFP_KERNEL);
+
+    retval = kernel_read(bprm-&gt;file, loc-&gt;elf_ex.e_phoff, (char *)elf_phdata, size);
+    if (retval != size) {
+        if (retval &gt;= 0)
+            retval = -EIO;
+        goto out_free_ph;
+    }
+
+    elf_ppnt = elf_phdata;
+    elf_bss = 0;
+    elf_brk = 0;
+
+    start_code = ~0UL;
+    end_code = 0;
+    start_data = 0;
+    end_data = 0;
+
+    for (i = 0; i &lt; loc-&gt;elf_ex.e_phnum; i++) {
+        if (elf_ppnt-&gt;p_type == PT_INTERP) {
+            /* This is the program interpreter used for
+             * shared libraries - for now assume that this
+             * is an a.out format binary
+             */
+            retval = -ENOEXEC;
+            if (elf_ppnt-&gt;p_filesz &gt; PATH_MAX || 
+                elf_ppnt-&gt;p_filesz &lt; 2)
+                goto out_free_ph;
+
+            retval = -ENOMEM;
+            elf_interpreter = kmalloc(elf_ppnt-&gt;p_filesz,
+                          GFP_KERNEL);
+            if (!elf_interpreter)
+                goto out_free_ph;
+
+            retval = kernel_read(bprm-&gt;file, elf_ppnt-&gt;p_offset,
+                         elf_interpreter,
+                         elf_ppnt-&gt;p_filesz);
+            if (retval != elf_ppnt-&gt;p_filesz) {
+                if (retval &gt;= 0)
+                    retval = -EIO;
+                goto out_free_interp;
+            }
+            /* make sure path is NULL terminated */
+            retval = -ENOEXEC;
+            if (elf_interpreter[elf_ppnt-&gt;p_filesz - 1] != '\0')
+                goto out_free_interp;
+
+            interpreter = open_exec(elf_interpreter);
+            retval = PTR_ERR(interpreter);
+            if (IS_ERR(interpreter))
+                goto out_free_interp;
+
+            /*
+             * If the binary is not readable then enforce
+             * mm-&gt;dumpable = 0 regardless of the interpreter's
+             * permissions.
+             */
+            would_dump(bprm, interpreter);
+
+            retval = kernel_read(interpreter, 0, bprm-&gt;buf,
+                         BINPRM_BUF_SIZE);
+            if (retval != BINPRM_BUF_SIZE) {
+                if (retval &gt;= 0)
+                    retval = -EIO;
+                goto out_free_dentry;
+            }
+
+            /* Get the exec headers */
+            loc-&gt;interp_elf_ex = *((struct elfhdr *)bprm-&gt;buf);
+            break;
+        }
+        elf_ppnt++;
+    }
+
+    elf_ppnt = elf_phdata;
+    for (i = 0; i &lt; loc-&gt;elf_ex.e_phnum; i++, elf_ppnt++)
+        if (elf_ppnt-&gt;p_type == PT_GNU_STACK) {
+            if (elf_ppnt-&gt;p_flags &amp; PF_X)
+                executable_stack = EXSTACK_ENABLE_X;
+            else
+                executable_stack = EXSTACK_DISABLE_X;
+            break;
+        }
+
+    /* Some simple consistency checks for the interpreter */
+    if (elf_interpreter) {
+        retval = -ELIBBAD;
+        /* Not an ELF interpreter */
+        if (memcmp(loc-&gt;interp_elf_ex.e_ident, ELFMAG, SELFMAG) != 0)
+            goto out_free_dentry;
+        /* Verify the interpreter has a valid arch */
+        if (!elf_check_arch(&amp;loc-&gt;interp_elf_ex))
+            goto out_free_dentry;
+    }
+
+    // 释放前一个计算所占用的几乎所有资源
+    retval = flush_old_exec(bprm);
+
+    /* OK, This is the point of no return */
+    current-&gt;mm-&gt;def_flags = def_flags;
+
+    /* Do this immediately, since STACK_TOP as used in setup_arg_pages
+       may depend on the personality.  */
+    SET_PERSONALITY(loc-&gt;elf_ex);
+    if (elf_read_implies_exec(loc-&gt;elf_ex, executable_stack))
+        current-&gt;personality |= READ_IMPLIES_EXEC;
+
+    if (!(current-&gt;personality &amp; ADDR_NO_RANDOMIZE) &amp;&amp; randomize_va_space)
+        current-&gt;flags |= PF_RANDOMIZE;
+
+    setup_new_exec(bprm);
+
+    /* Do this so that we can load the interpreter, if need be.  We will
+       change some of these later */
+    current-&gt;mm-&gt;free_area_cache = current-&gt;mm-&gt;mmap_base;
+    current-&gt;mm-&gt;cached_hole_size = 0;
+    // 为进程的用户态堆栈分配一个新的线性区描述符，并把那个线性区插入到进程的地址空间。
+    setup_arg_pages(bprm, randomize_stack_top(STACK_TOP), executable_stack);
+    
+    
+    current-&gt;mm-&gt;start_stack = bprm-&gt;p;
+
+    /* 现在将ELF镜像文件映射到内存中正确的位置 */
+    for(i = 0, elf_ppnt = elf_phdata;
+        i &lt; loc-&gt;elf_ex.e_phnum; i++, elf_ppnt++) {
+        int elf_prot = 0, elf_flags;
+        unsigned long k, vaddr;
+
+        if (elf_ppnt-&gt;p_type != PT_LOAD)
+            continue;
+
+        if (unlikely (elf_brk &gt; elf_bss)) {
+            unsigned long nbyte;
+                
+            /* There was a PT_LOAD segment with p_memsz &gt; p_filesz
+               before this one. Map anonymous pages, if needed,
+               and clear the area.  */
+            retval = set_brk(elf_bss + load_bias,
+                     elf_brk + load_bias);
+            if (retval) {
+                send_sig(SIGKILL, current, 0);
+                goto out_free_dentry;
+            }
+            nbyte = ELF_PAGEOFFSET(elf_bss);
+            if (nbyte) {
+                nbyte = ELF_MIN_ALIGN - nbyte;
+                if (nbyte &gt; elf_brk - elf_bss)
+                    nbyte = elf_brk - elf_bss;
+                if (clear_user((void __user *)elf_bss +
+                            load_bias, nbyte)) {
+                    /*
+                     * This bss-zeroing can fail if the ELF
+                     * file specifies odd protections. So
+                     * we don't check the return value
+                     */
+                }
+            }
+        }
+
+        if (elf_ppnt-&gt;p_flags &amp; PF_R)
+            elf_prot |= PROT_READ;
+        if (elf_ppnt-&gt;p_flags &amp; PF_W)
+            elf_prot |= PROT_WRITE;
+        if (elf_ppnt-&gt;p_flags &amp; PF_X)
+            elf_prot |= PROT_EXEC;
+
+        elf_flags = MAP_PRIVATE | MAP_DENYWRITE | MAP_EXECUTABLE;
+
+        vaddr = elf_ppnt-&gt;p_vaddr;
+        if (loc-&gt;elf_ex.e_type == ET_EXEC || load_addr_set) {
+            elf_flags |= MAP_FIXED;
+        } else if (loc-&gt;elf_ex.e_type == ET_DYN) {
+            /* Try and get dynamic programs out of the way of the
+             * default mmap base, as well as whatever program they
+             * might try to exec.  This is because the brk will
+             * follow the loader, and is not movable.  */
+#ifdef CONFIG_ARCH_BINFMT_ELF_RANDOMIZE_PIE
+            /* Memory randomization might have been switched off
+             * in runtime via sysctl.
+             * If that is the case, retain the original non-zero
+             * load_bias value in order to establish proper
+             * non-randomized mappings.
+             */
+            if (current-&gt;flags &amp; PF_RANDOMIZE)
+                load_bias = 0;
+            else
+                load_bias = ELF_PAGESTART(ELF_ET_DYN_BASE - vaddr);
+#else
+            load_bias = ELF_PAGESTART(ELF_ET_DYN_BASE - vaddr);
+#endif
+        }
+
+        error = elf_map(bprm-&gt;file, load_bias + vaddr, elf_ppnt,
+                elf_prot, elf_flags, 0);
+        if (BAD_ADDR(error)) {
+            send_sig(SIGKILL, current, 0);
+            retval = IS_ERR((void *)error) ?
+                PTR_ERR((void*)error) : -EINVAL;
+            goto out_free_dentry;
+        }
+
+        if (!load_addr_set) {
+            load_addr_set = 1;
+            load_addr = (elf_ppnt-&gt;p_vaddr - elf_ppnt-&gt;p_offset);
+            if (loc-&gt;elf_ex.e_type == ET_DYN) {
+                load_bias += error -
+                             ELF_PAGESTART(load_bias + vaddr);
+                load_addr += load_bias;
+                reloc_func_desc = load_bias;
+            }
+        }
+        k = elf_ppnt-&gt;p_vaddr;
+        if (k &lt; start_code)
+            start_code = k;
+        if (start_data &lt; k)
+            start_data = k;
+
+        /*
+         * Check to see if the section's size will overflow the
+         * allowed task size. Note that p_filesz must always be
+         * &lt;= p_memsz so it is only necessary to check p_memsz.
+         */
+        if (BAD_ADDR(k) || elf_ppnt-&gt;p_filesz &gt; elf_ppnt-&gt;p_memsz ||
+            elf_ppnt-&gt;p_memsz &gt; TASK_SIZE ||
+            TASK_SIZE - elf_ppnt-&gt;p_memsz &lt; k) {
+            /* set_brk can never work. Avoid overflows. */
+            send_sig(SIGKILL, current, 0);
+            retval = -EINVAL;
+            goto out_free_dentry;
+        }
+
+        k = elf_ppnt-&gt;p_vaddr + elf_ppnt-&gt;p_filesz;
+
+        if (k &gt; elf_bss)
+            elf_bss = k;
+        if ((elf_ppnt-&gt;p_flags &amp; PF_X) &amp;&amp; end_code &lt; k)
+            end_code = k;
+        if (end_data &lt; k)
+            end_data = k;
+        k = elf_ppnt-&gt;p_vaddr + elf_ppnt-&gt;p_memsz;
+        if (k &gt; elf_brk)
+            elf_brk = k;
+    }
+
+    loc-&gt;elf_ex.e_entry += load_bias;
+    elf_bss += load_bias;
+    elf_brk += load_bias;
+    start_code += load_bias;
+    end_code += load_bias;
+    start_data += load_bias;
+    end_data += load_bias;
+
+    /* Calling set_brk effectively mmaps the pages that we need
+     * for the bss and break sections.  We must do this before
+     * mapping in the interpreter, to make sure it doesn't wind
+     * up getting placed where the bss needs to go.
+     */
+    retval = set_brk(elf_bss, elf_brk);
+    if (retval) {
+        send_sig(SIGKILL, current, 0);
+        goto out_free_dentry;
+    }
+    if (likely(elf_bss != elf_brk) &amp;&amp; unlikely(padzero(elf_bss))) {
+        send_sig(SIGSEGV, current, 0);
+        retval = -EFAULT; /* Nobody gets to see this, but.. */
+        goto out_free_dentry;
+    }
+    // 调用一个动态链接程序的函数。如果动态链接程序是elf可执行的，这
+    // 个函数就叫做load_elf_interp()。
+    if (elf_interpreter) {
+        unsigned long interp_map_addr = 0;
+        
+        elf_entry = load_elf_interp(&amp;loc-&gt;interp_elf_ex,
+                        interpreter,
+                        &amp;interp_map_addr,
+                        load_bias);
+        if (!IS_ERR((void *)elf_entry)) {
+            /*
+             * load_elf_interp() returns relocation
+             * adjustment
+             */
+            interp_load_addr = elf_entry;
+            elf_entry += loc-&gt;interp_elf_ex.e_entry;
+        }
+        if (BAD_ADDR(elf_entry)) {
+            force_sig(SIGSEGV, current);
+            retval = IS_ERR((void *)elf_entry) ?
+                    (int)elf_entry : -EINVAL;
+            goto out_free_dentry;
+        }
+        reloc_func_desc = interp_load_addr;
+
+        allow_write_access(interpreter);
+        fput(interpreter);
+        kfree(elf_interpreter);
+    } else {
+        elf_entry = loc-&gt;elf_ex.e_entry;
+        if (BAD_ADDR(elf_entry)) {
+            force_sig(SIGSEGV, current);
+            retval = -EINVAL;
+            goto out_free_dentry;
+        }
+    }
+
+    kfree(elf_phdata);
+    // 把可执行格式的linux_binfmt对象的地址存放在进程描述符的binfmt字段中。
+    set_binfmt(&amp;elf_format);
+
+#ifdef ARCH_HAS_SETUP_ADDITIONAL_PAGES
+    retval = arch_setup_additional_pages(bprm, !!elf_interpreter);
+    if (retval &lt; 0) {
+        send_sig(SIGKILL, current, 0);
+        goto out;
+    }
+#endif /* ARCH_HAS_SETUP_ADDITIONAL_PAGES */
+
+    install_exec_creds(bprm);
+    retval = create_elf_tables(bprm, &amp;loc-&gt;elf_ex,
+              load_addr, interp_load_addr);
+    if (retval &lt; 0) {
+        send_sig(SIGKILL, current, 0);
+        goto out;
+    }
+    /* N.B. passed_fileno might not be initialized? */
+    current-&gt;mm-&gt;end_code = end_code;
+    current-&gt;mm-&gt;start_code = start_code;
+    current-&gt;mm-&gt;start_data = start_data;
+    current-&gt;mm-&gt;end_data = end_data;
+    current-&gt;mm-&gt;start_stack = bprm-&gt;p;
+
+#ifdef arch_randomize_brk
+    if ((current-&gt;flags &amp; PF_RANDOMIZE) &amp;&amp; (randomize_va_space &gt; 1)) {
+        current-&gt;mm-&gt;brk = current-&gt;mm-&gt;start_brk =
+            arch_randomize_brk(current-&gt;mm);
+#ifdef CONFIG_COMPAT_BRK
+        current-&gt;brk_randomized = 1;
+#endif
+    }
+#endif
+
+    if (current-&gt;personality &amp; MMAP_PAGE_ZERO) {
+        /* Why this, you ask???  Well SVr4 maps page 0 as read-only,
+           and some applications &quot;depend&quot; upon this behavior.
+           Since we do not have the power to recompile these, we
+           emulate the SVr4 behavior. Sigh. */
+        error = vm_mmap(NULL, 0, PAGE_SIZE, PROT_READ | PROT_EXEC,
+                MAP_FIXED | MAP_PRIVATE, 0);
+    }
+
+#ifdef ELF_PLAT_INIT
+    /*
+     * The ABI may specify that certain registers be set up in special
+     * ways (on i386 %edx is the address of a DT_FINI function, for
+     * example.  In addition, it may also specify (eg, PowerPC64 ELF)
+     * that the e_entry field is the address of the function descriptor
+     * for the startup routine, rather than the address of the startup
+     * routine itself.  This macro performs whatever initialization to
+     * the regs structure is required as well as any relocations to the
+     * function descriptor entries when executing dynamically links apps.
+     */
+    ELF_PLAT_INIT(regs, reloc_func_desc);
+#endif
+
+    start_thread(regs, elf_entry, bprm-&gt;p);
+    retval = 0;
+out:
+    kfree(loc);
+out_ret:
+    return retval;
+
+    /* error cleanup */
+out_free_dentry:
+    allow_write_access(interpreter);
+    if (interpreter)
+        fput(interpreter);
+out_free_interp:
+    kfree(elf_interpreter);
+out_free_ph:
+    kfree(elf_phdata);
+    goto out;
+}
+</code></pre>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">amendgit</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-05-12</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/linux/">linux</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/cs224n/cs224n-assignment-1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">cs224n assignment 1</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/linux/linux-how-computer-works/">
+            <span class="next-text nav-default">深入理解Linux之计算机是怎样工作的</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:shijian0912@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">amendgit</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

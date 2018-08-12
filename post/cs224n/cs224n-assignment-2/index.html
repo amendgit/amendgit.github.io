@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>cs224n assignment 2 - amendgit`s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="amendgit" />
+  <meta name="description" content="1 Tensorflow Softmax 本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax def softmax(x): &amp;quot;&amp;quot;&amp;quot; Compute the softmax function in tensorflow. You might find the tensorflow functions tf.exp, tf.reduce_max, tf.reduce_sum, tf.expand_dims" />
+
+  <meta name="keywords" content="amendgit, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/cs224n/cs224n-assignment-2/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="cs224n assignment 2" />
+<meta property="og:description" content="1 Tensorflow Softmax 本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax def softmax(x): &quot;&quot;&quot; Compute the softmax function in tensorflow. You might find the tensorflow functions tf.exp, tf.reduce_max, tf.reduce_sum, tf.expand_dims" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/cs224n/cs224n-assignment-2/" />
+
+
+
+<meta property="article:published_time" content="2017-09-12T22:52:06&#43;08:00"/>
+
+<meta property="article:modified_time" content="2017-09-12T22:52:06&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="cs224n assignment 2">
+<meta itemprop="description" content="1 Tensorflow Softmax 本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax def softmax(x): &quot;&quot;&quot; Compute the softmax function in tensorflow. You might find the tensorflow functions tf.exp, tf.reduce_max, tf.reduce_sum, tf.expand_dims">
+
+
+<meta itemprop="datePublished" content="2017-09-12T22:52:06&#43;08:00" />
+<meta itemprop="dateModified" content="2017-09-12T22:52:06&#43;08:00" />
+<meta itemprop="wordCount" content="1150">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="cs224n assignment 2"/>
+<meta name="twitter:description" content="1 Tensorflow Softmax 本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax def softmax(x): &quot;&quot;&quot; Compute the softmax function in tensorflow. You might find the tensorflow functions tf.exp, tf.reduce_max, tf.reduce_sum, tf.expand_dims"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">amendgit&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">amendgit&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">cs224n assignment 2</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-09-12 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#1-tensorflow-softmax">1 Tensorflow Softmax</a></li>
+<li><a href="#2-neural-transition-based-dependency-parsing">2 Neural Transition-Based Dependency Parsing</a></li>
+<li><a href="#b">(b)</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="1-tensorflow-softmax">1 Tensorflow Softmax</h2>
+
+<p>本题主要是实现一个线性分类器，以交叉熵作为损失函数。</p>
+
+<p>(a) 使用tensorflow实现softmax</p>
+
+<pre><code class="language-python">def softmax(x):
+    &quot;&quot;&quot;
+    Compute the softmax function in tensorflow.
+
+    You might find the tensorflow functions tf.exp, tf.reduce_max,
+    tf.reduce_sum, tf.expand_dims useful. (Many solutions are possible, so you may
+    not need to use all of these functions). Recall also that many common
+    tensorflow operations are sugared (e.g. x * y does a tensor multiplication
+    if x and y are both tensors). Make sure to implement the numerical stability
+    fixes as in the previous homework!
+
+    Args:
+        x:   tf.Tensor with shape (n_samples, n_features). Note feature vectors are
+                  represented by row-vectors. (For simplicity, no need to handle 1-d
+                  input as in the previous homework)
+    Returns:
+        out: tf.Tensor with shape (n_sample, n_features). You need to construct this
+                  tensor in this problem.
+    &quot;&quot;&quot;
+
+    exp = tf.exp(x - tf.reduce_min(x, axis=1, keep_dims=True))
+    out = exp / tf.reduce_sum(exp, axis=1, keep_dims=True)
+    
+    return out
+</code></pre>
+
+<p>(b) 使用tensorflow实现cross entropy</p>
+
+<pre><code class="language-python">def cross_entropy_loss(y, yhat):
+    &quot;&quot;&quot;
+    Compute the cross entropy loss in tensorflow.
+    The loss should be summed over the current minibatch.
+
+    y is a one-hot tensor of shape (n_samples, n_classes) and yhat is a tensor
+    of shape (n_samples, n_classes). y should be of dtype tf.int32, and yhat should
+    be of dtype tf.float32.
+
+    The functions tf.to_float, tf.reduce_sum, and tf.log might prove useful. (Many
+    solutions are possible, so you may not need to use all of these functions).
+
+    Note: You are NOT allowed to use the tensorflow built-in cross-entropy
+                functions.
+
+    Args:
+        y:    tf.Tensor with shape (n_samples, n_classes). One-hot encoded.
+        yhat: tf.Tensor with shape (n_samples, n_classes). Each row encodes a
+                    probability distribution and should sum to 1.
+    Returns:
+        out:  tf.Tensor with shape (1,) (Scalar output). You need to construct this
+                    tensor in the problem.
+    &quot;&quot;&quot;
+
+    out = - tf.reduce_sum(tf.to_float(y) * tf.log(yhat))
+    
+    return out
+</code></pre>
+
+<p>&copy; 阅读 model.py，解释 tensorflow的 placeholders 和 feed dictionaries，完成 q1_classifier.py 的 add_placeholders 和 create_feed_dict 方法</p>
+
+<p><strong>placeholder</strong>：tensorflow使用placeholder表示计算图中数据被插入的位置，placehodlers将会作为构建模型其他部分的输入，并且会在训练模型的过程中被填充数据。</p>
+
+<p><strong>feeddictionaries</strong>：feed_dictionaries是在训练的过程中，作为填充placeholders的数据。dictionry的key应该是placeholders的子集，value是填充到对应的placeholder的数据。</p>
+
+<pre><code class="language-python">class SoftmaxModel(Model):
+    &quot;&quot;&quot;Implements a Softmax classifier with cross-entropy loss.&quot;&quot;&quot;
+
+    def add_placeholders(self):
+        &quot;&quot;&quot;Generates placeholder variables to represent the input tensors.
+
+        These placeholders are used as inputs by the rest of the model building
+        and will be fed data during training.
+
+        Adds following nodes to the computational graph
+
+        input_placeholder: Input placeholder tensor of shape
+                                              (batch_size, n_features), type tf.float32
+        labels_placeholder: Labels placeholder tensor of shape
+                                              (batch_size, n_classes), type tf.int32
+
+        Add these placeholders to self as the instance variables
+            self.input_placeholder
+            self.labels_placeholder
+        &quot;&quot;&quot;
+        self.input_placeholder = tf.placeholder(tf.float32, shape=(self.config.batch_size, self.config.n_features))
+        self.labels_placeholder = tf.placeholder(tf.int32, shape=(self.config.batch_size, self.config.n_classes))
+        
+    def create_feed_dict(self, inputs_batch, labels_batch=None):
+        &quot;&quot;&quot;Creates the feed_dict for training the given step.
+
+        A feed_dict takes the form of:
+        feed_dict = {
+                &lt;placeholder&gt;: &lt;tensor of values to be passed for placeholder&gt;,
+                ....
+        }
+
+        If label_batch is None, then no labels are added to feed_dict.
+
+        Hint: The keys for the feed_dict should be the placeholder
+                tensors created in add_placeholders.
+
+        Args:
+            inputs_batch: A batch of input data.
+            labels_batch: A batch of label data.
+        Returns:
+            feed_dict: The feed dictionary mapping from placeholders to values.
+        &quot;&quot;&quot;
+        feed_dict = {
+            self.input_placeholder: inputs_batch,
+            self.labels_placeholder: labels_batch,
+        }
+        return feed_dict
+</code></pre>
+
+<p>(d) 完成q1_classifier.py里的add_prediction_op方法</p>
+
+<pre><code class="language-python">def add_prediction_op(self):
+   &quot;&quot;&quot;Adds the core transformation for this model which transforms a batch of input
+   data into a batch of predictions. In this case, the transformation is a linear layer plus a
+   softmax transformation:
+
+   y = softmax(Wx + b)
+
+   Hint: Make sure to create tf.Variable as needed.
+   Hint: For this simple use-case, it's sufficient to initialize both weights W
+               and biases b with zeros.
+
+   Args:
+       input_data: A tensor of shape (batch_size, n_features).
+   Returns:
+       pred: A tensor of shape (batch_size, n_classes)
+   &quot;&quot;&quot;
+   W = tf.Variable(tf.zeros([self.config.n_features, self.config.n_classes]))
+   b = tf.Variable(tf.zeros([self.config.batch_size, self.config.n_classes]))
+   pred = softmax(tf.matmul(self.input_placeholder, W) + b)
+   return pred
+</code></pre>
+
+<p>(e) 完成q1_classifier.py里的add_training_op方法</p>
+
+<pre><code class="language-python">def add_training_op(self, loss):
+   &quot;&quot;&quot;Sets up the training Ops.
+
+   Creates an optimizer and applies the gradients to all trainable variables.
+   The Op returned by this function is what must be passed to the
+   `sess.run()` call to cause the model to train. See
+
+   https://www.tensorflow.org/versions/r0.7/api_docs/python/train.html#Optimizer
+
+   for more information.
+
+   Hint: Use tf.train.GradientDescentOptimizer to get an optimizer object.
+               Calling optimizer.minimize() will return a train_op object.
+
+   Args:
+       loss: Loss tensor, from cross_entropy_loss.
+   Returns:
+       train_op: The Op for training.
+   &quot;&quot;&quot;
+   optimizer = tf.train.GradientDescentOptimizer(self.config.lr)
+   train_op = optimizer.minimize(loss)
+   return train_op
+</code></pre>
+
+<h2 id="2-neural-transition-based-dependency-parsing">2 Neural Transition-Based Dependency Parsing</h2>
+
+<p>实现一个基于神经网络的依赖解析器</p>
+
+<p>(a)</p>
+
+<table>
+<thead>
+<tr>
+<th>stack</th>
+<th>buffer</th>
+<th>new dependency</th>
+<th>transition</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>[ROOT]</td>
+<td>[I, parsed, this, sentence, correctly]</td>
+<td></td>
+<td>Initial Configation</td>
+</tr>
+
+<tr>
+<td>[ROOT, I]</td>
+<td>[parsed, this, sentence, correctly]</td>
+<td></td>
+<td>SHIFT</td>
+</tr>
+
+<tr>
+<td>[ROOT, I, parsed]</td>
+<td>[this, sentence, correctly]</td>
+<td></td>
+<td>SHIFT</td>
+</tr>
+
+<tr>
+<td>[ROOT, parsed]</td>
+<td>[this, sentence, correctly]</td>
+<td>parsed -&gt; I</td>
+<td>LEFT-ARC</td>
+</tr>
+
+<tr>
+<td>[ROOT, parsed, this]</td>
+<td>[sentence, correctly]</td>
+<td></td>
+<td>SHIFT</td>
+</tr>
+
+<tr>
+<td>[ROOT, parsed, this, sentence]</td>
+<td>[correctly]</td>
+<td></td>
+<td>SHIFT</td>
+</tr>
+
+<tr>
+<td>[ROOT, parsed, sentence]</td>
+<td>[correctly]</td>
+<td>sentence -&gt; parsed</td>
+<td>LEFT-ARC</td>
+</tr>
+
+<tr>
+<td>[ROOT, parsed]</td>
+<td>[correctly]</td>
+<td>parsed -&gt; sentence</td>
+<td>RIGHT-ARC</td>
+</tr>
+
+<tr>
+<td>[ROOT, parsed, correctly]</td>
+<td>[]</td>
+<td></td>
+<td>SHIFT</td>
+</tr>
+
+<tr>
+<td>[ROOT, parsed]</td>
+<td>[]</td>
+<td>parsed -&gt; correctly</td>
+<td>SHIFT</td>
+</tr>
+
+<tr>
+<td>[ROOT]</td>
+<td>[]</td>
+<td>ROOT -&gt; parsed</td>
+<td>RIGHT-SHIFT</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="b">(b)</h2>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">amendgit</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-09-12</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/leetcode/leetcode-solutions-001-020/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Leetcode Solutions 001-020</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/cs224n/cs224n-assignment-1/">
+            <span class="next-text nav-default">cs224n assignment 1</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:shijian0912@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">amendgit</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
