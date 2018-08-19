@@ -9,7 +9,9 @@ tags: ["leetcode"]
 <!--more-->
 
 ## 61. Rotate List
+
 链接：https://leetcode.com/problems/rotate-list/
+
 思路：先计算链表长度len，双指针p1和p2，p1先走k步，开始同时走p1和p2，当p1->next指向null时，p2指向倒数第k+1个元素，调整两部分链表的前后顺序即可。
 
 ```cpp
@@ -38,7 +40,9 @@ public:
 ```
 
 ## 65. Valid Number
+
 链接：https://leetcode.com/problems/valid-number/
+
 思路：用状态机，transition的条件为输入字符的类型，状态为0到9，其中0表示开始，99表示成功结束。每行表示从当前状态（行下标）遇到对应的条件跳转到的下一个状态，-1表示无效终止。其他思路，一个完整的数字包括+123.123e+123，其中符号部分是可选的，第一个123和第二个123必须出现一个，最后的e部分也是可选的。
 
 ```cpp
@@ -77,7 +81,9 @@ public:
 ```
 
 ## 71. Simplify Path
+
 链接：https://leetcode.com/problems/simplify-path/
+
 思路：将每个有效的component存储再数组中，过程中移除空目录，处理特殊的目录如".."和"."，注意vector为空时，pop_back会报异常。
 
 ```cpp
@@ -102,7 +108,9 @@ public:
 ```
 
 ## 76. Minimum Window Substring
+
 链接：https://leetcode.com/problems/minimum-window-substring/
+
 思路：双指针，先移动i直到t中的字符全部在s[l,i]中出现，在移动l使得s[l,i]满足条件的同时i-l最小，计数使用数组。
 
 ```cpp
@@ -128,6 +136,7 @@ public:
 ```
 
 ## 79. Word Search
+
 递归求解
 
 ```cpp
@@ -155,6 +164,7 @@ public:
 ```
 
 非递归求解
+
 ```cpp
 class Solution {
 public:
@@ -183,7 +193,9 @@ public:
 ```
 
 ## 84. Largest Rectangle in Histogram
+
 链接：https://leetcode.com/problems/largest-rectangle-in-histogram/
+
 思路：使用栈，遍历数组，如果比top大则压入并继续遍历，如果比top小，则弹出top计算面积直到top比当前元素小时为止。
 
 ```cpp
@@ -205,7 +217,9 @@ public:
 ```
 
 ## 85. Maximal Rectangle
+
 链接：https://leetcode.com/problems/maximal-rectangle/
+
 思路：接上一题，按行遍历，每行用数组f存储每列1的高度，然后计算最大直方图面积。
 
 ```cpp
@@ -235,7 +249,9 @@ public:
 ```
 
 ## 91. Decode Ways
+
 链接：https://leetcode.com/problems/decode-ways/
+
 思路：f[i] = f[i-1] + f[i-2]，也可以写成c = b + a，只要s[i]不为0，b就可以和s[i]组合。而a则需要s[i-1]s[i]组成的数字小于26。
 * 使用a b b的形式，而不使用a b c的形式，可以避免判断返回b还是c。
 
@@ -257,7 +273,9 @@ public:
 ```
 
 ## 93. Restore IP Addresses
+
 链接：https://leetcode.com/problems/restore-ip-addresses/
+
 思路：深搜，具体看代码。需要注意 1.每个component必须小于255 2.component连续两次出现0则无效 3.剪枝：当剩余的字符数比剩余的component最大可能长度还多则无效，可以防止非常长的字符串导致搜索变慢的情况。 
 
 ```cpp
@@ -291,8 +309,10 @@ public:
 ```
 
 ## 97. Interleaving String
+
 链接：
-思路：动态规划，f[i][j]表示s1[i,len1]和s2[j,len2]能否interleave字符串s3[i+j,len3]。所以，f[i][j] = (f[i+1][j]&&s1[i]==s3[i+j]) || (f[i][j+1]&&s2[j]==s3[i+j])。
+
+思路：动态规划，f[i][j]表示s1[i,len1]和s2[j,len2]能否interleave字符串s3[i+j,len3]。所以，`f[i][j] = (f[i+1][j]&&s1[i]==s3[i+j]) || (f[i][j+1]&&s2[j]==s3[i+j])`。
 
 ```cpp
 class Solution {
@@ -312,7 +332,9 @@ public:
 ```
 
 ## 98. Validate Binary Search Tree
+
 链接：
+
 思路：需要每个节点满足 L < P < R，同时要注意R子树中的最小节点需要比P大，L子树中的最大节点需要比P小。
 
 ```cpp

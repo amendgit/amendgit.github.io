@@ -9,7 +9,9 @@ tags: ["leetcode"]
 <!--more-->
 
 ## 21. Merge Two Sorted Lists 
+
 链接：https://leetcode.com/problems/merge-two-sorted-lists/#/description
+
 使用优先级队列解决该问题
 
 ```cpp
@@ -40,6 +42,7 @@ public:
 ```
 
 ## 22. Generate Parentheses 
+
 链接：https://leetcode.com/problems/generate-parentheses/#/description
 
 ```cpp
@@ -66,7 +69,9 @@ public:
 ```
 
 ## 23. Merge k Sorted Lists
+
 链接：https://leetcode.com/problems/merge-k-sorted-lists/
+
 思路：
 1. 优先级队列，压入每个链表当前节点.
 2. 取出最小节点，组成新链表，压入该节点的非空next.
@@ -131,6 +136,7 @@ public:
 ```
 
 ## 25. Reverse Nodes in k-Group 
+
 链接：https://leetcode.com/problems/reverse-nodes-in-k-group/#/description
 
 ```cpp
@@ -188,6 +194,7 @@ public:
 ```
 
 ## 27. Remove Element 
+
 链接：https://leetcode.com/problems/remove-element/#/description
 
 ```cpp
@@ -205,7 +212,9 @@ public:
 ```
 
 ## 28. Implement strStr() 
+
 链接：https://leetcode.com/problems/implement-strstr/#/description
+
 思路：暴力求解
 耗时3ms
 
@@ -227,7 +236,9 @@ public:
 ```
 
 ## 29. Divide Two Integers
+
 链接：https://leetcode.com/problems/divide-two-integers/
+
 思路：
 
 * unsigned int(0 ~ 4294967295), INT_MIN(-2147483648), INT_MAX(2147483647)。
@@ -276,6 +287,7 @@ public:
 ```
 
 ## 30. Substring with Concatenation of All Words 
+
 链接：https://leetcode.com/problems/substring-with-concatenation-of-all-words/#/description
 
 思路：用的map，耗时206ms，超过45%
@@ -384,8 +396,11 @@ public:
 貌似还有O(n)的解法，没想出来。
 
 ## 31. Next Permutation
+
 链接：https://leetcode.com/problems/next-permutation/
+
 思路：
+
 1. 从尾部开始找到第一个不满足逆序序列的元素i
 2. 在逆序序列中找到最接近的较小元素j
 3. 交换i和j，并将逆序序列反置
@@ -405,7 +420,9 @@ public:
 ```
 
 ## 32. Longest Valid Parentheses
+
 链接：https://leetcode.com/problems/longest-valid-parentheses/
+
 思路：动态规划，有效的括号序列是由多个单有效括号序列组成的：(...)(...)(...) 。设f[i]表示以i为结束位置的最长有效括号序列的长度，则当[l,i]有效时f[i] = f[l-1] + i-l+1
 
 ```cpp
@@ -427,6 +444,7 @@ public:
 ```
 
 ## 33. Search in Rotated Sorted Array 
+
 链接：https://leetcode.com/problems/search-in-rotated-sorted-array/#/description
 
 ```cpp
@@ -451,7 +469,7 @@ public:
 };
 ```
 
-```
+```cpp
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
@@ -472,6 +490,7 @@ public:
 ```
 
 ## 34. Search for a Range
+
 链接： https://leetcode.com/problems/search-for-a-range/#/description
 
 ```cpp
@@ -509,6 +528,7 @@ public:
 ```
 
 ## 35. Search Insert Position
+
 链接：https://leetcode.com/problems/search-insert-position/#/description
 
 ```cpp
@@ -532,7 +552,9 @@ public:
 ```
 
 ## 36 Valid Sudoku
-题目： https://leetcode.com/problems/valid-sudoku/description/
+
+链接： https://leetcode.com/problems/valid-sudoku/description/
+
 思路：分别按行、列、3x3遍历，看是否满足无重复的数字即可，9 ms。
 
 ```cpp
@@ -607,7 +629,9 @@ public:
 ```
 
 ## 37. Sodoku Solver
+
 链接：https://leetcode.com/problems/sudoku-solver/description/
+
 思路：广搜，按位置遍历，搜索'.'所有可能值，然后递归搜索下去，看看是否能够得出可能解，9ms。
 
 ```cpp
@@ -641,7 +665,9 @@ public:
 ```
 
 ## 38. Count and Say
+
 链接：https://leetcode.com/problems/count-and-say/description/
+
 思路：打表记录当前到n的所有可能，时间换空间。转换的时候需要考虑细节情况。
 
 ```cpp
@@ -673,8 +699,11 @@ public:
 ```
 
 ## 39. Combination Sum
+
 链接：https://leetcode.com/problems/combination-sum
+
 思路：广度搜索，$f(n, [a,b,c]) = f(n-a, [a,b,c]) + f(n-b, [b,c]) + f(n-c, [c])$。注意去重，所有包含a的答案，已经在$f[n-a, [a,b,c]]$中包含了，所以$f(n-b,[b-c])$从b开始。
+
 ```cpp
 class Solution {
 public:
@@ -699,7 +728,9 @@ public:
 ```
 
 ## 40. Combination Sum II
+
 链接：https://leetcode.com/problems/combination-sum-ii/description/
+
 思路：先排序，后深搜，注意去重。关键是在path选取第n个数字时，保证唯一。
 
 ```cpp

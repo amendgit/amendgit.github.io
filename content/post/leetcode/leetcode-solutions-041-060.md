@@ -9,7 +9,9 @@ tags: ["leetcode"]
 <!--more-->
 
 ## 41. First Missing Positive
+
 链接：https://leetcode.com/problems/first-missing-positive/
+
 思路：遍历数组将数值x放置到对应的下标x-1上，然后遍历找到第一个无序的数字，返回下标加1。
 
 ```cpp
@@ -40,11 +42,14 @@ public:
 ```
 
 ## 42. Trapping Rain Water
+
 链接：https://leetcode.com/problems/trapping-rain-water/discuss/
+
 思路：用栈来跟踪两个能存水的bar的索引。
+
 * 当栈顶比当前bar的要矮时，说明还没遇到合适的bar，先压栈。
 * 当栈顶比当前的bar要高时，则弹出栈顶，一直到和当前的bar略高的元素。
-    * 如果某次出栈以后，栈为空，则说明cur要比栈里所有的bar都高，可以计算两者之间的高度了。
+    - 如果某次出栈以后，栈为空，则说明cur要比栈里所有的bar都高，可以计算两者之间的高度了。
 * 如果一直遇不到更高的bar，说明栈里存在更高的元素，但是可以通过计算栈里相邻的元素之间的水量来计算总水量。
 
 ```cpp
@@ -123,9 +128,13 @@ public:
 };
 ```
 
+感觉这题挺不错的，能测智商。
+
 
 ## 43. Multiply Strings
+
 链接：https://leetcode.com/problems/multiply-strings/
+
 思路：细节考察，模拟乘法的计算过程。
 
 ```cpp
@@ -198,18 +207,17 @@ public:
 };
 ```
 
-用动态规划的思路，dp[i+1][j+1] <=> s[0,i] =~ p[0,j]。
-那么，dp[i+1][j+1]可以通过以下来推导：
+用动态规划的思路，dp[i+1][j+1] <=> s[0,i] =~ p[0,j]。那么，dp[i+1][j+1]可以通过以下来推导：
 
 * dp[i][j] 且 ( s[i]==p[j] 或 p[j] == '\*' 或 p[j] == '?' )
 * (dp[i+1][j] 或 dp[i][j+1]) 或 p[j] == '\*'
 
 其中部分二的情况，其实是在1中覆盖了：如 `[acc, a*c]`当处于`[acc, a*]`时，2的推导不满足，因为p[j]不等于`*`，但是在`[ac, a*]`时，满足1的情况。只要有一个推导能推导出来就可以了。
 
-初始时，需要初始化掉第一行和第一列的值。
+初始时，需要初始化掉第一行和第一列的值。dp[0][0]，由题意[ , ]结果是1.
 
-dp[0][0]，由题意[ , ]结果是1.
 第一行：当p始终为"\*"时，值就会为1，如：`[ , *]`、`[ , **]`、`[ , ***]`
+
 第一列：空的p匹配任何非空的s，结果都是0
 
 ```cpp
@@ -289,8 +297,12 @@ public:
 ```
 
 ## 46. Permutations
+
 链接：https://leetcode.com/problems/permutations/description/
-思路：f(0, [1,2,3]) = f(1, [1,2,3]) + f(1, [2,1,3]) + f(1, [3,2,1]); 递归求解即可，即[1,2,3]的全排列，等于将各个元素分别提到第一个，然后和剩余元素全排列的结果拼接在一起。
+
+思路：f(0, [1,2,3]) = f(1, [1,2,3]) + f(1, [2,1,3]) + f(1, [3,2,1]); 
+
+递归求解即可，即[1,2,3]的全排列，等于将各个元素分别提到第一个，然后和剩余元素全排列的结果拼接在一起。
 
 ```cpp
 class Solution {
@@ -313,9 +325,13 @@ public:
 ```
 
 ## 47. Permutations II
+
 链接：https://leetcode.com/problems/permutations/description/
+
 思路：和46题比起来，多了重复的数字，因此要加上去重的逻辑，已经swap过的值就不再swap了。
+
 f(0, [1,1,2]) = f(1, [1,1,2]) + ~~f(1, [1,1,2])~~ + f(1, [1,2,1]) 
+
 注意，要用哈希表，例如 [1,1,2,2]这样的情况，在f(0,...) 到 f(1, ...) 递推的过程中，不仅仅1不能和1交换，1也不能和2交换。
 
 
@@ -366,7 +382,9 @@ public:
 ```
 
 ## 48. Rotate Image
+
 链接：https://leetcode.com/problems/rotate-image/description/
+
 思路：先沿着主对角线交换，再沿着中轴线左右交换一次，注意不要重复交换了。
 
 ```cpp
@@ -384,7 +402,9 @@ public:
 ```
 
 ## 49. Group Anagrams
+
 链接：https://leetcode.com/problems/group-anagrams/description/
+
 思路：将单词按字母排序后值作为key，然后挂到哈希表下的vector中，最终取出来即可。
 
 ```cpp
@@ -461,6 +481,7 @@ public:
 ## 51. N-Queens
 
 链接：https://leetcode.com/problems/n-queens/description/
+
 思路：queen所在的位置的水平、竖直、45度斜线、-45度斜线上不能存在另外一个queen。因此，我们逐行搜索，深度优先。用vertical记录第c列是否有其他queen存在、diag记录同45度上是否有其他queen存在，antidiag记录-45度斜线上是否存在其他queen。
 
 有一个小技巧：在同一个45度线上的，r+c的值相同。在同一个-45度上的，可以通过水平翻转，[r+c] -> [r,n-1-c]，然后他们的家和也是相同的了。
@@ -522,7 +543,9 @@ public:
 ```
 
 ## 53. MaxSubArray
+
 链接: https://leetcode.com/problems/maximum-subarray/description/
+
 思路：动态规划
 last(i)表示在nums[0...i]中，尾部加和的最大值。
 maxsum(i)表示在nums[0...i]中，最大子数组的和的值。
@@ -549,8 +572,10 @@ public:
 ```
 
 ## 54. Spiral Matrix
+
 链接：https://leetcode.com/problems/spiral-matrix/
-用(rb, cb, re, ce)表示矩阵的矩形区域，便利矩形边界和动态更新矩形区域的大小。在向左便利和向上便利的时候，需要判断前面的操作过程中有没有使得矩形失效。
+
+思路：用(rb, cb, re, ce)表示矩阵的矩形区域，便利矩形边界和动态更新矩形区域的大小。在向左便利和向上便利的时候，需要判断前面的操作过程中有没有使得矩形失效。
 
 ```cpp
 class Solution {
@@ -627,7 +652,9 @@ public:
 ```
 
 ## 57. Insert Interval
+
 链接：https://leetcode.com/problems/insert-interval/
+
 思路：先找到与start相交的interval，然后开始合并，直到与end相交的interval，再放压入剩余的interval.
 
 ```cpp
@@ -708,15 +735,15 @@ public:
 class Solution {
 public:
     string getPermutation(int n, int k) {
-        int f = 1; vector<char> digits; string result; k = k - 1;
-        for (int i=1; i<= n; i++) { f *= i; digits.push_back(i+'0'); }
-        while (digits.size() > 1 && k != 0) {
-            f /= digits.size();
+        int f = 1; vector<char> nums; string result; k = k - 1;
+        for (int i=1; i<= n; i++) { f *= i; nums.push_back(i+'0'); }
+        while (nums.size() > 1 && k != 0) {
+            f /= nums.size();
             int i = k / f; k = k % f;
-            result.push_back(digits[i]); 
-            digits.erase(begin(digits)+i);
+            result.push_back(nums[i]); 
+            nums.erase(begin(nums)+i);
         }
-        for (char d : digits) result.push_back(d);
+        for (char num : nums) result.push_back(num);
         return result;
     }
 };
