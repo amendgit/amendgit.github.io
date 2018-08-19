@@ -82,7 +82,7 @@
 
 <meta itemprop="datePublished" content="2018-07-01T11:33:03&#43;08:00" />
 <meta itemprop="dateModified" content="2018-07-01T11:33:03&#43;08:00" />
-<meta itemprop="wordCount" content="4506">
+<meta itemprop="wordCount" content="4503">
 
 
 
@@ -215,8 +215,9 @@
 
 <h2 id="21-merge-two-sorted-lists">21. Merge Two Sorted Lists</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/merge-two-sorted-lists/#/description">https://leetcode.com/problems/merge-two-sorted-lists/#/description</a>
-使用优先级队列解决该问题</p>
+<p>链接：<a href="https://leetcode.com/problems/merge-two-sorted-lists/#/description">https://leetcode.com/problems/merge-two-sorted-lists/#/description</a></p>
+
+<p>使用优先级队列解决该问题</p>
 
 <pre><code class="language-cpp">/**
  * Definition for singly-linked list.
@@ -272,8 +273,9 @@ public:
 
 <h2 id="23-merge-k-sorted-lists">23. Merge k Sorted Lists</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/merge-k-sorted-lists/">https://leetcode.com/problems/merge-k-sorted-lists/</a>
-思路：
+<p>链接：<a href="https://leetcode.com/problems/merge-k-sorted-lists/">https://leetcode.com/problems/merge-k-sorted-lists/</a></p>
+
+<p>思路：
 1. 优先级队列，压入每个链表当前节点.
 2. 取出最小节点，组成新链表，压入该节点的非空next.
 3. 队列为空时结束.</p>
@@ -410,8 +412,9 @@ public:
 
 <h2 id="28-implement-strstr">28. Implement strStr()</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/implement-strstr/#/description">https://leetcode.com/problems/implement-strstr/#/description</a>
-思路：暴力求解
+<p>链接：<a href="https://leetcode.com/problems/implement-strstr/#/description">https://leetcode.com/problems/implement-strstr/#/description</a></p>
+
+<p>思路：暴力求解
 耗时3ms</p>
 
 <pre><code class="language-cpp">class Solution {
@@ -432,8 +435,9 @@ public:
 
 <h2 id="29-divide-two-integers">29. Divide Two Integers</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/divide-two-integers/">https://leetcode.com/problems/divide-two-integers/</a>
-思路：</p>
+<p>链接：<a href="https://leetcode.com/problems/divide-two-integers/">https://leetcode.com/problems/divide-two-integers/</a></p>
+
+<p>思路：</p>
 
 <ul>
 <li>unsigned int(0 ~ 4294967295), INT_MIN(-2147483648), INT_MAX(2147483647)。</li>
@@ -588,11 +592,15 @@ public:
 
 <h2 id="31-next-permutation">31. Next Permutation</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/next-permutation/">https://leetcode.com/problems/next-permutation/</a>
-思路：
-1. 从尾部开始找到第一个不满足逆序序列的元素i
-2. 在逆序序列中找到最接近的较小元素j
-3. 交换i和j，并将逆序序列反置</p>
+<p>链接：<a href="https://leetcode.com/problems/next-permutation/">https://leetcode.com/problems/next-permutation/</a></p>
+
+<p>思路：</p>
+
+<ol>
+<li>从尾部开始找到第一个不满足逆序序列的元素i</li>
+<li>在逆序序列中找到最接近的较小元素j</li>
+<li>交换i和j，并将逆序序列反置</li>
+</ol>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -609,8 +617,9 @@ public:
 
 <h2 id="32-longest-valid-parentheses">32. Longest Valid Parentheses</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/longest-valid-parentheses/">https://leetcode.com/problems/longest-valid-parentheses/</a>
-思路：动态规划，有效的括号序列是由多个单有效括号序列组成的：(&hellip;)(&hellip;)(&hellip;) 。设f[i]表示以i为结束位置的最长有效括号序列的长度，则当[l,i]有效时f[i] = f[l-1] + i-l+1</p>
+<p>链接：<a href="https://leetcode.com/problems/longest-valid-parentheses/">https://leetcode.com/problems/longest-valid-parentheses/</a></p>
+
+<p>思路：动态规划，有效的括号序列是由多个单有效括号序列组成的：(&hellip;)(&hellip;)(&hellip;) 。设f[i]表示以i为结束位置的最长有效括号序列的长度，则当[l,i]有效时f[i] = f[l-1] + i-l+1</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -654,7 +663,7 @@ public:
 };
 </code></pre>
 
-<pre><code>class Solution {
+<pre><code class="language-cpp">class Solution {
 public:
     int search(vector&lt;int&gt;&amp; nums, int target) {
         int l = 0, h = nums.size();
@@ -735,8 +744,9 @@ public:
 
 <h2 id="36-valid-sudoku">36 Valid Sudoku</h2>
 
-<p>题目： <a href="https://leetcode.com/problems/valid-sudoku/description/">https://leetcode.com/problems/valid-sudoku/description/</a>
-思路：分别按行、列、3x3遍历，看是否满足无重复的数字即可，9 ms。</p>
+<p>链接： <a href="https://leetcode.com/problems/valid-sudoku/description/">https://leetcode.com/problems/valid-sudoku/description/</a></p>
+
+<p>思路：分别按行、列、3x3遍历，看是否满足无重复的数字即可，9 ms。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -809,8 +819,9 @@ public:
 
 <h2 id="37-sodoku-solver">37. Sodoku Solver</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/sudoku-solver/description/">https://leetcode.com/problems/sudoku-solver/description/</a>
-思路：广搜，按位置遍历，搜索&rsquo;.&lsquo;所有可能值，然后递归搜索下去，看看是否能够得出可能解，9ms。</p>
+<p>链接：<a href="https://leetcode.com/problems/sudoku-solver/description/">https://leetcode.com/problems/sudoku-solver/description/</a></p>
+
+<p>思路：广搜，按位置遍历，搜索&rsquo;.&lsquo;所有可能值，然后递归搜索下去，看看是否能够得出可能解，9ms。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -843,8 +854,9 @@ public:
 
 <h2 id="38-count-and-say">38. Count and Say</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/count-and-say/description/">https://leetcode.com/problems/count-and-say/description/</a>
-思路：打表记录当前到n的所有可能，时间换空间。转换的时候需要考虑细节情况。</p>
+<p>链接：<a href="https://leetcode.com/problems/count-and-say/description/">https://leetcode.com/problems/count-and-say/description/</a></p>
+
+<p>思路：打表记录当前到n的所有可能，时间换空间。转换的时候需要考虑细节情况。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -875,8 +887,9 @@ public:
 
 <h2 id="39-combination-sum">39. Combination Sum</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/combination-sum">https://leetcode.com/problems/combination-sum</a>
-思路：广度搜索，$f(n, [a,b,c]) = f(n-a, [a,b,c]) + f(n-b, [b,c]) + f(n-c, [c])$。注意去重，所有包含a的答案，已经在$f[n-a, [a,b,c]]$中包含了，所以$f(n-b,[b-c])$从b开始。</p>
+<p>链接：<a href="https://leetcode.com/problems/combination-sum">https://leetcode.com/problems/combination-sum</a></p>
+
+<p>思路：广度搜索，$f(n, [a,b,c]) = f(n-a, [a,b,c]) + f(n-b, [b,c]) + f(n-c, [c])$。注意去重，所有包含a的答案，已经在$f[n-a, [a,b,c]]$中包含了，所以$f(n-b,[b-c])$从b开始。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -902,8 +915,9 @@ public:
 
 <h2 id="40-combination-sum-ii">40. Combination Sum II</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/combination-sum-ii/description/">https://leetcode.com/problems/combination-sum-ii/description/</a>
-思路：先排序，后深搜，注意去重。关键是在path选取第n个数字时，保证唯一。</p>
+<p>链接：<a href="https://leetcode.com/problems/combination-sum-ii/description/">https://leetcode.com/problems/combination-sum-ii/description/</a></p>
+
+<p>思路：先排序，后深搜，注意去重。关键是在path选取第n个数字时，保证唯一。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
