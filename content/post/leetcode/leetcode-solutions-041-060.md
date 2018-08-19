@@ -674,3 +674,50 @@ public:
     }
 };
 ```
+
+## 59. Sprial Matrix II
+
+链接：https://leetcode.com/problems/spiral-matrix-ii/description/
+
+思路：设有四根线在上下左右四侧，遍历一条边之后，就将对应的边增加。
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> result(n, vector<int>(n, 0));
+        int rb=0, re=n-1, cb=0, ce=n-1, p=1;
+        for (int i=0; i<(n+1)/2; i++) {
+            for (int c=cb; c<=ce; c++) result[rb][c] = p++; rb++;
+            for (int r=rb; r<=re; r++) result[r][ce] = p++; ce--;
+            for (int c=ce; c>=cb; c--) result[re][c] = p++; re--;
+            for (int r=re; r>=rb; r--) result[r][cb] = p++; cb++;
+        }
+        return move(result);
+    }
+};
+```
+
+## 60. Permutation Sequence
+
+链接：https://leetcode.com/problems/permutation-sequence/description/
+
+思路：共有 n * (n-1) * (n-2) * ... * 1 个数，第一层可以分为n个(n-1)!，第一位分别以1 2 3 ... n，依次内推。因此，可以先计算出在哪个区间内，并将每一层数字追加到result里。
+
+```cpp
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        int f = 1; vector<char> digits; string result; k = k - 1;
+        for (int i=1; i<= n; i++) { f *= i; digits.push_back(i+'0'); }
+        while (digits.size() > 1 && k != 0) {
+            f /= digits.size();
+            int i = k / f; k = k % f;
+            result.push_back(digits[i]); 
+            digits.erase(begin(digits)+i);
+        }
+        for (char d : digits) result.push_back(d);
+        return result;
+    }
+};
+```

@@ -2,7 +2,13 @@
 title: "cs224n assignment 2"
 date: 2017-09-12T22:52:06+08:00
 tags: ["cs224n"]
+mathjax: true
+mathjaxEnableSingleDollar: true
 ---
+
+自学cs224n（nlp with dl）的assigment 2，纯属个人学习和爱好。
+
+<!--more-->
 
 ## 1 Tensorflow Softmax
 
@@ -182,7 +188,7 @@ def add_training_op(self, loss):
 
 实现一个基于神经网络的依赖解析器
 
-(a) 
+(a) 手动为"I parsed this sentence correctly"执行dependency parse. 
 
 
 | stack                          | buffer                                 | new dependency      | transition          |
@@ -193,12 +199,160 @@ def add_training_op(self, loss):
 | [ROOT, parsed]                 | [this, sentence, correctly]            | parsed -> I         | LEFT-ARC            |
 | [ROOT, parsed, this]           | [sentence, correctly]                  |                     | SHIFT               |
 | [ROOT, parsed, this, sentence] | [correctly]                            |                     | SHIFT               |
-| [ROOT, parsed, sentence]       | [correctly]                            | sentence -> parsed  | LEFT-ARC            |
+| [ROOT, parsed, sentence]       | [correctly]                            | sentence -> this    | LEFT-ARC            |
 | [ROOT, parsed]                 | [correctly]                            | parsed -> sentence  | RIGHT-ARC           |
 | [ROOT, parsed, correctly]      | []                                     |                     | SHIFT               |
 | [ROOT, parsed]                 | []                                     | parsed -> correctly | SHIFT               |
 | [ROOT]                         | []                                     | ROOT -> parsed      | RIGHT-SHIFT         |
 
 
-## (b)
+(b) 包含n个words的sentence，进行dependency parse共需要多少步？
 
+2n步，每个word入栈一步和每个word出栈一步，共2n步。
+
+(c) 补充完整`q2_parser_transitions.py`的`__init__`和`parse_step`方法，实现dependency parse.
+
+方法`PartialParse.__init__`的实现如下
+
+```python
+def __init__(self, sentence):
+    """Initializes this partial parse.
+
+    Your code should initialize the following fields:
+        self.stack: The current stack represented as a list with the top of the stack as the
+                    last element of the list.
+        self.buffer: The current buffer represented as a list with the first item on the
+                     buffer as the first item of the list
+        self.dependencies: The list of dependencies produced so far. Represented as a list of
+                tuples where each tuple is of the form (head, dependent).
+                Order for this list doesn't matter.
+
+    The root token should be represented with the string "ROOT"
+
+    Args:
+        sentence: The sentence to be parsed as a list of words.
+                  Your code should not modify the sentence.
+    """
+    # The sentence being parsed is kept for bookkeeping purposes. Do not use it in your code.
+    self.sentence = sentence
+    self.stack = ['ROOT']
+    self.buffer = self.sentence[:]
+    self.dependencies = []
+```
+
+方法`PartialParse.parse_step`方法的实现如下
+
+```python
+def parse_step(self, transition):
+    """Performs a single parse step by applying the given transition to this partial parse
+
+    Args:
+        transition: A string that equals "S", "LA", or "RA" representing the shift, left-arc,
+                    and right-arc transitions.
+    """
+    if transition == 'S':
+        self.stack.append(self.buffer[0])
+        del self.buffer[0]
+    elif transition == 'LA':
+        self.dependencies.append((self.stack[-1], self.stack[-2]))
+        del self.stack[-2]
+    elif transition == 'RA':
+        self.dependencies.append((self.stack[-2], self.stack[-1]))
+        del self.stack[-1]
+
+```
+
+运行结果
+
+```sh
+ 2018-08-18 22:10:26 ⌚  |2.2.2| erxiangbo in ~/courses/others/amendgit/assignment2/code
+± |master {1} U:1 ?:1 ✗| → python q2_parser_transitions.py
+SHIFT test passed!
+LEFT-ARC test passed!
+RIGHT-ARC test passed!
+```
+
+(d) 神经网络对批量数据做处理总体效率会更高，实现`minibatch_parse`方法。
+
+```python
+def minibatch_parse(sentences, model, batch_size):
+    """Parses a list of sentences in minibatches using a model.
+
+    Args:
+        sentences: A list of sentences to be parsed (each sentence is a list of words)
+        model: The model that makes parsing decisions. It is assumed to have a function
+               model.predict(partial_parses) that takes in a list of PartialParses as input and
+               returns a list of transitions predicted for each parse. That is, after calling
+                   transitions = model.predict(partial_parses)
+               transitions[i] will be the next transition to apply to partial_parses[i].
+        batch_size: The number of PartialParses to include in each minibatch
+    Returns:
+        dependencies: A list where each element is the dependencies list for a parsed sentence.
+                      Ordering should be the same as in sentences (i.e., dependencies[i] should
+                      contain the parse for sentences[i]).
+    """
+    partial_parses = [PartialParse(sentence) for sentence in sentences]
+    unfinished_parses = partial_parses[:]
+    while len(unfinished_parses) > 0:
+        batch_parses = unfinished_parses[0:batch_size]
+        transitions = model.predict(batch_parses)
+        for i, parse in enumerate(batch_parses):
+            parse.parse_step(transitions[i])
+            if len(parse.stack) <= 1 or len(parse.stack) <= 0:
+                unfinished_parses.remove(parse)
+    return [parse.dependencies for parse in partial_parses]
+```
+
+运行结果：
+
+```sh
+ 2018-08-19 01:42:20 ⌚  |2.2.2| erxiangbo in ~/courses/others/amendgit/assignment2/code
+± |master {1} U:1 ?:1 ✗| → python q2_parser_transitions.py
+SHIFT test passed!
+LEFT-ARC test passed!
+RIGHT-ARC test passed!
+parse test passed!
+minibatch_parse test passed!
+```
+
+现在我们来构建一个神经网络来根据stack、buffer和dependencies，来predict下一步的transition。首先，model导出一个feature vector来表示当前的状态。我们将用最初的神经依赖分析的论文《A Fast and Accurate Dependecing Parser using Neural Networking》中的feature set。这个导出特征的的方法已经预先在`parser_utils`中实现好了
+
+(e) 为了避免神经元之间corelation，实现Xavier Initialization。完善`q2_initialization.py`的`_xavier_initializer`方法。
+
+```python
+def _xavier_initializer(shape, **kwargs):
+    """Defines an initializer for the Xavier distribution.
+    Specifically, the output should be sampled uniformly from [-epsilon, epsilon] where
+        epsilon = sqrt(6) / <sum of the sizes of shape's dimensions>
+    e.g., if shape = (2, 3), epsilon = sqrt(6 / (2 + 3))
+
+    This function will be used as a variable initializer.
+
+    Args:
+        shape: Tuple or 1-d array that species the dimensions of the requested tensor.
+    Returns:
+        out: tf.Tensor of specified shape sampled from the Xavier distribution.
+    """
+    epsilon = np.sqrt(6 / np.sum(shape))
+    out = tf.Variable(tf.random_uniform(shape=shape, minval=-epsilon, maxval=epsilon))
+    return out
+# Returns defined initializer function.
+return _xavier_initializer
+```
+
+运行结果：
+
+```sh
+ 2018-08-19 10:59:22 ⌚  |2.2.2| erxiangbo in ~/courses/others/amendgit/assignment2/code
+± |master {1} U:2 ?:1 ✗| → python q2_initialization.py
+Running basic tests...
+Basic (non-exhaustive) Xavier initialization tests pass
+```
+
+(f) 使用Dropout对神经网络进行正则化 (题目详见pdf)
+
+$$
+E\_{P\_{drop}}[h\_{drop}]\_i = E\_{P\_{drop}}[\gamma d\_i h\_i] = P\_{drop}(0) + (1 - P\_{drop}) \gamma h_i = (1 - P\_{drop}) \gamma h_i = h_i
+$$
+
+所以，常数gamma的值为 $1 / (1 - P\_{drop}) $

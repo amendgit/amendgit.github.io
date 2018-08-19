@@ -9,10 +9,12 @@ tags: ["leetcode"]
 <!--more-->
 
 ## 1. Two Sum
+
 链接：https://leetcode.com/problems/two-sum/
+
 思路1：暴力搜索，586ms
 
-``` cpp
+```cpp
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
@@ -43,7 +45,9 @@ public:
 ```
 
 ## 2. Add Two Numbers 
+
 链接：https://leetcode.com/problems/add-two-numbers/
+
 思路：细节考察题，见代码。
 
 ```cpp
@@ -63,7 +67,9 @@ public:
 ```
 
 ## 3. Longest Substring Without Repeating Characters
+
 链接：https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
 思路：使用t[256]计数。双指针l和i，i遍历直到有重复字符。计算距离i-l和最大值r。移动l消除重复字符。
 
 ```cpp
@@ -87,7 +93,9 @@ public:
 ```
 
 ## 4. Median of Two Sorted Arrays   
+
 链接：https://leetcode.com/problems/median-of-two-sorted-arrays/
+
 思路：转化问题为找到两个有序数组中第k个数的问题。排除法，取两数组中第k/2(必须保证加起来和为k)大小的数字作比较，第k大的数字肯定不在较小的那个k/2序列中。将其下标l提升k/2，转化为在l1和l2起始位置开始找第k-k/2大小的数字。
 
 ```cpp
@@ -116,7 +124,9 @@ public:
 ```
 
 ## 5. Longest Palindromic Substring
+
 链接：https://leetcode.com/problems/longest-palindromic-substring/
+
 思路：动态规划，设f[i,j]表示s[i,j]是否是回文字符串，`f[i,j] = s[i]==s[j] && (i>=j-1 || f[i+1,j-1])`。进一步发现f[i,j]依赖f[i+1,j-1]，可以优化为一维表，即`f[i] = s[i]==s[j] && (i>=j-1 || f[i+1])`。
 
 ```cpp
@@ -135,7 +145,9 @@ public:
 ```
 
 ## 6. Zig Zag Conversion
+
 链接：https://leetcode.com/problems/zigzag-conversion/
+
 思路：映射索引到对应的row的位置，然后存储在不同的string中，最后合并起来。
 
 ```cpp
@@ -155,7 +167,9 @@ public:
 ```
 
 ## 7. Reverse Integer
+
 链接：https://leetcode.com/problems/reverse-integer/
+
 细节题，abcd，一次取d c b a，在加到result中去，result\*10 + tmp。要注意符号和溢出的处理，不需要单独处理INT\_MIN，因为INT\_MIN和INT\_MAX的reverse都不存在。
 
 ```cpp
@@ -176,7 +190,9 @@ public:
 ```
 
 ## 8. String to Integer (atoi)
+
 链接：https://leetcode.com/problems/string-to-integer-atoi/
+
 思路：细节考察题，注意：空格、符号、溢出问题。
 
 ```cpp
@@ -202,7 +218,9 @@ public:
 };
 ```
 ## 9. Palindrome Number
+
 链接：https://leetcode.com/problems/palindrome-number/
+
 思路：前后依次计算对应位置的值，然后前后对比。
 
 ```cpp
@@ -221,7 +239,9 @@ public:
 };
 ```
 ## 10. Regular Expression Matching
+
 链接：https://leetcode.com/problems/regular-expression-matching/
+
 思路：这题状态转换比较繁，我用图简单画了下。
 ![empty](leanote://file/getImage?fileId=5808e2341b6f9f2c0e000000)
 
@@ -251,7 +271,9 @@ bool isMatch(const string &s, const string &p) {
 };
 ```
 ## 11. Container With Most Water
+
 链接：https://leetcode.com/problems/container-with-most-water/
+
 思路：
 
 ```cpp
@@ -273,6 +295,7 @@ public:
 };
 ```
 ## 12. Integer to Roman
+
 链接：https://leetcode.com/problems/integer-to-roman/
 
 ```cpp
@@ -290,7 +313,9 @@ public:
 };
 ```
 ## 13. Roman To Integer
+
 链接：https://leetcode.com/problems/roman-to-integer/
+
 思路1：用trie树，没写完。
 
 ```cpp
@@ -343,6 +368,7 @@ public:
 
 ```
 ## 14. Longest Common Prefix
+
 链接：https://leetcode.com/problems/longest-common-prefix/
 
 ```cpp
@@ -361,8 +387,11 @@ public:
 };
 ```
 ## 15. 3Sum  
+
 链接：https://leetcode.com/problems/3sum/
+
 思路：
+
 1. 先排序.
 2. 固定l，调整i和h,加和，大于0则减小h，小于0则增大i，等于0则减小h增大i，注意去重.
 3. 迭代第2步，l从0到len-3.
@@ -390,7 +419,9 @@ public:
 };
 ```
 ## 16. 3Sum Closest
+
 链接：https://leetcode.com/problems/3sum-closest/
+
 13ms
 
 ```cpp
@@ -435,6 +466,7 @@ public:
 ```
 
 ## 17. Letter Combinations of a Phone Number
+
 思路：对于每个数字，将当前的result和空tmp交换，然后对tmp中的每个word，追加c后，添加到result.
 
 ```cpp
@@ -458,7 +490,9 @@ public:
 };
 ```
 ## 18. 4Sum 
+
 链接：https://leetcode.com/problems/4sum/
+
 思路：在3Sum的基础上，多做一层循环
 
 ```cpp
@@ -535,6 +569,7 @@ public:
 ```
 
 ## 19. Remove Nth Node From End of List 
+
 链接：https://leetcode.com/problems/remove-nth-node-from-end-of-list/#/description
 
 两趟遍历
@@ -593,7 +628,9 @@ public:
 注意，如果把delete tmp注释掉，速度就能快上很多。不注释，就只能打败6%。深深怀疑，大部分同志忘记了delete tmp了。
 
 ## 20. Valid Parentheses 
+
 链接：https://leetcode.com/problems/valid-parentheses/#/description
+
 使用单纯的比较 beat 15.3%
 
 ```cpp 

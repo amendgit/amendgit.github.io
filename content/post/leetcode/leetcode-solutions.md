@@ -1,7 +1,6 @@
 ---
 title: "Leetcode Solutions"
 date: 2018-08-06T23:27:54+08:00
-draft: true
 tags: ["leetcode"]
 ---
 
@@ -11,9 +10,10 @@ tags: ["leetcode"]
 
 Leetcode Solutions 
 
-| 题目      | 链接 |
+| Problems  | Link |
 | --------- | ---- |
-| 001 ~ 020 |      |
-| 021 ~ 040 |      |
-| 041 ~ 060 |      |
+| 001 ~ 020 | http://www.amendgit.com/post/leetcode/leetcode-solutions-001-020/ |
+| 021 ~ 040 | http://www.amendgit.com/post/leetcode/leetcode-solutions-021-040/ |
+| 041 ~ 060 | http://www.amendgit.com/post/leetcode/leetcode-solutions-041-060/ |
+| 061 ~ nnn | http://www.amendgit.com/post/leetcode/leetcode-solutions-061-nnn/ |
 

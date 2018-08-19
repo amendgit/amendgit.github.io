@@ -6,7 +6,7 @@ mathjaxEnableSingleDollar: true
 tags: ["cs224n"]
 ---
 
-cs224n（nlp with dl）的assigment 1，纯属个人学习和爱好。
+自学cs224n（nlp with dl）的assigment 1，纯属个人学习和爱好。
 
 <!--more-->
 
