@@ -82,7 +82,7 @@
 
 <meta itemprop="datePublished" content="2018-08-01T11:33:16&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-01T11:33:16&#43;08:00" />
-<meta itemprop="wordCount" content="4791">
+<meta itemprop="wordCount" content="5179">
 
 
 
@@ -196,6 +196,8 @@
 <li><a href="#56-merge-intervals">56.Merge Intervals</a></li>
 <li><a href="#57-insert-interval">57. Insert Interval</a></li>
 <li><a href="#58-length-of-last-word">58. Length of Last Word</a></li>
+<li><a href="#59-sprial-matrix-ii">59. Sprial Matrix II</a></li>
+<li><a href="#60-permutation-sequence">60. Permutation Sequence</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -855,6 +857,51 @@ public:
         while (p &gt;= 0 &amp;&amp; isspace(s[p])) p--;
         while (p &gt;= 0 &amp;&amp; isalpha(s[p])) { p--; result++; }
         return move(result);
+    }
+};
+</code></pre>
+
+<h2 id="59-sprial-matrix-ii">59. Sprial Matrix II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/spiral-matrix-ii/description/">https://leetcode.com/problems/spiral-matrix-ii/description/</a></p>
+
+<p>思路：设有四根线在上下左右四侧，遍历一条边之后，就将对应的边增加。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; generateMatrix(int n) {
+        vector&lt;vector&lt;int&gt;&gt; result(n, vector&lt;int&gt;(n, 0));
+        int rb=0, re=n-1, cb=0, ce=n-1, p=1;
+        for (int i=0; i&lt;(n+1)/2; i++) {
+            for (int c=cb; c&lt;=ce; c++) result[rb][c] = p++; rb++;
+            for (int r=rb; r&lt;=re; r++) result[r][ce] = p++; ce--;
+            for (int c=ce; c&gt;=cb; c--) result[re][c] = p++; re--;
+            for (int r=re; r&gt;=rb; r--) result[r][cb] = p++; cb++;
+        }
+        return move(result);
+    }
+};
+</code></pre>
+
+<h2 id="60-permutation-sequence">60. Permutation Sequence</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/permutation-sequence/description/">https://leetcode.com/problems/permutation-sequence/description/</a></p>
+
+<p>思路：共有 n * (n-1) * (n-2) * &hellip; * 1 个数，第一层可以分为n个(n-1)!，第一位分别以1 2 3 &hellip; n，依次内推。因此，可以先计算出在哪个区间内，并将每一层数字追加到result里。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    string getPermutation(int n, int k) {
+        int f = 1; vector&lt;char&gt; digits; string result; k = k - 1;
+        for (int i=1; i&lt;= n; i++) { f *= i; digits.push_back(i+'0'); }
+        while (digits.size() &gt; 1 &amp;&amp; k != 0) {
+            f /= digits.size();
+            int i = k / f; k = k % f;
+            result.push_back(digits[i]); 
+            digits.erase(begin(digits)+i);
+        }
+        for (char d : digits) result.push_back(d);
+        return result;
     }
 };
 </code></pre>
