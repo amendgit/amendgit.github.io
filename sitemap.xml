@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/post/leetcode/leetcode-solutions/</loc>
+    <lastmod>2018-08-06T23:27:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/post/leetcode/leetcode-solutions-061-nnn/</loc>
     <lastmod>2018-08-02T11:33:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -87,7 +94,7 @@
   
   <url>
     <loc>http://localhost:1313/tags/leetcode/</loc>
-    <lastmod>2018-08-02T11:33:25+08:00</lastmod>
+    <lastmod>2018-08-06T23:27:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -101,7 +108,7 @@
   
   <url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2018-08-02T11:33:25+08:00</lastmod>
+    <lastmod>2018-08-06T23:27:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

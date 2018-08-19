@@ -17,7 +17,9 @@
 
 
 <meta name="author" content="amendgit" />
-  <meta name="description" content="1 Tensorflow Softmax 本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax def softmax(x): &amp;quot;&amp;quot;&amp;quot; Compute the softmax function in tensorflow. You might find the tensorflow functions tf.exp, tf.reduce_max, tf.reduce_sum, tf.expand_dims" />
+  <meta name="description" content="自学cs224n（nlp with dl）的assigment 2，纯属个人学习和爱好。
+
+" />
 
   <meta name="keywords" content="amendgit, blog" />
 
@@ -50,7 +52,9 @@
 
 
 <meta property="og:title" content="cs224n assignment 2" />
-<meta property="og:description" content="1 Tensorflow Softmax 本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax def softmax(x): &quot;&quot;&quot; Compute the softmax function in tensorflow. You might find the tensorflow functions tf.exp, tf.reduce_max, tf.reduce_sum, tf.expand_dims" />
+<meta property="og:description" content="自学cs224n（nlp with dl）的assigment 2，纯属个人学习和爱好。
+
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/cs224n/cs224n-assignment-2/" />
 
@@ -71,19 +75,23 @@
 
 
 <meta itemprop="name" content="cs224n assignment 2">
-<meta itemprop="description" content="1 Tensorflow Softmax 本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax def softmax(x): &quot;&quot;&quot; Compute the softmax function in tensorflow. You might find the tensorflow functions tf.exp, tf.reduce_max, tf.reduce_sum, tf.expand_dims">
+<meta itemprop="description" content="自学cs224n（nlp with dl）的assigment 2，纯属个人学习和爱好。
+
+">
 
 
 <meta itemprop="datePublished" content="2017-09-12T22:52:06&#43;08:00" />
 <meta itemprop="dateModified" content="2017-09-12T22:52:06&#43;08:00" />
-<meta itemprop="wordCount" content="1150">
+<meta itemprop="wordCount" content="2375">
 
 
 
 <meta itemprop="keywords" content="cs224n," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="cs224n assignment 2"/>
-<meta name="twitter:description" content="1 Tensorflow Softmax 本题主要是实现一个线性分类器，以交叉熵作为损失函数。 (a) 使用tensorflow实现softmax def softmax(x): &quot;&quot;&quot; Compute the softmax function in tensorflow. You might find the tensorflow functions tf.exp, tf.reduce_max, tf.reduce_sum, tf.expand_dims"/>
+<meta name="twitter:description" content="自学cs224n（nlp with dl）的assigment 2，纯属个人学习和爱好。
+
+"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -172,7 +180,6 @@
 <ul>
 <li><a href="#1-tensorflow-softmax">1 Tensorflow Softmax</a></li>
 <li><a href="#2-neural-transition-based-dependency-parsing">2 Neural Transition-Based Dependency Parsing</a></li>
-<li><a href="#b">(b)</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -184,7 +191,9 @@
 
     
     <div class="post-content">
-      
+      <p>自学cs224n（nlp with dl）的assigment 2，纯属个人学习和爱好。</p>
+
+<p></p>
 
 <h2 id="1-tensorflow-softmax">1 Tensorflow Softmax</h2>
 
@@ -359,7 +368,7 @@
 
 <p>实现一个基于神经网络的依赖解析器</p>
 
-<p>(a)</p>
+<p>(a) 手动为&rdquo;I parsed this sentence correctly&rdquo;执行dependency parse.</p>
 
 <table>
 <thead>
@@ -417,7 +426,7 @@
 <tr>
 <td>[ROOT, parsed, sentence]</td>
 <td>[correctly]</td>
-<td>sentence -&gt; parsed</td>
+<td>sentence -&gt; this</td>
 <td>LEFT-ARC</td>
 </tr>
 
@@ -451,8 +460,149 @@
 </tbody>
 </table>
 
-<h2 id="b">(b)</h2>
+<p>(b) 包含n个words的sentence，进行dependency parse共需要多少步？</p>
 
+<p>2n步，每个word入栈一步和每个word出栈一步，共2n步。</p>
+
+<p>&copy; 补充完整<code>q2_parser_transitions.py</code>的<code>__init__</code>和<code>parse_step</code>方法，实现dependency parse.</p>
+
+<p>方法<code>PartialParse.__init__</code>的实现如下</p>
+
+<pre><code class="language-python">def __init__(self, sentence):
+    &quot;&quot;&quot;Initializes this partial parse.
+
+    Your code should initialize the following fields:
+        self.stack: The current stack represented as a list with the top of the stack as the
+                    last element of the list.
+        self.buffer: The current buffer represented as a list with the first item on the
+                     buffer as the first item of the list
+        self.dependencies: The list of dependencies produced so far. Represented as a list of
+                tuples where each tuple is of the form (head, dependent).
+                Order for this list doesn't matter.
+
+    The root token should be represented with the string &quot;ROOT&quot;
+
+    Args:
+        sentence: The sentence to be parsed as a list of words.
+                  Your code should not modify the sentence.
+    &quot;&quot;&quot;
+    # The sentence being parsed is kept for bookkeeping purposes. Do not use it in your code.
+    self.sentence = sentence
+    self.stack = ['ROOT']
+    self.buffer = self.sentence[:]
+    self.dependencies = []
+</code></pre>
+
+<p>方法<code>PartialParse.parse_step</code>方法的实现如下</p>
+
+<pre><code class="language-python">def parse_step(self, transition):
+    &quot;&quot;&quot;Performs a single parse step by applying the given transition to this partial parse
+
+    Args:
+        transition: A string that equals &quot;S&quot;, &quot;LA&quot;, or &quot;RA&quot; representing the shift, left-arc,
+                    and right-arc transitions.
+    &quot;&quot;&quot;
+    if transition == 'S':
+        self.stack.append(self.buffer[0])
+        del self.buffer[0]
+    elif transition == 'LA':
+        self.dependencies.append((self.stack[-1], self.stack[-2]))
+        del self.stack[-2]
+    elif transition == 'RA':
+        self.dependencies.append((self.stack[-2], self.stack[-1]))
+        del self.stack[-1]
+
+</code></pre>
+
+<p>运行结果</p>
+
+<pre><code class="language-sh"> 2018-08-18 22:10:26 ⌚  |2.2.2| erxiangbo in ~/courses/others/amendgit/assignment2/code
+± |master {1} U:1 ?:1 ✗| → python q2_parser_transitions.py
+SHIFT test passed!
+LEFT-ARC test passed!
+RIGHT-ARC test passed!
+</code></pre>
+
+<p>(d) 神经网络对批量数据做处理总体效率会更高，实现<code>minibatch_parse</code>方法。</p>
+
+<pre><code class="language-python">def minibatch_parse(sentences, model, batch_size):
+    &quot;&quot;&quot;Parses a list of sentences in minibatches using a model.
+
+    Args:
+        sentences: A list of sentences to be parsed (each sentence is a list of words)
+        model: The model that makes parsing decisions. It is assumed to have a function
+               model.predict(partial_parses) that takes in a list of PartialParses as input and
+               returns a list of transitions predicted for each parse. That is, after calling
+                   transitions = model.predict(partial_parses)
+               transitions[i] will be the next transition to apply to partial_parses[i].
+        batch_size: The number of PartialParses to include in each minibatch
+    Returns:
+        dependencies: A list where each element is the dependencies list for a parsed sentence.
+                      Ordering should be the same as in sentences (i.e., dependencies[i] should
+                      contain the parse for sentences[i]).
+    &quot;&quot;&quot;
+    partial_parses = [PartialParse(sentence) for sentence in sentences]
+    unfinished_parses = partial_parses[:]
+    while len(unfinished_parses) &gt; 0:
+        batch_parses = unfinished_parses[0:batch_size]
+        transitions = model.predict(batch_parses)
+        for i, parse in enumerate(batch_parses):
+            parse.parse_step(transitions[i])
+            if len(parse.stack) &lt;= 1 or len(parse.stack) &lt;= 0:
+                unfinished_parses.remove(parse)
+    return [parse.dependencies for parse in partial_parses]
+</code></pre>
+
+<p>运行结果：</p>
+
+<pre><code class="language-sh"> 2018-08-19 01:42:20 ⌚  |2.2.2| erxiangbo in ~/courses/others/amendgit/assignment2/code
+± |master {1} U:1 ?:1 ✗| → python q2_parser_transitions.py
+SHIFT test passed!
+LEFT-ARC test passed!
+RIGHT-ARC test passed!
+parse test passed!
+minibatch_parse test passed!
+</code></pre>
+
+<p>现在我们来构建一个神经网络来根据stack、buffer和dependencies，来predict下一步的transition。首先，model导出一个feature vector来表示当前的状态。我们将用最初的神经依赖分析的论文《A Fast and Accurate Dependecing Parser using Neural Networking》中的feature set。这个导出特征的的方法已经预先在<code>parser_utils</code>中实现好了</p>
+
+<p>(e) 为了避免神经元之间corelation，实现Xavier Initialization。完善<code>q2_initialization.py</code>的<code>_xavier_initializer</code>方法。</p>
+
+<pre><code class="language-python">def _xavier_initializer(shape, **kwargs):
+    &quot;&quot;&quot;Defines an initializer for the Xavier distribution.
+    Specifically, the output should be sampled uniformly from [-epsilon, epsilon] where
+        epsilon = sqrt(6) / &lt;sum of the sizes of shape's dimensions&gt;
+    e.g., if shape = (2, 3), epsilon = sqrt(6 / (2 + 3))
+
+    This function will be used as a variable initializer.
+
+    Args:
+        shape: Tuple or 1-d array that species the dimensions of the requested tensor.
+    Returns:
+        out: tf.Tensor of specified shape sampled from the Xavier distribution.
+    &quot;&quot;&quot;
+    epsilon = np.sqrt(6 / np.sum(shape))
+    out = tf.Variable(tf.random_uniform(shape=shape, minval=-epsilon, maxval=epsilon))
+    return out
+# Returns defined initializer function.
+return _xavier_initializer
+</code></pre>
+
+<p>运行结果：</p>
+
+<pre><code class="language-sh"> 2018-08-19 10:59:22 ⌚  |2.2.2| erxiangbo in ~/courses/others/amendgit/assignment2/code
+± |master {1} U:2 ?:1 ✗| → python q2_initialization.py
+Running basic tests...
+Basic (non-exhaustive) Xavier initialization tests pass
+</code></pre>
+
+<p>(f) 使用Dropout对神经网络进行正则化 (题目详见pdf)</p>
+
+<p>$$
+E_{P_{drop}}[h_{drop}]_i = E_{P_{drop}}[\gamma d_i h_i] = P_{drop}(0) + (1 - P_{drop}) \gamma h_i = (1 - P_{drop}) \gamma h_i = h_i
+$$</p>
+
+<p>所以，常数gamma的值为 $1 / (1 - P_{drop}) $</p>
     </div>
 
     
@@ -559,6 +709,14 @@
 
 
 <script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

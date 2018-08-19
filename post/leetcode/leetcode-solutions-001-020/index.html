@@ -82,7 +82,7 @@
 
 <meta itemprop="datePublished" content="2018-06-01T15:34:45&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-01T15:34:45&#43;08:00" />
-<meta itemprop="wordCount" content="4209">
+<meta itemprop="wordCount" content="4206">
 
 
 
@@ -215,8 +215,9 @@
 
 <h2 id="1-two-sum">1. Two Sum</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/two-sum/">https://leetcode.com/problems/two-sum/</a>
-思路1：暴力搜索，586ms</p>
+<p>链接：<a href="https://leetcode.com/problems/two-sum/">https://leetcode.com/problems/two-sum/</a></p>
+
+<p>思路1：暴力搜索，586ms</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -248,8 +249,9 @@ public:
 
 <h2 id="2-add-two-numbers">2. Add Two Numbers</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/add-two-numbers/">https://leetcode.com/problems/add-two-numbers/</a>
-思路：细节考察题，见代码。</p>
+<p>链接：<a href="https://leetcode.com/problems/add-two-numbers/">https://leetcode.com/problems/add-two-numbers/</a></p>
+
+<p>思路：细节考察题，见代码。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -268,8 +270,9 @@ public:
 
 <h2 id="3-longest-substring-without-repeating-characters">3. Longest Substring Without Repeating Characters</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">https://leetcode.com/problems/longest-substring-without-repeating-characters/</a>
-思路：使用t[256]计数。双指针l和i，i遍历直到有重复字符。计算距离i-l和最大值r。移动l消除重复字符。</p>
+<p>链接：<a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">https://leetcode.com/problems/longest-substring-without-repeating-characters/</a></p>
+
+<p>思路：使用t[256]计数。双指针l和i，i遍历直到有重复字符。计算距离i-l和最大值r。移动l消除重复字符。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -292,8 +295,9 @@ public:
 
 <h2 id="4-median-of-two-sorted-arrays">4. Median of Two Sorted Arrays</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/median-of-two-sorted-arrays/">https://leetcode.com/problems/median-of-two-sorted-arrays/</a>
-思路：转化问题为找到两个有序数组中第k个数的问题。排除法，取两数组中第k/2(必须保证加起来和为k)大小的数字作比较，第k大的数字肯定不在较小的那个k/2序列中。将其下标l提升k/2，转化为在l1和l2起始位置开始找第k-k/2大小的数字。</p>
+<p>链接：<a href="https://leetcode.com/problems/median-of-two-sorted-arrays/">https://leetcode.com/problems/median-of-two-sorted-arrays/</a></p>
+
+<p>思路：转化问题为找到两个有序数组中第k个数的问题。排除法，取两数组中第k/2(必须保证加起来和为k)大小的数字作比较，第k大的数字肯定不在较小的那个k/2序列中。将其下标l提升k/2，转化为在l1和l2起始位置开始找第k-k/2大小的数字。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -321,8 +325,9 @@ public:
 
 <h2 id="5-longest-palindromic-substring">5. Longest Palindromic Substring</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/longest-palindromic-substring/">https://leetcode.com/problems/longest-palindromic-substring/</a>
-思路：动态规划，设f[i,j]表示s[i,j]是否是回文字符串，<code>f[i,j] = s[i]==s[j] &amp;&amp; (i&gt;=j-1 || f[i+1,j-1])</code>。进一步发现f[i,j]依赖f[i+1,j-1]，可以优化为一维表，即<code>f[i] = s[i]==s[j] &amp;&amp; (i&gt;=j-1 || f[i+1])</code>。</p>
+<p>链接：<a href="https://leetcode.com/problems/longest-palindromic-substring/">https://leetcode.com/problems/longest-palindromic-substring/</a></p>
+
+<p>思路：动态规划，设f[i,j]表示s[i,j]是否是回文字符串，<code>f[i,j] = s[i]==s[j] &amp;&amp; (i&gt;=j-1 || f[i+1,j-1])</code>。进一步发现f[i,j]依赖f[i+1,j-1]，可以优化为一维表，即<code>f[i] = s[i]==s[j] &amp;&amp; (i&gt;=j-1 || f[i+1])</code>。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -340,8 +345,9 @@ public:
 
 <h2 id="6-zig-zag-conversion">6. Zig Zag Conversion</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/zigzag-conversion/">https://leetcode.com/problems/zigzag-conversion/</a>
-思路：映射索引到对应的row的位置，然后存储在不同的string中，最后合并起来。</p>
+<p>链接：<a href="https://leetcode.com/problems/zigzag-conversion/">https://leetcode.com/problems/zigzag-conversion/</a></p>
+
+<p>思路：映射索引到对应的row的位置，然后存储在不同的string中，最后合并起来。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -360,8 +366,9 @@ public:
 
 <h2 id="7-reverse-integer">7. Reverse Integer</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/reverse-integer/">https://leetcode.com/problems/reverse-integer/</a>
-细节题，abcd，一次取d c b a，在加到result中去，result*10 + tmp。要注意符号和溢出的处理，不需要单独处理INT_MIN，因为INT_MIN和INT_MAX的reverse都不存在。</p>
+<p>链接：<a href="https://leetcode.com/problems/reverse-integer/">https://leetcode.com/problems/reverse-integer/</a></p>
+
+<p>细节题，abcd，一次取d c b a，在加到result中去，result*10 + tmp。要注意符号和溢出的处理，不需要单独处理INT_MIN，因为INT_MIN和INT_MAX的reverse都不存在。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -381,8 +388,9 @@ public:
 
 <h2 id="8-string-to-integer-atoi">8. String to Integer (atoi)</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/string-to-integer-atoi/">https://leetcode.com/problems/string-to-integer-atoi/</a>
-思路：细节考察题，注意：空格、符号、溢出问题。</p>
+<p>链接：<a href="https://leetcode.com/problems/string-to-integer-atoi/">https://leetcode.com/problems/string-to-integer-atoi/</a></p>
+
+<p>思路：细节考察题，注意：空格、符号、溢出问题。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -408,8 +416,9 @@ public:
 
 <h2 id="9-palindrome-number">9. Palindrome Number</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/palindrome-number/">https://leetcode.com/problems/palindrome-number/</a>
-思路：前后依次计算对应位置的值，然后前后对比。</p>
+<p>链接：<a href="https://leetcode.com/problems/palindrome-number/">https://leetcode.com/problems/palindrome-number/</a></p>
+
+<p>思路：前后依次计算对应位置的值，然后前后对比。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -428,8 +437,9 @@ public:
 
 <h2 id="10-regular-expression-matching">10. Regular Expression Matching</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/regular-expression-matching/">https://leetcode.com/problems/regular-expression-matching/</a>
-思路：这题状态转换比较繁，我用图简单画了下。
+<p>链接：<a href="https://leetcode.com/problems/regular-expression-matching/">https://leetcode.com/problems/regular-expression-matching/</a></p>
+
+<p>思路：这题状态转换比较繁，我用图简单画了下。
 <img src="leanote://file/getImage?fileId=5808e2341b6f9f2c0e000000" alt="empty" /></p>
 
 <pre><code class="language-cpp">class Solution {
@@ -459,8 +469,9 @@ bool isMatch(const string &amp;s, const string &amp;p) {
 
 <h2 id="11-container-with-most-water">11. Container With Most Water</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/container-with-most-water/">https://leetcode.com/problems/container-with-most-water/</a>
-思路：</p>
+<p>链接：<a href="https://leetcode.com/problems/container-with-most-water/">https://leetcode.com/problems/container-with-most-water/</a></p>
+
+<p>思路：</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -500,8 +511,9 @@ public:
 
 <h2 id="13-roman-to-integer">13. Roman To Integer</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/roman-to-integer/">https://leetcode.com/problems/roman-to-integer/</a>
-思路1：用trie树，没写完。</p>
+<p>链接：<a href="https://leetcode.com/problems/roman-to-integer/">https://leetcode.com/problems/roman-to-integer/</a></p>
+
+<p>思路1：用trie树，没写完。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -572,11 +584,15 @@ public:
 
 <h2 id="15-3sum">15. 3Sum</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/3sum/">https://leetcode.com/problems/3sum/</a>
-思路：
-1. 先排序.
-2. 固定l，调整i和h,加和，大于0则减小h，小于0则增大i，等于0则减小h增大i，注意去重.
-3. 迭代第2步，l从0到len-3.</p>
+<p>链接：<a href="https://leetcode.com/problems/3sum/">https://leetcode.com/problems/3sum/</a></p>
+
+<p>思路：</p>
+
+<ol>
+<li>先排序.</li>
+<li>固定l，调整i和h,加和，大于0则减小h，小于0则增大i，等于0则减小h增大i，注意去重.</li>
+<li>迭代第2步，l从0到len-3.</li>
+</ol>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -602,8 +618,9 @@ public:
 
 <h2 id="16-3sum-closest">16. 3Sum Closest</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/3sum-closest/">https://leetcode.com/problems/3sum-closest/</a>
-13ms</p>
+<p>链接：<a href="https://leetcode.com/problems/3sum-closest/">https://leetcode.com/problems/3sum-closest/</a></p>
+
+<p>13ms</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -670,8 +687,9 @@ public:
 
 <h2 id="18-4sum">18. 4Sum</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/4sum/">https://leetcode.com/problems/4sum/</a>
-思路：在3Sum的基础上，多做一层循环</p>
+<p>链接：<a href="https://leetcode.com/problems/4sum/">https://leetcode.com/problems/4sum/</a></p>
+
+<p>思路：在3Sum的基础上，多做一层循环</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
@@ -803,8 +821,9 @@ public:
 
 <h2 id="20-valid-parentheses">20. Valid Parentheses</h2>
 
-<p>链接：<a href="https://leetcode.com/problems/valid-parentheses/#/description">https://leetcode.com/problems/valid-parentheses/#/description</a>
-使用单纯的比较 beat 15.3%</p>
+<p>链接：<a href="https://leetcode.com/problems/valid-parentheses/#/description">https://leetcode.com/problems/valid-parentheses/#/description</a></p>
+
+<p>使用单纯的比较 beat 15.3%</p>
 
 <pre><code class="language-cpp">class Solution {
 public:
