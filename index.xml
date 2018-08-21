@@ -23,6 +23,17 @@ It makes use of a variety of open source projects including:
     </item>
     
     <item>
+      <title>Leetcode Solutions 081 100</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-081-100/</link>
+      <pubDate>Tue, 21 Aug 2018 14:21:12 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-081-100/</guid>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Leetcode Solutions</title>
       <link>http://localhost:1313/post/leetcode/leetcode-solutions/</link>
       <pubDate>Mon, 06 Aug 2018 23:27:54 +0800</pubDate>
@@ -34,11 +45,11 @@ It makes use of a variety of open source projects including:
     </item>
     
     <item>
-      <title>Leetcode Solutions 061 nnn</title>
-      <link>http://localhost:1313/post/leetcode/leetcode-solutions-061-nnn/</link>
+      <title>Leetcode Solutions 061 080</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-061-080/</link>
       <pubDate>Thu, 02 Aug 2018 11:33:25 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-061-nnn/</guid>
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-061-080/</guid>
       <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第nnn题。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>

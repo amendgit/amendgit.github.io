@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Leetcode Solutions 061 nnn - amendgit`s blog</title>
+  <title>Leetcode Solutions 061 080 - amendgit`s blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -31,7 +31,7 @@
 <meta name="generator" content="Hugo 0.47.1" />
 
 
-<link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-061-nnn/" />
+<link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-061-080/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -51,14 +51,14 @@
 
 
 
-<meta property="og:title" content="Leetcode Solutions 061 nnn" />
+<meta property="og:title" content="Leetcode Solutions 061 080" />
 <meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第nnn题。
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-061-nnn/" /><meta property="article:published_time" content="2018-08-02T11:33:25&#43;08:00"/>
+<meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-061-080/" /><meta property="article:published_time" content="2018-08-02T11:33:25&#43;08:00"/>
 <meta property="article:modified_time" content="2018-08-02T11:33:25&#43;08:00"/>
-<meta itemprop="name" content="Leetcode Solutions 061 nnn">
+<meta itemprop="name" content="Leetcode Solutions 061 080">
 <meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第nnn题。
 
 ">
@@ -66,13 +66,13 @@
 
 <meta itemprop="datePublished" content="2018-08-02T11:33:25&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-02T11:33:25&#43;08:00" />
-<meta itemprop="wordCount" content="2825">
+<meta itemprop="wordCount" content="1636">
 
 
 
 <meta itemprop="keywords" content="leetcode," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Leetcode Solutions 061 nnn"/>
+<meta name="twitter:title" content="Leetcode Solutions 061 080"/>
 <meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第nnn题。
 
 "/>
@@ -142,7 +142,7 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Leetcode Solutions 061 nnn</h1>
+      <h1 class="post-title">Leetcode Solutions 061 080</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2018-08-02 </span>
@@ -169,12 +169,6 @@
 <li><a href="#71-simplify-path">71. Simplify Path</a></li>
 <li><a href="#76-minimum-window-substring">76. Minimum Window Substring</a></li>
 <li><a href="#79-word-search">79. Word Search</a></li>
-<li><a href="#84-largest-rectangle-in-histogram">84. Largest Rectangle in Histogram</a></li>
-<li><a href="#85-maximal-rectangle">85. Maximal Rectangle</a></li>
-<li><a href="#91-decode-ways">91. Decode Ways</a></li>
-<li><a href="#93-restore-ip-addresses">93. Restore IP Addresses</a></li>
-<li><a href="#97-interleaving-string">97. Interleaving String</a></li>
-<li><a href="#98-validate-binary-search-tree">98. Validate Binary Search Tree</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -406,171 +400,6 @@ public:
             curr.clear(); swap(curr, next);
         }
         return 0;
-    }
-};
-</code></pre>
-
-<h2 id="84-largest-rectangle-in-histogram">84. Largest Rectangle in Histogram</h2>
-
-<p>链接：<a href="https://leetcode.com/problems/largest-rectangle-in-histogram/">https://leetcode.com/problems/largest-rectangle-in-histogram/</a></p>
-
-<p>思路：使用栈，遍历数组，如果比top大则压入并继续遍历，如果比top小，则弹出top计算面积直到top比当前元素小时为止。</p>
-
-<pre><code class="language-cpp">class Solution {
-public:
-    int largestRectangleArea(vector&lt;int&gt;&amp; heights) {
-        stack&lt;int&gt; s; int i=0; int result=0, len=heights.size();
-        while (i&lt;len || !s.empty()) {
-            if (i&lt;len &amp;&amp; (s.empty()||heights[s.top()]&lt;=heights[i])) s.push(i++);
-            else {
-                int h = heights[s.top()]; s.pop();
-                int l = s.empty() ? 0 : s.top()+1;
-                result = max(result, (i-l)*h);
-            }
-        }
-        return result;
-    }
-};
-</code></pre>
-
-<h2 id="85-maximal-rectangle">85. Maximal Rectangle</h2>
-
-<p>链接：<a href="https://leetcode.com/problems/maximal-rectangle/">https://leetcode.com/problems/maximal-rectangle/</a></p>
-
-<p>思路：接上一题，按行遍历，每行用数组f存储每列1的高度，然后计算最大直方图面积。</p>
-
-<pre><code class="language-cpp">class Solution {
-public:
-    int maximalRectangle(vector&lt;vector&lt;char&gt;&gt;&amp; matrix) {
-        if (matrix.empty()) return 0;
-        const int ROW=matrix.size(), COL=matrix[0].size();
-        vector&lt;int&gt; f(COL, 0); int j=0, result=0; stack&lt;int&gt; s;
-        for (int i=0; i&lt;ROW; ++i) {
-            for (j=0; j&lt;COL; ++j)
-                if (matrix[i][j] == '1') f[j]++; else f[j] = 0;
-            j = 0;
-            while (j&lt;COL || !s.empty()) {
-                if (j&lt;COL&amp;&amp;(s.empty() || f[s.top()]&lt;=f[j]))
-                    s.push(j++);
-                else {
-                    int h = f[s.top()]; s.pop();
-                    int l = s.empty() ? 0 : s.top() + 1;
-                    result = max(result, h*(j-l));
-                }
-            }
-        }
-        return result;
-    }
-};
-</code></pre>
-
-<h2 id="91-decode-ways">91. Decode Ways</h2>
-
-<p>链接：<a href="https://leetcode.com/problems/decode-ways/">https://leetcode.com/problems/decode-ways/</a></p>
-
-<p>思路：f[i] = f[i-1] + f[i-2]，也可以写成c = b + a，只要s[i]不为0，b就可以和s[i]组合。而a则需要s[i-1]s[i]组成的数字小于26。
-* 使用a b b的形式，而不使用a b c的形式，可以避免判断返回b还是c。</p>
-
-<pre><code class="language-cpp">class Solution {
-public:
-    int numDecodings(string s) {
-        if (s.empty() || s[0] == '0') return 0; 
-        int a=1, b=1;
-        for (int i=1; i&lt;s.length(); i++) {
-            int tmp = b;
-            if (s[i] == '0')                             b = 0;
-            if (s[i-1]=='1' || (s[i-1]=='2'&amp;&amp;s[i]&lt;='6')) b += a;
-            a = tmp;
-        }
-        return b;
-    }
-};
-</code></pre>
-
-<h2 id="93-restore-ip-addresses">93. Restore IP Addresses</h2>
-
-<p>链接：<a href="https://leetcode.com/problems/restore-ip-addresses/">https://leetcode.com/problems/restore-ip-addresses/</a></p>
-
-<p>思路：深搜，具体看代码。需要注意 1.每个component必须小于255 2.component连续两次出现0则无效 3.剪枝：当剩余的字符数比剩余的component最大可能长度还多则无效，可以防止非常长的字符串导致搜索变慢的情况。</p>
-
-<pre><code class="language-cpp">class Solution {
-public:
-    vector&lt;string&gt; restoreIpAddresses(string&amp; s) {
-        vector&lt;string&gt; result, ip;
-        dfs(s, ip, 0, result);
-        return move(result);
-    }
-    
-    void dfs(string&amp; s, vector&lt;string&gt;&amp; ip, int l, vector&lt;string&gt;&amp; result) {
-        int n=0, h=l, len=s.length();
-        if (l==len || (len-l)&gt;(4-ip.size())*3) return ;
-        if (ip.size() == 3) {
-            while (h&lt;len) { n = n*10 + s[h++] - '0'; if (n == 0) break; }
-            if (h!=len || n&gt;255) return ;
-            string ss; for (int i=0; i&lt;3; i++) ss.append(ip[i]).push_back('.'); ss.append(s.substr(l));
-            result.push_back(move(ss));
-            return ;
-        }
-        while (h &lt; len) {
-            n = n * 10 + s[h] - '0';
-            if (n &gt; 255) return ;
-            ip.push_back(s.substr(l, h-l+1)); dfs(s, ip, h+1, result); ip.pop_back();
-            if (n == 0) return ;
-            h++;
-        }
-    }
-};
-</code></pre>
-
-<h2 id="97-interleaving-string">97. Interleaving String</h2>
-
-<p>链接：</p>
-
-<p>思路：动态规划，f[i][j]表示s1[i,len1]和s2[j,len2]能否interleave字符串s3[i+j,len3]。所以，<code>f[i][j] = (f[i+1][j]&amp;&amp;s1[i]==s3[i+j]) || (f[i][j+1]&amp;&amp;s2[j]==s3[i+j])</code>。</p>
-
-<pre><code class="language-cpp">class Solution {
-public:
-    bool isInterleave(string&amp; s1, string&amp; s2, string&amp; s3) {
-        const size_t len1=s1.length(), len2=s2.length(), len3=s3.length();
-        if (len1+len2 != len3) return false;
-        vector&lt;vector&lt;int&gt;&gt; f(len1+1, vector&lt;int&gt;(len2+1, 0));
-        f[len1][len2] = 1;
-        for (int i=len1; i&gt;=0; --i) for (int j=len2; j&gt;=0; --j) {
-            int k = i + j;
-            f[i][j] = (i&lt;len1&amp;&amp;s1[i]==s3[k]&amp;&amp;f[i+1][j]) || (j&lt;len2&amp;&amp;s2[j]==s3[k]&amp;&amp;f[i][j+1]) || f[i][j];
-        }
-        return f[0][0];
-    }
-};
-</code></pre>
-
-<h2 id="98-validate-binary-search-tree">98. Validate Binary Search Tree</h2>
-
-<p>链接：</p>
-
-<p>思路：需要每个节点满足 L &lt; P &lt; R，同时要注意R子树中的最小节点需要比P大，L子树中的最大节点需要比P小。</p>
-
-<pre><code class="language-cpp">class Solution {
-public:
-    bool isValidBST(TreeNode* root) {
-        if (root == nullptr) return true;
-        int min = INT_MAX, max = INT_MIN;
-        return dfs(root, min, max);
-    }
-    
-    bool dfs(TreeNode *node, int&amp; min, int&amp; max) {
-        int lmax=INT_MIN, lmin=INT_MAX, rmax=INT_MIN, rmin=INT_MAX; bool result;
-        if (node-&gt;left) {
-            result = node-&gt;left-&gt;val &lt; node-&gt;val &amp;&amp; dfs(node-&gt;left, lmin, lmax);
-            if (!result || lmax &gt;= node-&gt;val) return false;
-        }
-        if (node-&gt;right) {
-            result = node-&gt;right-&gt;val &gt; node-&gt;val &amp;&amp; dfs(node-&gt;right, rmin, rmax);
-            if (!result || rmin &lt;= node-&gt;val) return false;
-        }
-        max = std::max(node-&gt;val, rmax); 
-        min = std::min(node-&gt;val, lmin);
-        return true;
     }
 };
 </code></pre>

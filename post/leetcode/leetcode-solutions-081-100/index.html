@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Leetcode Solutions 081 100 - amendgit`s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="amendgit" />
+  <meta name="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。
+
+" />
+
+  <meta name="keywords" content="amendgit, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.47.1" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-081-100/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Leetcode Solutions 081 100" />
+<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-081-100/" /><meta property="article:published_time" content="2018-08-21T14:21:12&#43;08:00"/>
+<meta property="article:modified_time" content="2018-08-21T14:21:12&#43;08:00"/>
+<meta itemprop="name" content="Leetcode Solutions 081 100">
+<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。
+
+">
+
+
+<meta itemprop="datePublished" content="2018-08-21T14:21:12&#43;08:00" />
+<meta itemprop="dateModified" content="2018-08-21T14:21:12&#43;08:00" />
+<meta itemprop="wordCount" content="1240">
+
+
+
+<meta itemprop="keywords" content="leetcode," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode Solutions 081 100"/>
+<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">amendgit&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">amendgit&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Leetcode Solutions 081 100</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-21 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#84-largest-rectangle-in-histogram">84. Largest Rectangle in Histogram</a></li>
+<li><a href="#85-maximal-rectangle">85. Maximal Rectangle</a></li>
+<li><a href="#91-decode-ways">91. Decode Ways</a></li>
+<li><a href="#93-restore-ip-addresses">93. Restore IP Addresses</a></li>
+<li><a href="#97-interleaving-string">97. Interleaving String</a></li>
+<li><a href="#98-validate-binary-search-tree">98. Validate Binary Search Tree</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。</p>
+
+<p></p>
+
+<h2 id="84-largest-rectangle-in-histogram">84. Largest Rectangle in Histogram</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/largest-rectangle-in-histogram/">https://leetcode.com/problems/largest-rectangle-in-histogram/</a></p>
+
+<p>思路：使用栈，遍历数组，如果比top大则压入并继续遍历，如果比top小，则弹出top计算面积直到top比当前元素小时为止。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int largestRectangleArea(vector&lt;int&gt;&amp; heights) {
+        stack&lt;int&gt; s; int i=0; int result=0, len=heights.size();
+        while (i&lt;len || !s.empty()) {
+            if (i&lt;len &amp;&amp; (s.empty()||heights[s.top()]&lt;=heights[i])) s.push(i++);
+            else {
+                int h = heights[s.top()]; s.pop();
+                int l = s.empty() ? 0 : s.top()+1;
+                result = max(result, (i-l)*h);
+            }
+        }
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="85-maximal-rectangle">85. Maximal Rectangle</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/maximal-rectangle/">https://leetcode.com/problems/maximal-rectangle/</a></p>
+
+<p>思路：接上一题，按行遍历，每行用数组f存储每列1的高度，然后计算最大直方图面积。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int maximalRectangle(vector&lt;vector&lt;char&gt;&gt;&amp; matrix) {
+        if (matrix.empty()) return 0;
+        const int ROW=matrix.size(), COL=matrix[0].size();
+        vector&lt;int&gt; f(COL, 0); int j=0, result=0; stack&lt;int&gt; s;
+        for (int i=0; i&lt;ROW; ++i) {
+            for (j=0; j&lt;COL; ++j)
+                if (matrix[i][j] == '1') f[j]++; else f[j] = 0;
+            j = 0;
+            while (j&lt;COL || !s.empty()) {
+                if (j&lt;COL&amp;&amp;(s.empty() || f[s.top()]&lt;=f[j]))
+                    s.push(j++);
+                else {
+                    int h = f[s.top()]; s.pop();
+                    int l = s.empty() ? 0 : s.top() + 1;
+                    result = max(result, h*(j-l));
+                }
+            }
+        }
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="91-decode-ways">91. Decode Ways</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/decode-ways/">https://leetcode.com/problems/decode-ways/</a></p>
+
+<p>思路：f[i] = f[i-1] + f[i-2]，也可以写成c = b + a，只要s[i]不为0，b就可以和s[i]组合。而a则需要s[i-1]s[i]组成的数字小于26。
+* 使用a b b的形式，而不使用a b c的形式，可以避免判断返回b还是c。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int numDecodings(string s) {
+        if (s.empty() || s[0] == '0') return 0; 
+        int a=1, b=1;
+        for (int i=1; i&lt;s.length(); i++) {
+            int tmp = b;
+            if (s[i] == '0')                             b = 0;
+            if (s[i-1]=='1' || (s[i-1]=='2'&amp;&amp;s[i]&lt;='6')) b += a;
+            a = tmp;
+        }
+        return b;
+    }
+};
+</code></pre>
+
+<h2 id="93-restore-ip-addresses">93. Restore IP Addresses</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/restore-ip-addresses/">https://leetcode.com/problems/restore-ip-addresses/</a></p>
+
+<p>思路：深搜，具体看代码。需要注意 1.每个component必须小于255 2.component连续两次出现0则无效 3.剪枝：当剩余的字符数比剩余的component最大可能长度还多则无效，可以防止非常长的字符串导致搜索变慢的情况。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;string&gt; restoreIpAddresses(string&amp; s) {
+        vector&lt;string&gt; result, ip;
+        dfs(s, ip, 0, result);
+        return move(result);
+    }
+    
+    void dfs(string&amp; s, vector&lt;string&gt;&amp; ip, int l, vector&lt;string&gt;&amp; result) {
+        int n=0, h=l, len=s.length();
+        if (l==len || (len-l)&gt;(4-ip.size())*3) return ;
+        if (ip.size() == 3) {
+            while (h&lt;len) { n = n*10 + s[h++] - '0'; if (n == 0) break; }
+            if (h!=len || n&gt;255) return ;
+            string ss; for (int i=0; i&lt;3; i++) ss.append(ip[i]).push_back('.'); ss.append(s.substr(l));
+            result.push_back(move(ss));
+            return ;
+        }
+        while (h &lt; len) {
+            n = n * 10 + s[h] - '0';
+            if (n &gt; 255) return ;
+            ip.push_back(s.substr(l, h-l+1)); dfs(s, ip, h+1, result); ip.pop_back();
+            if (n == 0) return ;
+            h++;
+        }
+    }
+};
+</code></pre>
+
+<h2 id="97-interleaving-string">97. Interleaving String</h2>
+
+<p>链接：</p>
+
+<p>思路：动态规划，f[i][j]表示s1[i,len1]和s2[j,len2]能否interleave字符串s3[i+j,len3]。所以，<code>f[i][j] = (f[i+1][j]&amp;&amp;s1[i]==s3[i+j]) || (f[i][j+1]&amp;&amp;s2[j]==s3[i+j])</code>。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool isInterleave(string&amp; s1, string&amp; s2, string&amp; s3) {
+        const size_t len1=s1.length(), len2=s2.length(), len3=s3.length();
+        if (len1+len2 != len3) return false;
+        vector&lt;vector&lt;int&gt;&gt; f(len1+1, vector&lt;int&gt;(len2+1, 0));
+        f[len1][len2] = 1;
+        for (int i=len1; i&gt;=0; --i) for (int j=len2; j&gt;=0; --j) {
+            int k = i + j;
+            f[i][j] = (i&lt;len1&amp;&amp;s1[i]==s3[k]&amp;&amp;f[i+1][j]) || (j&lt;len2&amp;&amp;s2[j]==s3[k]&amp;&amp;f[i][j+1]) || f[i][j];
+        }
+        return f[0][0];
+    }
+};
+</code></pre>
+
+<h2 id="98-validate-binary-search-tree">98. Validate Binary Search Tree</h2>
+
+<p>链接：</p>
+
+<p>思路：需要每个节点满足 L &lt; P &lt; R，同时要注意R子树中的最小节点需要比P大，L子树中的最大节点需要比P小。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if (root == nullptr) return true;
+        int min = INT_MAX, max = INT_MIN;
+        return dfs(root, min, max);
+    }
+    
+    bool dfs(TreeNode *node, int&amp; min, int&amp; max) {
+        int lmax=INT_MIN, lmin=INT_MAX, rmax=INT_MIN, rmin=INT_MAX; bool result;
+        if (node-&gt;left) {
+            result = node-&gt;left-&gt;val &lt; node-&gt;val &amp;&amp; dfs(node-&gt;left, lmin, lmax);
+            if (!result || lmax &gt;= node-&gt;val) return false;
+        }
+        if (node-&gt;right) {
+            result = node-&gt;right-&gt;val &gt; node-&gt;val &amp;&amp; dfs(node-&gt;right, rmin, rmax);
+            if (!result || rmin &lt;= node-&gt;val) return false;
+        }
+        max = std::max(node-&gt;val, rmax); 
+        min = std::min(node-&gt;val, lmin);
+        return true;
+    }
+};
+</code></pre>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">amendgit</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-08-21</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/leetcode/">leetcode</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/leetcode/leetcode-solutions/">
+            <span class="next-text nav-default">Leetcode Solutions</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:shijian0912@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">amendgit</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
