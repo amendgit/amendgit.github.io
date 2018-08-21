@@ -15,5 +15,7 @@ Leetcode Solutions
 | 001 ~ 020 | http://www.amendgit.com/post/leetcode/leetcode-solutions-001-020/ |
 | 021 ~ 040 | http://www.amendgit.com/post/leetcode/leetcode-solutions-021-040/ |
 | 041 ~ 060 | http://www.amendgit.com/post/leetcode/leetcode-solutions-041-060/ |
-| 061 ~ nnn | http://www.amendgit.com/post/leetcode/leetcode-solutions-061-nnn/ |
+| 061 ~ 080 | http://www.amendgit.com/post/leetcode/leetcode-solutions-061-080/ |
+| 081 ~ 100 | http://www.amendgit.com/post/leetcode/leetcode-solutions-081-100/ |
+
 
