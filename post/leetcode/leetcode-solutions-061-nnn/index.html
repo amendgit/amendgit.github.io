@@ -28,7 +28,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
+<meta name="generator" content="Hugo 0.47.1" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-061-nnn/" />
@@ -56,24 +56,8 @@
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-061-nnn/" />
-
-
-
-<meta property="article:published_time" content="2018-08-02T11:33:25&#43;08:00"/>
-
+<meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-061-nnn/" /><meta property="article:published_time" content="2018-08-02T11:33:25&#43;08:00"/>
 <meta property="article:modified_time" content="2018-08-02T11:33:25&#43;08:00"/>
-
-
-
-
-
-
-
-
-
-
-
 <meta itemprop="name" content="Leetcode Solutions 061 nnn">
 <meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第nnn题。
 
@@ -82,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-08-02T11:33:25&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-02T11:33:25&#43;08:00" />
-<meta itemprop="wordCount" content="2530">
+<meta itemprop="wordCount" content="2825">
 
 
 
@@ -179,6 +163,8 @@
 <li>
 <ul>
 <li><a href="#61-rotate-list">61. Rotate List</a></li>
+<li><a href="#62-unique-paths">62. Unique Paths</a></li>
+<li><a href="#unique-paths-ii">Unique Paths II</a></li>
 <li><a href="#65-valid-number">65. Valid Number</a></li>
 <li><a href="#71-simplify-path">71. Simplify Path</a></li>
 <li><a href="#76-minimum-window-substring">76. Minimum Window Substring</a></li>
@@ -230,6 +216,48 @@ public:
         while (p1-&gt;next != nullptr) { p1 = p1-&gt;next; p2 = p2-&gt;next; }
         p1-&gt;next = head; head = p2-&gt;next; p2-&gt;next = nullptr;
         return head;
+    }
+};
+</code></pre>
+
+<h2 id="62-unique-paths">62. Unique Paths</h2>
+
+<p>链接: <a href="https://leetcode.com/problems/unique-paths/description/">https://leetcode.com/problems/unique-paths/description/</a></p>
+
+<p>思路: 每一个格子的可能路径数等于左边格子路径书加上上方格子路径数。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        vector&lt;vector&lt;int&gt;&gt; tbl(m, vector&lt;int&gt;(n, 0));
+        tbl[0][0] = 1;
+        for (int i = 0; i &lt; m; i++) for (int j = 0; j &lt; n; j++) {
+            (i &gt; 0) &amp;&amp; (tbl[i][j] += tbl[i-1][j]);
+            (j &gt; 0) &amp;&amp; (tbl[i][j] += tbl[i][j-1]);
+        }
+        return tbl.back().back();
+    }
+};
+</code></pre>
+
+<h2 id="unique-paths-ii">Unique Paths II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/unique-paths-ii/description/">https://leetcode.com/problems/unique-paths-ii/description/</a></p>
+
+<p>思路：注意 [0, 0]位置 和 [m, n] 位置不能为1。可以复用grid作为表用，加和时需要判断一下[i, j]是否为1，已经邻居格是否为1。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        if (grid.empty() || grid.front().empty()) return 0;
+        if (grid.front().front() || grid.back().back()) return 0; 
+        grid[0][0] = -1;
+        for (int i = 0; i &lt; grid.size(); i++) for (int j = 0; j &lt; grid.front().size(); j++) {
+            if (grid[i][j] == 1) continue;
+            (j &gt; 0) &amp;&amp; (grid[i][j-1] &lt; 0) &amp;&amp; (grid[i][j] += grid[i][j-1]);
+            (i &gt; 0) &amp;&amp; (grid[i-1][j] &lt; 0) &amp;&amp; (grid[i][j] += grid[i-1][j]);
+        }
+        return -grid.back().back();
     }
 };
 </code></pre>
