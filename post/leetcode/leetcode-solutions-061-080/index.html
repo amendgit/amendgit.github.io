@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="amendgit" />
-  <meta name="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第nnn题。
+  <meta name="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第80题。
 
 " />
 
@@ -52,28 +52,28 @@
 
 
 <meta property="og:title" content="Leetcode Solutions 061 080" />
-<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第nnn题。
+<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第80题。
 
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-061-080/" /><meta property="article:published_time" content="2018-08-02T11:33:25&#43;08:00"/>
 <meta property="article:modified_time" content="2018-08-02T11:33:25&#43;08:00"/>
 <meta itemprop="name" content="Leetcode Solutions 061 080">
-<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第nnn题。
+<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第80题。
 
 ">
 
 
 <meta itemprop="datePublished" content="2018-08-02T11:33:25&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-02T11:33:25&#43;08:00" />
-<meta itemprop="wordCount" content="1636">
+<meta itemprop="wordCount" content="2131">
 
 
 
 <meta itemprop="keywords" content="leetcode," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode Solutions 061 080"/>
-<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第nnn题。
+<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第80题。
 
 "/>
 
@@ -164,8 +164,11 @@
 <ul>
 <li><a href="#61-rotate-list">61. Rotate List</a></li>
 <li><a href="#62-unique-paths">62. Unique Paths</a></li>
-<li><a href="#unique-paths-ii">Unique Paths II</a></li>
+<li><a href="#63-unique-paths-ii">63. Unique Paths II</a></li>
+<li><a href="#64-minimum-path-sum">64. Minimum Path Sum</a></li>
 <li><a href="#65-valid-number">65. Valid Number</a></li>
+<li><a href="#66-plus-one">66. Plus One</a></li>
+<li><a href="#67-add-binary">67. Add Binary</a></li>
 <li><a href="#71-simplify-path">71. Simplify Path</a></li>
 <li><a href="#76-minimum-window-substring">76. Minimum Window Substring</a></li>
 <li><a href="#79-word-search">79. Word Search</a></li>
@@ -180,7 +183,7 @@
 
     
     <div class="post-content">
-      <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第nnn题。</p>
+      <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第80题。</p>
 
 <p></p>
 
@@ -234,7 +237,7 @@ public:
 };
 </code></pre>
 
-<h2 id="unique-paths-ii">Unique Paths II</h2>
+<h2 id="63-unique-paths-ii">63. Unique Paths II</h2>
 
 <p>链接：<a href="https://leetcode.com/problems/unique-paths-ii/description/">https://leetcode.com/problems/unique-paths-ii/description/</a></p>
 
@@ -252,6 +255,27 @@ public:
             (i &gt; 0) &amp;&amp; (grid[i-1][j] &lt; 0) &amp;&amp; (grid[i][j] += grid[i-1][j]);
         }
         return -grid.back().back();
+    }
+};
+</code></pre>
+
+<h2 id="64-minimum-path-sum">64. Minimum Path Sum</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/minimum-path-sum/description/">https://leetcode.com/problems/minimum-path-sum/description/</a></p>
+
+<p>思路：和62题63题类似，区别在于从左边和上方找到较小的值加和，就是当前格子的最小路径和，注意边界的处理。比较简单，一遍通过。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int minPathSum(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int m = grid.size();         if (m == 0) return 0;
+        int n = grid.front().size(); if (n == 0) return 0;
+        for (int i=0; i&lt;m; i++) for (int j=0; j&lt;n; j++) {
+            (i == 0 &amp;&amp; j &gt;  0) &amp;&amp; (grid[i][j] += grid[i][j-1]);
+            (i &gt;  0 &amp;&amp; j == 0) &amp;&amp; (grid[i][j] += grid[i-1][j]);
+            (i &gt;  0 &amp;&amp; j &gt;  0) &amp;&amp; (grid[i][j] += min(grid[i-1][j], grid[i][j-1]));
+        }
+        return grid.back().back();
     }
 };
 </code></pre>
@@ -292,6 +316,55 @@ public:
             if (state == -1) return false;
         }
         return next[state][ENDSTR] == 99;
+    }
+};
+</code></pre>
+
+<h2 id="66-plus-one">66. Plus One</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/plus-one/description/">https://leetcode.com/problems/plus-one/description/</a></p>
+
+<p>思路：加1，逐一计算carry，比较简单，一遍过。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; plusOne(vector&lt;int&gt;&amp; digits) {
+        const int len = digits.size();
+        if (len == 0) return vector&lt;int&gt;();
+        int carry = 0; digits[len-1] += 1;
+        for (int i=len-1; i&gt;=0; i--) {
+            digits[i] += carry;
+            carry = digits[i] / 10;
+            digits[i] %= 10;
+        }
+        if (carry != 0) {
+            digits.insert(begin(digits), carry);
+        }
+        return digits;
+    }
+};
+</code></pre>
+
+<h2 id="67-add-binary">67. Add Binary</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/add-binary/description/">https://leetcode.com/problems/add-binary/description/</a></p>
+
+<p>思路：从后依次往前加，注意carry即可。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    string addBinary(const string &amp;a, const string &amp;b) {
+        int alen=a.length(), blen=b.length(), len=max(alen, blen), carry=0;
+        if (len == 0) return &quot;&quot;;
+        string c(len, '0');
+        for (int i=0; i&lt;len; i++) {
+            (i &lt; alen) &amp;&amp; (carry += a[alen-i-1]-'0');
+            (i &lt; blen) &amp;&amp; (carry += b[blen-i-1]-'0');
+            c[len-i-1] = carry % 2 + '0';
+            carry = carry / 2;
+        }
+        if (carry != 0) c.insert(begin(c), carry+'0');
+        return move(c);
     }
 };
 </code></pre>
