@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-08-21T14:21:12&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-21T14:21:12&#43;08:00" />
-<meta itemprop="wordCount" content="1701">
+<meta itemprop="wordCount" content="1977">
 
 
 
@@ -163,6 +163,7 @@
 <li>
 <ul>
 <li><a href="#81-search-in-rotated-sorted-array-ii">81. Search in Rotated Sorted Array II</a></li>
+<li><a href="#82-remove-duplicates-from-sorted-list-ii">82. Remove Duplicates from Sorted List II</a></li>
 <li><a href="#84-largest-rectangle-in-histogram">84. Largest Rectangle in Histogram</a></li>
 <li><a href="#85-maximal-rectangle">85. Maximal Rectangle</a></li>
 <li><a href="#91-decode-ways">91. Decode Ways</a></li>
@@ -212,6 +213,39 @@ public:
             }
         }
         return false;
+    }
+};
+</code></pre>
+
+<h2 id="82-remove-duplicates-from-sorted-list-ii">82. Remove Duplicates from Sorted List II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description/">https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description/</a></p>
+
+<p>思路：定义一个全局long类型变量n，如果n和当前不相等则追加，如果发现i和i-&gt;next重复，则更新n。注意j要指向结果的最后一个数字，否则最后截断时，会多出来额外的数字。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode dummy(0); dummy.next = head; 
+        auto j = &amp;dummy; long n = LONG_MAX;
+        for (auto i=head; i; i=i-&gt;next) {
+            if (i-&gt;next &amp;&amp; i-&gt;val==i-&gt;next-&gt;val) { 
+                n = i-&gt;val; 
+            } else if (i-&gt;val != n) { 
+                j = j-&gt;next; j-&gt;val = i-&gt;val; 
+            }
+        }
+        auto p = j-&gt;next; while (p) { auto t=p; p=p-&gt;next; delete t; }
+        j-&gt;next = NULL;
+        return dummy.next;
     }
 };
 </code></pre>
