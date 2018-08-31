@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-08-21T14:21:12&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-21T14:21:12&#43;08:00" />
-<meta itemprop="wordCount" content="1977">
+<meta itemprop="wordCount" content="3893">
 
 
 
@@ -164,10 +164,18 @@
 <ul>
 <li><a href="#81-search-in-rotated-sorted-array-ii">81. Search in Rotated Sorted Array II</a></li>
 <li><a href="#82-remove-duplicates-from-sorted-list-ii">82. Remove Duplicates from Sorted List II</a></li>
+<li><a href="#83-remove-duplicates-from-sorted-list">83. Remove Duplicates from Sorted List</a></li>
 <li><a href="#84-largest-rectangle-in-histogram">84. Largest Rectangle in Histogram</a></li>
 <li><a href="#85-maximal-rectangle">85. Maximal Rectangle</a></li>
+<li><a href="#86-partition-list">86. Partition List</a></li>
+<li><a href="#87-scramble-string">87. Scramble String</a></li>
+<li><a href="#88-merge-sorted-array">88. Merge Sorted Array</a></li>
+<li><a href="#89-gray-code">89. Gray Code</a></li>
+<li><a href="#90-subsets-ii">90. Subsets II</a></li>
 <li><a href="#91-decode-ways">91. Decode Ways</a></li>
+<li><a href="#92-reverse-linked-list-ii">92. Reverse Linked List II</a></li>
 <li><a href="#93-restore-ip-addresses">93. Restore IP Addresses</a></li>
+<li><a href="#94-binary-tree-inorder-traversal">94. Binary Tree Inorder Traversal</a></li>
 <li><a href="#97-interleaving-string">97. Interleaving String</a></li>
 <li><a href="#98-validate-binary-search-tree">98. Validate Binary Search Tree</a></li>
 </ul></li>
@@ -250,6 +258,38 @@ public:
 };
 </code></pre>
 
+<h2 id="83-remove-duplicates-from-sorted-list">83. Remove Duplicates from Sorted List</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list/description/">https://leetcode.com/problems/remove-duplicates-from-sorted-list/description/</a></p>
+
+<p>思路：比较简单，判断当前和下一个数据是否相等，相等的话移除下一个节点就可以了。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode *p = head;
+        while (p) {
+            if (p-&gt;next &amp;&amp; p-&gt;val == p-&gt;next-&gt;val) {
+                auto t = p-&gt;next;
+                p-&gt;next = p-&gt;next-&gt;next;
+                delete t;
+            } else {
+                p = p-&gt;next;
+            }
+        }
+        return head;
+    }
+};
+</code></pre>
+
 <h2 id="84-largest-rectangle-in-histogram">84. Largest Rectangle in Histogram</h2>
 
 <p>链接：<a href="https://leetcode.com/problems/largest-rectangle-in-histogram/">https://leetcode.com/problems/largest-rectangle-in-histogram/</a></p>
@@ -286,13 +326,12 @@ public:
         const int ROW=matrix.size(), COL=matrix[0].size();
         vector&lt;int&gt; f(COL, 0); int j=0, result=0; stack&lt;int&gt; s;
         for (int i=0; i&lt;ROW; ++i) {
-            for (j=0; j&lt;COL; ++j)
-                if (matrix[i][j] == '1') f[j]++; else f[j] = 0;
+            for (j=0; j&lt;COL; ++j) matrix[i][j]=='1' ? f[j]++ : f[j]=0;
             j = 0;
             while (j&lt;COL || !s.empty()) {
-                if (j&lt;COL&amp;&amp;(s.empty() || f[s.top()]&lt;=f[j]))
+                if (j&lt;COL &amp;&amp; (s.empty() || f[s.top()]&lt;=f[j])) {
                     s.push(j++);
-                else {
+                } else {
                     int h = f[s.top()]; s.pop();
                     int l = s.empty() ? 0 : s.top() + 1;
                     result = max(result, h*(j-l));
@@ -300,6 +339,154 @@ public:
             }
         }
         return result;
+    }
+};
+</code></pre>
+
+<h2 id="86-partition-list">86. Partition List</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/partition-list/description/">https://leetcode.com/problems/partition-list/description/</a></p>
+
+<p>思路：i的左边(不包括i)是已经处理完成的节点，j-&gt;next的右边（包括j）都是还未处理的节点，要分成三种情况，</p>
+
+<ul>
+<li>val小于x且i和j不指向同一个节点，则将j-&gt;next节点移动插入到i-&gt;next</li>
+<li>val小于x且i和j指向同一个节点，直接移动i和j到下一个节点即可。</li>
+<li>val大于x，则j移动到下一个节点。</li>
+</ul>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode dummy(INT_MAX), *i=&amp;dummy, *j=&amp;dummy; dummy.next = head;
+        while (j-&gt;next) {
+            if (j-&gt;next-&gt;val &lt; x &amp;&amp; i != j) {
+                auto t = j-&gt;next; j-&gt;next = j-&gt;next-&gt;next;
+                t-&gt;next = i-&gt;next; i-&gt;next = t; i = i-&gt;next;
+            } else if (j-&gt;next-&gt;val &lt; x &amp;&amp; i == j) {
+                i = i-&gt;next; j = j-&gt;next;
+            } else {
+                j = j-&gt;next;
+            }
+        }
+        return dummy.next;
+    }
+};
+</code></pre>
+
+<h2 id="87-scramble-string">87. Scramble String</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/scramble-string/description/">https://leetcode.com/problems/scramble-string/description/</a></p>
+
+<p>思路：分治，great按照位置2分成gr和eat后，gr和eat与s2的两部分刚好也能形成scramble，所以遍历位置，递归求解子串就可以了。由于可以反转，所以每个位置需要搜索两次，一次[0,i) [i,n), 一次[0, n-i) [n-i, n)。i1和i2表示s1和s2的起始位置，l表示子串的长度。</p>
+
+<p>中间t[26]是用来判断字符串的各个字符数是不是相等的，可以加速判断，否则会超时。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool isScramble(string s1, string s2) {
+        return dfs(s1, s2, 0, 0, s1.length());
+    }
+
+    bool dfs(const string &amp;s1, const string &amp;s2, int i1, int i2, int l) {
+        if (l==1 &amp;&amp; s1[i1]==s2[i2]) return true;
+        int t[26] = {0};
+        for (int i=0; i&lt;l ; i++) { t[s1[i1+i]-'a']++; t[s2[i2+i]-'a']--; }
+        for (int i=0; i&lt;26; i++) if (t[i] != 0) return false;
+        for (int i=1; i&lt;l ; i++) {
+            if (dfs(s1, s2, i1, i2    , i) &amp;&amp; dfs(s1, s2, i1+i, i2+i, l-i)) return true;
+            if (dfs(s1, s2, i1, i2+l-i, i) &amp;&amp; dfs(s1, s2, i1+i, i2  , l-i)) return true;
+        }
+        return false;
+    }
+};
+</code></pre>
+
+<h2 id="88-merge-sorted-array">88. Merge Sorted Array</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/merge-sorted-array/description/">https://leetcode.com/problems/merge-sorted-array/description/</a></p>
+
+<p>思路：从最后的数值往前merge，这样可以保证数据有地方存放数据，而且大小正合适。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    void merge(vector&lt;int&gt;&amp; nums1, int m, vector&lt;int&gt;&amp; nums2, int n) {
+        int i = m-1, j=n-1, k = nums1.size()-1;
+        while (i &gt;= 0 &amp;&amp; j &gt;= 0) {
+            if (nums1[i] &gt; nums2[j]) {
+                nums1[k--] = nums1[i--];
+            } else {
+                nums1[k--] = nums2[j--];
+            }
+        }
+        while (j &gt;= 0) nums1[k--] = nums2[j--];
+    }
+};
+</code></pre>
+
+<h2 id="89-gray-code">89. Gray Code</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/gray-code/description/">https://leetcode.com/problems/gray-code/description/</a></p>
+
+<p>思路：[] -&gt; [0, 1] -&gt; [00, 01, 11, 10] -&gt; [000, 001, 011, 010, 110, 111, 101, 100]</p>
+
+<p>把当前数组倒序并首位插入1，然后追加到result中。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; grayCode(int n) {
+        vector&lt;int&gt; r = {0};
+        for (int i=0; i&lt;n; i++) {
+            int j = r.size() - 1;
+            while (j &gt;= 0) r.push_back(r[j--] + (1&lt;&lt;i));
+        }
+        return move(r);
+    }
+};
+</code></pre>
+
+<h2 id="90-subsets-ii">90. Subsets II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/subsets-ii/description/">https://leetcode.com/problems/subsets-ii/description/</a></p>
+
+<p>思路：</p>
+
+<pre><code class="language-py">        1       2        2
+[-,-,-] [-,-,-] [-,-,-]  [-,-,-]
+                         [-,-,2] # 用先空后压的方式，保证对重复数字的去重。
+                [-,2,-]  [-,2,-] # 当前是2，且上一次压入的是2，剪枝
+                         [-,2,2]
+        [1,-,-] [1,-,-]  [1,-,-]
+                         [1,-,2] # 用先空后压的方式，保证对重复数字的去重。
+                [1,2,-]  [1,2,-] # 当前是2，且上一次压入的是2，剪枝
+                         [1,2,2]
+</code></pre>
+
+<p>通过 <code>path.back != nums[i]</code> 来保证一旦出现了一个重复字符，后续必须全部出现重复字符 即 <code>[a, a, a] [-, a, a] [-, -, a]</code>，从而避免类似<code>[a, -, -], [a, -, a] ...</code> 这类情况。保证子集的重复字符的唯一性。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; subsetsWithDup(vector&lt;int&gt;&amp; nums) {
+        vector&lt;vector&lt;int&gt;&gt; result; vector&lt;int&gt; path;
+        sort(begin(nums), end(nums));
+        dfs(nums, 0, path, result);
+        return move(result);
+    }
+
+    void dfs(vector&lt;int&gt; &amp;nums, int p, vector&lt;int&gt; &amp;path, vector&lt;vector&lt;int&gt;&gt; &amp;result) {
+        if (p == nums.size()) { result.push_back(path); return; }
+        if (path.empty() || path.back()!=nums[p]) dfs(nums, p+1, path, result);
+        path.push_back(nums[p]);
+        dfs(nums, p+1, path, result);
+        path.pop_back();
     }
 };
 </code></pre>
@@ -323,6 +510,37 @@ public:
             a = tmp;
         }
         return b;
+    }
+};
+</code></pre>
+
+<h2 id="92-reverse-linked-list-ii">92. Reverse Linked List II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/reverse-linked-list-ii/description/">https://leetcode.com/problems/reverse-linked-list-ii/description/</a></p>
+
+<p>思路：细节题，用p q标记截断位置，用a b c进行反转，最后将p q赋值为相应的值，注意结束状态时 a b c 的位置，是 <code>p-&gt;next = a; q-&gt;next = b</code> 而不是 <code>p-&gt;next = b; q-&gt;next = c</code>。因为每次反转后，都会移动a b c到下一个位置。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if (m == n) return head;
+        ListNode dummy(0), *p = &amp;dummy, *q; dummy.next = head;
+        for (int i=0; i&lt;m-1; i++) p = p-&gt;next; q = p-&gt;next;
+        ListNode *a=q,  *b=a-&gt;next, *c=b-&gt;next;
+        for (int i=0; i&lt;n-m; i++) {
+            b-&gt;next = a; a = b; b = c; 
+            if (c) c = c-&gt;next;
+        }
+        p-&gt;next = a; q-&gt;next = b;
+        return dummy.next;
     }
 };
 </code></pre>
@@ -358,6 +576,36 @@ public:
             if (n == 0) return ;
             h++;
         }
+    }
+};
+</code></pre>
+
+<h2 id="94-binary-tree-inorder-traversal">94. Binary Tree Inorder Traversal</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/binary-tree-inorder-traversal/description/">https://leetcode.com/problems/binary-tree-inorder-traversal/description/</a></p>
+
+<p>思路：先遍历完左子节点，压入当前值，用p记录右子节点。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) {
+        vector&lt;int&gt; result; if (root == NULL) return result;
+        stack&lt;TreeNode*&gt; s; TreeNode *p = root, *t;
+        while (!s.empty() || p != NULL) {
+            while (p) { s.push(p); p = p-&gt;left; }
+            t = s.top(); result.push_back(t-&gt;val); s.pop();
+            p = t-&gt;right;
+        }
+        return move(result);
     }
 };
 </code></pre>
