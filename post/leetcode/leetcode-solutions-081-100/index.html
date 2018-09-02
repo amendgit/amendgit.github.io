@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Leetcode Solutions 081 100 - amendgit`s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="amendgit" />
+  <meta name="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。
+
+" />
+
+  <meta name="keywords" content="amendgit, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.47.1" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-081-100/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Leetcode Solutions 081 100" />
+<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-081-100/" /><meta property="article:published_time" content="2018-08-21T14:21:12&#43;08:00"/>
+<meta property="article:modified_time" content="2018-08-21T14:21:12&#43;08:00"/>
+<meta itemprop="name" content="Leetcode Solutions 081 100">
+<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。
+
+">
+
+
+<meta itemprop="datePublished" content="2018-08-21T14:21:12&#43;08:00" />
+<meta itemprop="dateModified" content="2018-08-21T14:21:12&#43;08:00" />
+<meta itemprop="wordCount" content="5715">
+
+
+
+<meta itemprop="keywords" content="leetcode," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode Solutions 081 100"/>
+<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">amendgit&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">amendgit&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Leetcode Solutions 081 100</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-21 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#81-search-in-rotated-sorted-array-ii">81. Search in Rotated Sorted Array II</a></li>
+<li><a href="#82-remove-duplicates-from-sorted-list-ii">82. Remove Duplicates from Sorted List II</a></li>
+<li><a href="#83-remove-duplicates-from-sorted-list">83. Remove Duplicates from Sorted List</a></li>
+<li><a href="#84-largest-rectangle-in-histogram">84. Largest Rectangle in Histogram</a></li>
+<li><a href="#85-maximal-rectangle">85. Maximal Rectangle</a></li>
+<li><a href="#86-partition-list">86. Partition List</a></li>
+<li><a href="#87-scramble-string">87. Scramble String</a></li>
+<li><a href="#88-merge-sorted-array">88. Merge Sorted Array</a></li>
+<li><a href="#89-gray-code">89. Gray Code</a></li>
+<li><a href="#90-subsets-ii">90. Subsets II</a></li>
+<li><a href="#91-decode-ways">91. Decode Ways</a></li>
+<li><a href="#92-reverse-linked-list-ii">92. Reverse Linked List II</a></li>
+<li><a href="#93-restore-ip-addresses">93. Restore IP Addresses</a></li>
+<li><a href="#94-binary-tree-inorder-traversal">94. Binary Tree Inorder Traversal</a></li>
+<li><a href="#95-unique-binary-search-trees-ii">95. Unique Binary Search Trees II</a></li>
+<li><a href="#96-unique-binary-search-trees">96. Unique Binary Search Trees</a></li>
+<li><a href="#97-interleaving-string">97. Interleaving String</a></li>
+<li><a href="#98-validate-binary-search-tree">98. Validate Binary Search Tree</a></li>
+<li><a href="#99-recover-binary-search-tree">99. Recover Binary Search Tree</a></li>
+<li><a href="#100-same-tree">100. Same Tree</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。</p>
+
+<p></p>
+
+<h2 id="81-search-in-rotated-sorted-array-ii">81. Search in Rotated Sorted Array II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/search-in-rotated-sorted-array-ii/description/">https://leetcode.com/problems/search-in-rotated-sorted-array-ii/description/</a></p>
+
+<p>思路：</p>
+
+<p>1 第一个if保证当发现target时，准确返回
+2 第二个if保证 lo mi hi 所在的数据各不相等，后面就可以用 <code>nums[mi] &lt; nums[lo]</code> 判断mi在pivot后半部分，<code>nums[mi] &gt;= nums[lo]</code> 判断mi在pivot的前半部分。同事，由于第一个if，可以保证 <code>nums[lo] nums[hi]</code> 不等于 <code>target</code>，可以安全执行<code>lo++ hi--</code>。
+3 当target &gt; nums[mi]时，正常是向后搜索，except (mi处于pivot的后半部分 and target应处于pivot的前半部分)。
+4 当target &lt; nums[mi]时，正常是向前搜索，except (mi处于pivot的前半部分 and target应处于pivot的后半部分)。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool search(vector&lt;int&gt;&amp; nums, int target) {
+        int lo=0, hi=nums.size();
+        while (lo &lt; hi) {
+            int mi = (lo + hi) / 2;
+            if (nums[mi] == target) {
+                return true;
+            } else if (nums[lo] == nums[mi] &amp;&amp; nums[mi] == nums[hi-1]) {
+                ++lo; --hi;
+            } else if (target &gt; nums[mi]) {
+                if (target &gt;= nums[lo] &amp;&amp; nums[mi] &lt; nums[lo]) hi = mi; else lo = mi+1;
+            } else if (target &lt; nums[mi]) {
+                if (target &lt; nums[lo] &amp;&amp; nums[mi] &gt;= nums[lo]) lo = mi+1; else hi = mi;
+            }
+        }
+        return false;
+    }
+};
+</code></pre>
+
+<h2 id="82-remove-duplicates-from-sorted-list-ii">82. Remove Duplicates from Sorted List II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description/">https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description/</a></p>
+
+<p>思路：定义一个全局long类型变量n，如果n和当前不相等则追加，如果发现i和i-&gt;next重复，则更新n。注意j要指向结果的最后一个数字，否则最后截断时，会多出来额外的数字。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode dummy(0); dummy.next = head; 
+        auto j = &amp;dummy; long n = LONG_MAX;
+        for (auto i=head; i; i=i-&gt;next) {
+            if (i-&gt;next &amp;&amp; i-&gt;val==i-&gt;next-&gt;val) { 
+                n = i-&gt;val; 
+            } else if (i-&gt;val != n) { 
+                j = j-&gt;next; j-&gt;val = i-&gt;val; 
+            }
+        }
+        auto p = j-&gt;next; while (p) { auto t=p; p=p-&gt;next; delete t; }
+        j-&gt;next = NULL;
+        return dummy.next;
+    }
+};
+</code></pre>
+
+<h2 id="83-remove-duplicates-from-sorted-list">83. Remove Duplicates from Sorted List</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list/description/">https://leetcode.com/problems/remove-duplicates-from-sorted-list/description/</a></p>
+
+<p>思路：比较简单，判断当前和下一个数据是否相等，相等的话移除下一个节点就可以了。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode *p = head;
+        while (p) {
+            if (p-&gt;next &amp;&amp; p-&gt;val == p-&gt;next-&gt;val) {
+                auto t = p-&gt;next;
+                p-&gt;next = p-&gt;next-&gt;next;
+                delete t;
+            } else {
+                p = p-&gt;next;
+            }
+        }
+        return head;
+    }
+};
+</code></pre>
+
+<h2 id="84-largest-rectangle-in-histogram">84. Largest Rectangle in Histogram</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/largest-rectangle-in-histogram/">https://leetcode.com/problems/largest-rectangle-in-histogram/</a></p>
+
+<p>思路：使用栈，遍历数组，如果比top大则压入并继续遍历，如果比top小，则弹出top计算面积直到top比当前元素小时为止。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int largestRectangleArea(vector&lt;int&gt;&amp; heights) {
+        stack&lt;int&gt; s; int i=0; int result=0, len=heights.size();
+        while (i&lt;len || !s.empty()) {
+            if (i&lt;len &amp;&amp; (s.empty()||heights[s.top()]&lt;=heights[i])) s.push(i++);
+            else {
+                int h = heights[s.top()]; s.pop();
+                int l = s.empty() ? 0 : s.top()+1;
+                result = max(result, (i-l)*h);
+            }
+        }
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="85-maximal-rectangle">85. Maximal Rectangle</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/maximal-rectangle/">https://leetcode.com/problems/maximal-rectangle/</a></p>
+
+<p>思路：接上一题，按行遍历，每行用数组f存储每列1的高度，然后计算最大直方图面积。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int maximalRectangle(vector&lt;vector&lt;char&gt;&gt;&amp; matrix) {
+        if (matrix.empty()) return 0;
+        const int ROW=matrix.size(), COL=matrix[0].size();
+        vector&lt;int&gt; f(COL, 0); int j=0, result=0; stack&lt;int&gt; s;
+        for (int i=0; i&lt;ROW; ++i) {
+            for (j=0; j&lt;COL; ++j) matrix[i][j]=='1' ? f[j]++ : f[j]=0;
+            j = 0;
+            while (j&lt;COL || !s.empty()) {
+                if (j&lt;COL &amp;&amp; (s.empty() || f[s.top()]&lt;=f[j])) {
+                    s.push(j++);
+                } else {
+                    int h = f[s.top()]; s.pop();
+                    int l = s.empty() ? 0 : s.top() + 1;
+                    result = max(result, h*(j-l));
+                }
+            }
+        }
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="86-partition-list">86. Partition List</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/partition-list/description/">https://leetcode.com/problems/partition-list/description/</a></p>
+
+<p>思路：i的左边(不包括i)是已经处理完成的节点，j-&gt;next的右边（包括j）都是还未处理的节点，要分成三种情况，</p>
+
+<ul>
+<li>val小于x且i和j不指向同一个节点，则将j-&gt;next节点移动插入到i-&gt;next</li>
+<li>val小于x且i和j指向同一个节点，直接移动i和j到下一个节点即可。</li>
+<li>val大于x，则j移动到下一个节点。</li>
+</ul>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode dummy(INT_MAX), *i=&amp;dummy, *j=&amp;dummy; dummy.next = head;
+        while (j-&gt;next) {
+            if (j-&gt;next-&gt;val &lt; x &amp;&amp; i != j) {
+                auto t = j-&gt;next; j-&gt;next = j-&gt;next-&gt;next;
+                t-&gt;next = i-&gt;next; i-&gt;next = t; i = i-&gt;next;
+            } else if (j-&gt;next-&gt;val &lt; x &amp;&amp; i == j) {
+                i = i-&gt;next; j = j-&gt;next;
+            } else {
+                j = j-&gt;next;
+            }
+        }
+        return dummy.next;
+    }
+};
+</code></pre>
+
+<h2 id="87-scramble-string">87. Scramble String</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/scramble-string/description/">https://leetcode.com/problems/scramble-string/description/</a></p>
+
+<p>思路：分治，great按照位置2分成gr和eat后，gr和eat与s2的两部分刚好也能形成scramble，所以遍历位置，递归求解子串就可以了。由于可以反转，所以每个位置需要搜索两次，一次[0,i) [i,n), 一次[0, n-i) [n-i, n)。i1和i2表示s1和s2的起始位置，l表示子串的长度。</p>
+
+<p>中间t[26]是用来判断字符串的各个字符数是不是相等的，可以加速判断，否则会超时。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool isScramble(string s1, string s2) {
+        return dfs(s1, s2, 0, 0, s1.length());
+    }
+
+    bool dfs(const string &amp;s1, const string &amp;s2, int i1, int i2, int l) {
+        if (l==1 &amp;&amp; s1[i1]==s2[i2]) return true;
+        int t[26] = {0};
+        for (int i=0; i&lt;l ; i++) { t[s1[i1+i]-'a']++; t[s2[i2+i]-'a']--; }
+        for (int i=0; i&lt;26; i++) if (t[i] != 0) return false;
+        for (int i=1; i&lt;l ; i++) {
+            if (dfs(s1, s2, i1, i2    , i) &amp;&amp; dfs(s1, s2, i1+i, i2+i, l-i)) return true;
+            if (dfs(s1, s2, i1, i2+l-i, i) &amp;&amp; dfs(s1, s2, i1+i, i2  , l-i)) return true;
+        }
+        return false;
+    }
+};
+</code></pre>
+
+<h2 id="88-merge-sorted-array">88. Merge Sorted Array</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/merge-sorted-array/description/">https://leetcode.com/problems/merge-sorted-array/description/</a></p>
+
+<p>思路：从最后的数值往前merge，这样可以保证数据有地方存放数据，而且大小正合适。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    void merge(vector&lt;int&gt;&amp; nums1, int m, vector&lt;int&gt;&amp; nums2, int n) {
+        int i = m-1, j=n-1, k = nums1.size()-1;
+        while (i &gt;= 0 &amp;&amp; j &gt;= 0) {
+            if (nums1[i] &gt; nums2[j]) {
+                nums1[k--] = nums1[i--];
+            } else {
+                nums1[k--] = nums2[j--];
+            }
+        }
+        while (j &gt;= 0) nums1[k--] = nums2[j--];
+    }
+};
+</code></pre>
+
+<h2 id="89-gray-code">89. Gray Code</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/gray-code/description/">https://leetcode.com/problems/gray-code/description/</a></p>
+
+<p>思路：[] -&gt; [0, 1] -&gt; [00, 01, 11, 10] -&gt; [000, 001, 011, 010, 110, 111, 101, 100]</p>
+
+<p>把当前数组倒序并首位插入1，然后追加到result中。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; grayCode(int n) {
+        vector&lt;int&gt; r = {0};
+        for (int i=0; i&lt;n; i++) {
+            int j = r.size() - 1;
+            while (j &gt;= 0) r.push_back(r[j--] + (1&lt;&lt;i));
+        }
+        return move(r);
+    }
+};
+</code></pre>
+
+<h2 id="90-subsets-ii">90. Subsets II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/subsets-ii/description/">https://leetcode.com/problems/subsets-ii/description/</a></p>
+
+<p>思路：</p>
+
+<pre><code class="language-py">        1       2        2
+[-,-,-] [-,-,-] [-,-,-]  [-,-,-]
+                         [-,-,2] # 用先空后压的方式，保证对重复数字的去重。
+                [-,2,-]  [-,2,-] # 当前是2，且上一次压入的是2，剪枝
+                         [-,2,2]
+        [1,-,-] [1,-,-]  [1,-,-]
+                         [1,-,2] # 用先空后压的方式，保证对重复数字的去重。
+                [1,2,-]  [1,2,-] # 当前是2，且上一次压入的是2，剪枝
+                         [1,2,2]
+</code></pre>
+
+<p>通过 <code>path.back != nums[i]</code> 来保证一旦出现了一个重复字符，后续必须全部出现重复字符 即 <code>[a, a, a] [-, a, a] [-, -, a]</code>，从而避免类似<code>[a, -, -], [a, -, a] ...</code> 这类情况。保证子集的重复字符的唯一性。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; subsetsWithDup(vector&lt;int&gt;&amp; nums) {
+        vector&lt;vector&lt;int&gt;&gt; result; vector&lt;int&gt; path;
+        sort(begin(nums), end(nums));
+        dfs(nums, 0, path, result);
+        return move(result);
+    }
+
+    void dfs(vector&lt;int&gt; &amp;nums, int p, vector&lt;int&gt; &amp;path, vector&lt;vector&lt;int&gt;&gt; &amp;result) {
+        if (p == nums.size()) { result.push_back(path); return; }
+        if (path.empty() || path.back()!=nums[p]) dfs(nums, p+1, path, result);
+        path.push_back(nums[p]);
+        dfs(nums, p+1, path, result);
+        path.pop_back();
+    }
+};
+</code></pre>
+
+<h2 id="91-decode-ways">91. Decode Ways</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/decode-ways/">https://leetcode.com/problems/decode-ways/</a></p>
+
+<p>思路：f[i] = f[i-1] + f[i-2]，也可以写成c = b + a，只要s[i]不为0，b就可以和s[i]组合。而a则需要s[i-1]s[i]组成的数字小于26。
+* 使用a b b的形式，而不使用a b c的形式，可以避免判断返回b还是c。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int numDecodings(string s) {
+        if (s.empty() || s[0] == '0') return 0; 
+        int a=1, b=1;
+        for (int i=1; i&lt;s.length(); i++) {
+            int tmp = b;
+            if (s[i] == '0')                             b = 0;
+            if (s[i-1]=='1' || (s[i-1]=='2'&amp;&amp;s[i]&lt;='6')) b += a;
+            a = tmp;
+        }
+        return b;
+    }
+};
+</code></pre>
+
+<h2 id="92-reverse-linked-list-ii">92. Reverse Linked List II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/reverse-linked-list-ii/description/">https://leetcode.com/problems/reverse-linked-list-ii/description/</a></p>
+
+<p>思路：细节题，用p q标记截断位置，用a b c进行反转，最后将p q赋值为相应的值，注意结束状态时 a b c 的位置，是 <code>p-&gt;next = a; q-&gt;next = b</code> 而不是 <code>p-&gt;next = b; q-&gt;next = c</code>。因为每次反转后，都会移动a b c到下一个位置。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if (m == n) return head;
+        ListNode dummy(0), *p = &amp;dummy, *q; dummy.next = head;
+        for (int i=0; i&lt;m-1; i++) p = p-&gt;next; q = p-&gt;next;
+        ListNode *a=q,  *b=a-&gt;next, *c=b-&gt;next;
+        for (int i=0; i&lt;n-m; i++) {
+            b-&gt;next = a; a = b; b = c; 
+            if (c) c = c-&gt;next;
+        }
+        p-&gt;next = a; q-&gt;next = b;
+        return dummy.next;
+    }
+};
+</code></pre>
+
+<h2 id="93-restore-ip-addresses">93. Restore IP Addresses</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/restore-ip-addresses/">https://leetcode.com/problems/restore-ip-addresses/</a></p>
+
+<p>思路：深搜，具体看代码。需要注意 1.每个component必须小于255 2.component连续两次出现0则无效 3.剪枝：当剩余的字符数比剩余的component最大可能长度还多则无效，可以防止非常长的字符串导致搜索变慢的情况。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;string&gt; restoreIpAddresses(string&amp; s) {
+        vector&lt;string&gt; result, ip;
+        dfs(s, ip, 0, result);
+        return move(result);
+    }
+    
+    void dfs(string&amp; s, vector&lt;string&gt;&amp; ip, int l, vector&lt;string&gt;&amp; result) {
+        int n=0, h=l, len=s.length();
+        if (l==len || (len-l)&gt;(4-ip.size())*3) return ;
+        if (ip.size() == 3) {
+            while (h&lt;len) { n = n*10 + s[h++] - '0'; if (n == 0) break; }
+            if (h!=len || n&gt;255) return ;
+            string ss; for (int i=0; i&lt;3; i++) ss.append(ip[i]).push_back('.'); ss.append(s.substr(l));
+            result.push_back(move(ss));
+            return ;
+        }
+        while (h &lt; len) {
+            n = n * 10 + s[h] - '0';
+            if (n &gt; 255) return ;
+            ip.push_back(s.substr(l, h-l+1)); dfs(s, ip, h+1, result); ip.pop_back();
+            if (n == 0) return ;
+            h++;
+        }
+    }
+};
+</code></pre>
+
+<h2 id="94-binary-tree-inorder-traversal">94. Binary Tree Inorder Traversal</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/binary-tree-inorder-traversal/description/">https://leetcode.com/problems/binary-tree-inorder-traversal/description/</a></p>
+
+<p>递归遍历</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) {
+        vector&lt;int&gt; result; if (root == NULL) return result;
+        inorderTraversal(root, result);
+        return move(result);
+    }
+    
+    void inorderTraversal(TreeNode *node, vector&lt;int&gt; &amp;result) {
+        if (!node) return;
+        inorderTraversal(node-&gt;left , result);
+        result.push_back(node-&gt;val);
+        inorderTraversal(node-&gt;right, result);
+    }
+};
+</code></pre>
+
+<p>循环遍历，利用栈，先遍历完左子节点，压入当前值，用p记录右子节点。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) {
+        vector&lt;int&gt; result; if (root == NULL) return result;
+        stack&lt;TreeNode*&gt; s; TreeNode *p = root, *t;
+        while (!s.empty() || p != NULL) {
+            while (p) { s.push(p); p = p-&gt;left; }
+            t = s.top(); result.push_back(t-&gt;val); s.pop();
+            p = t-&gt;right;
+        }
+        return move(result);
+    }
+};
+</code></pre>
+
+<p>Morris遍历，参考：<a href="https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/">https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/</a></p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) {
+        vector&lt;int&gt; result; 
+        morrisTravesal(root, result);
+        return move(result);
+    }
+    
+    void morrisTravesal(TreeNode *root, vector&lt;int&gt; &amp;result) {
+        TreeNode *prev, *curr = root;
+        while (curr) {
+            if (!curr-&gt;left) {      // curr's left is null, so it can be push to the result.
+                result.push_back(curr-&gt;val);
+                curr = curr-&gt;right;
+            } else {               
+                // before curr go to left, find a way back, or we back from a rightmost index.
+                prev = curr-&gt;left; while (prev-&gt;right &amp;&amp; prev-&gt;right != curr) prev = prev-&gt;right;
+                if (!prev-&gt;right) { // make a index form the rightmost to curr.
+                    prev-&gt;right = curr; 
+                    curr = curr-&gt;left; 
+                } else {            // prev-&gt;right == curr, means curr was just backed from a rightmost, recover the index.
+                    result.push_back(curr-&gt;val);
+                    prev-&gt;right = NULL;
+                    curr = curr-&gt;right;
+                }
+            }
+        }
+    }
+};
+</code></pre>
+
+<h2 id="95-unique-binary-search-trees-ii">95. Unique Binary Search Trees II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/unique-binary-search-trees-ii/description/">https://leetcode.com/problems/unique-binary-search-trees-ii/description/</a></p>
+
+<p>思路：分别生成左右子树，然后和当前节点进行组合，left * 1 * right，这里利用了题目没有说明不能复用节点的这一点。所以，其实很多结果的左右子树是重复利用的，这样做其实有瑕疵。应该还有一种做法是，枚举生成左右子树的数组，然后每次生成新树时，进行拷贝。最后根据数组生成树才对。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;TreeNode*&gt; generateTrees(int n) {
+        vector&lt;TreeNode*&gt; result; if (n == 0) return result;
+        vector&lt;int&gt; nums; for (int i=1; i&lt;=n; i++) nums.push_back(i);
+        dfs(nums, 0, n, result);
+        return move(result);
+    }
+
+    void dfs(const vector&lt;int&gt; &amp;nums, int begin, int len, vector&lt;TreeNode*&gt; &amp;result) {
+        if (len == 0) { result.push_back(new TreeNode(      0    )); return; }
+        if (len == 1) { result.push_back(new TreeNode(nums[begin])); return; }
+        for (int i=0; i&lt;len; i++) {
+            vector&lt;TreeNode*&gt; left, right;
+            dfs(nums, begin    , i      , left );
+            dfs(nums, begin+i+1, len-1-i, right);
+            for (auto l : left) for (auto r : right) {
+                auto n = new TreeNode(nums[begin+i]);
+                (l-&gt;val) &amp;&amp; (n-&gt;left =l); 
+                (r-&gt;val) &amp;&amp; (n-&gt;right=r);
+                result.push_back(n);
+            }
+        }
+    }
+};
+</code></pre>
+
+<h2 id="96-unique-binary-search-trees">96. Unique Binary Search Trees</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/unique-binary-search-trees/description/">https://leetcode.com/problems/unique-binary-search-trees/description/</a></p>
+
+<p>思路：一遍过，感觉越来越顺手了，f[n]表示第n个数的BST数，已知<code>f[0] == 1, f[1] == 1, f[2] == 3</code>, 推 <code>f[3] = f[0]*f[2] + f[1]*f[1] + f[2]*f[0]</code>，再推 <code>f[4] = f[0]*f[3] + f[1]*f[2] + f[2]*f[1] + f[3]*f[0]</code>。就是分别把左子树的所有可能乘以右子树的所有可能，再遍历左子树和右子树的各种节点数组合即可。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int numTrees(int n) {
+        static vector&lt;int&gt; f = {1, 1, 2};
+        for (int i=f.size(); i&lt;=n; i++) {
+            f.push_back(0); 
+            for (int j=0; j&lt;i; j++) f.back() += f[j]*f[i-1-j];
+        }
+        return f[n];
+    }
+};
+</code></pre>
+
+<h2 id="97-interleaving-string">97. Interleaving String</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/interleaving-string/description/">https://leetcode.com/problems/interleaving-string/description/</a></p>
+
+<p>思路：动态规划，f[i][j]表示s1[i,len1]和s2[j,len2]能否interleave字符串s3[i+j,len3]。所以，<code>f[i][j] = (f[i+1][j]&amp;&amp;s1[i]==s3[i+j]) || (f[i][j+1]&amp;&amp;s2[j]==s3[i+j])</code>。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool isInterleave(string&amp; s1, string&amp; s2, string&amp; s3) {
+        const size_t len1=s1.length(), len2=s2.length(), len3=s3.length();
+        if (len1+len2 != len3) return false;
+        vector&lt;vector&lt;int&gt;&gt; f(len1+1, vector&lt;int&gt;(len2+1, 0));
+        f[len1][len2] = 1;
+        for (int i=len1; i&gt;=0; --i) for (int j=len2; j&gt;=0; --j) {
+            int k = i + j;
+            f[i][j] = (i&lt;len1&amp;&amp;s1[i]==s3[k]&amp;&amp;f[i+1][j]) || (j&lt;len2&amp;&amp;s2[j]==s3[k]&amp;&amp;f[i][j+1]) || f[i][j];
+        }
+        return f[0][0];
+    }
+};
+</code></pre>
+
+<h2 id="98-validate-binary-search-tree">98. Validate Binary Search Tree</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/validate-binary-search-tree/description/">https://leetcode.com/problems/validate-binary-search-tree/description/</a></p>
+
+<p>思路：需要每个节点满足 L &lt; P &lt; R，同时要注意R子树中的最小节点需要比P大，L子树中的最大节点需要比P小。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if (root == nullptr) return true;
+        int min = INT_MAX, max = INT_MIN;
+        return dfs(root, min, max);
+    }
+    
+    bool dfs(TreeNode *node, int&amp; min, int&amp; max) {
+        int lmax=INT_MIN, lmin=INT_MAX, rmax=INT_MIN, rmin=INT_MAX; bool result;
+        if (node-&gt;left) {
+            result = node-&gt;left-&gt;val &lt; node-&gt;val &amp;&amp; dfs(node-&gt;left, lmin, lmax);
+            if (!result || lmax &gt;= node-&gt;val) return false;
+        }
+        if (node-&gt;right) {
+            result = node-&gt;right-&gt;val &gt; node-&gt;val &amp;&amp; dfs(node-&gt;right, rmin, rmax);
+            if (!result || rmin &lt;= node-&gt;val) return false;
+        }
+        max = std::max(node-&gt;val, rmax); 
+        min = std::min(node-&gt;val, lmin);
+        return true;
+    }
+};
+</code></pre>
+
+<h2 id="99-recover-binary-search-tree">99. Recover Binary Search Tree</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/recover-binary-search-tree/description/">https://leetcode.com/problems/recover-binary-search-tree/description/</a></p>
+
+<p>思路：用morrisTraversal进行遍历，然后找出节点中的逆序，区分相邻和不相邻的情况，再交换回来。下面是我能想到的最简洁的方式了。</p>
+
+<p>当节点出现逆序时，
+    - 如果是相邻的情况，那么prev是第一个错误节点，curr是第二个错误节点。
+    - 如果是不相邻的情况，那么第一次逆序prev是第一个错误节点，第二次逆序curr是第二个错误节点。通过first是不是为空来判断是第一次还是第二次逆序。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void recoverTree(TreeNode* root) {
+        TreeNode *prev = NULL, *first = NULL, *second = NULL;
+        morrisTraversal(root, [&amp;](TreeNode *curr) {
+            if (prev &amp;&amp; prev-&gt;val &gt; curr-&gt;val) {
+                if (!first) first  = prev; 
+                second = curr;
+            }
+            prev = curr;
+        });
+        swap(first-&gt;val, second-&gt;val);
+    }
+    
+    void morrisTraversal(TreeNode *root, function&lt;void(TreeNode*)&gt; iterator) {
+        TreeNode *prev, *curr = root;
+        while (curr) {
+            if (!curr-&gt;left) {
+                iterator(curr);
+                curr = curr-&gt;right;
+            } else {
+                prev = curr-&gt;left;
+                while (prev-&gt;right &amp;&amp; prev-&gt;right != curr) prev = prev-&gt;right;
+                if (!prev-&gt;right) {
+                    prev-&gt;right = curr;
+                    curr = curr-&gt;left;
+                } else {
+                    iterator(curr);
+                    prev-&gt;right = NULL;
+                    curr = curr-&gt;right;
+                }
+            }   
+        }
+    }
+};
+</code></pre>
+
+<h2 id="100-same-tree">100. Same Tree</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/same-tree/description/">https://leetcode.com/problems/same-tree/description/</a></p>
+
+<p>思路1：迭代的方式，注意这一行 <code>if (!a-&gt;left  != !b-&gt;left ) return false;</code>，直接比较会导致比较两者的指针<code>a-&gt;left</code>和<code>b-&gt;left</code>。所以，先用<code>!</code>转换为bool值再比较。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* a, TreeNode* b) {
+        if (!a &amp;&amp; !b) return true;
+        if (!a || !b) return false;
+        queue&lt;TreeNode*&gt; p({a}), q({b});
+        while (!p.empty() &amp;&amp; !q.empty()) {
+            a = p.front(); b = q.front();
+            if (a-&gt;val != b-&gt;val) return false;
+            p.pop(); q.pop();
+            if (!a-&gt;left  != !b-&gt;left ) return false;
+            if (a-&gt;left ) { p.push(a-&gt;left ); q.push(b-&gt;left ); }
+            if (!a-&gt;right != !b-&gt;right) return false;
+            if (a-&gt;right) { p.push(a-&gt;right); q.push(b-&gt;right); }
+        }
+        return true;
+    }
+};
+</code></pre>
+
+<p>思路2：递归求解，简单多了。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* a, TreeNode* b) {
+        if (!a &amp;&amp; !b) return true;
+        if (!a || !b) return false;
+        if (a-&gt;val != b-&gt;val) return false;
+        bool left  = isSameTree(a-&gt;left , b-&gt;left );
+        bool right = isSameTree(a-&gt;right, b-&gt;right);
+        return left &amp;&amp; right;
+    }
+};
+</code></pre>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">amendgit</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-08-21</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/leetcode/">leetcode</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/leetcode/leetcode-solutions/">
+            <span class="next-text nav-default">Leetcode Solutions Index</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:shijian0912@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">amendgit</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Leetcode Solutions Others - amendgit`s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="amendgit" />
+  <meta name="description" content="189. Rotate Array link: https://leetcode.com/problems/rotate-array/description/
+class Solution { public: void rotate(vector&amp;lt;int&amp;gt;&amp;amp; nums, int k) { int len = nums.size(); vector&amp;lt;int&amp;gt; tmp(len, 0); for (int i=0, j=k%len; i&amp;lt;len; i&#43;&#43;, j=(i&#43;k)%len) tmp[j] = nums[i]; nums.swap(tmp); } };  212. Word Search II link: https://leetcode.com/problems/word-search-ii/description/
+class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNode() { flag = 0; fill_n(next, 26, nullptr); } ~TrieNode() { for (auto p : next) if (p) delete p; } }; vector&amp;lt;string&amp;gt; findWords(vector&amp;lt;vector&amp;lt;char&amp;gt;&amp;gt;&amp;amp; board, vector&amp;lt;string&amp;gt;&amp;amp; words) { if (board." />
+
+  <meta name="keywords" content="amendgit, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.47.1" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-others/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Leetcode Solutions Others" />
+<meta property="og:description" content="189. Rotate Array link: https://leetcode.com/problems/rotate-array/description/
+class Solution { public: void rotate(vector&lt;int&gt;&amp; nums, int k) { int len = nums.size(); vector&lt;int&gt; tmp(len, 0); for (int i=0, j=k%len; i&lt;len; i&#43;&#43;, j=(i&#43;k)%len) tmp[j] = nums[i]; nums.swap(tmp); } };  212. Word Search II link: https://leetcode.com/problems/word-search-ii/description/
+class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNode() { flag = 0; fill_n(next, 26, nullptr); } ~TrieNode() { for (auto p : next) if (p) delete p; } }; vector&lt;string&gt; findWords(vector&lt;vector&lt;char&gt;&gt;&amp; board, vector&lt;string&gt;&amp; words) { if (board." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-others/" /><meta property="article:published_time" content="2018-02-02T09:49:48&#43;08:00"/>
+<meta property="article:modified_time" content="2018-02-02T09:49:48&#43;08:00"/>
+<meta itemprop="name" content="Leetcode Solutions Others">
+<meta itemprop="description" content="189. Rotate Array link: https://leetcode.com/problems/rotate-array/description/
+class Solution { public: void rotate(vector&lt;int&gt;&amp; nums, int k) { int len = nums.size(); vector&lt;int&gt; tmp(len, 0); for (int i=0, j=k%len; i&lt;len; i&#43;&#43;, j=(i&#43;k)%len) tmp[j] = nums[i]; nums.swap(tmp); } };  212. Word Search II link: https://leetcode.com/problems/word-search-ii/description/
+class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNode() { flag = 0; fill_n(next, 26, nullptr); } ~TrieNode() { for (auto p : next) if (p) delete p; } }; vector&lt;string&gt; findWords(vector&lt;vector&lt;char&gt;&gt;&amp; board, vector&lt;string&gt;&amp; words) { if (board.">
+
+
+<meta itemprop="datePublished" content="2018-02-02T09:49:48&#43;08:00" />
+<meta itemprop="dateModified" content="2018-02-02T09:49:48&#43;08:00" />
+<meta itemprop="wordCount" content="1359">
+
+
+
+<meta itemprop="keywords" content="leetcode," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode Solutions Others"/>
+<meta name="twitter:description" content="189. Rotate Array link: https://leetcode.com/problems/rotate-array/description/
+class Solution { public: void rotate(vector&lt;int&gt;&amp; nums, int k) { int len = nums.size(); vector&lt;int&gt; tmp(len, 0); for (int i=0, j=k%len; i&lt;len; i&#43;&#43;, j=(i&#43;k)%len) tmp[j] = nums[i]; nums.swap(tmp); } };  212. Word Search II link: https://leetcode.com/problems/word-search-ii/description/
+class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNode() { flag = 0; fill_n(next, 26, nullptr); } ~TrieNode() { for (auto p : next) if (p) delete p; } }; vector&lt;string&gt; findWords(vector&lt;vector&lt;char&gt;&gt;&amp; board, vector&lt;string&gt;&amp; words) { if (board."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">amendgit&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">amendgit&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Leetcode Solutions Others</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-02-02 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#189-rotate-array">189. Rotate Array</a></li>
+<li><a href="#212-word-search-ii">212. Word Search II</a></li>
+<li><a href="#218-the-skyline-problem">218. The Skyline Problem</a></li>
+<li><a href="#233-number-of-digit-one">233. Number of Digit One</a></li>
+<li><a href="#295-find-median-from-data-stream">295. Find Median from Data Stream</a></li>
+<li><a href="#304-range-sum-query-2d-immutable">304. Range Sum Query 2D - Immutable</a></li>
+<li><a href="#307-range-sum-query-mutable">307. Range Sum Query - Mutable</a></li>
+<li><a href="#321-create-maximum-number">321. Create Maximum Number</a></li>
+<li><a href="#324-wiggle-sort-ii">324. Wiggle Sort II</a></li>
+<li><a href="#552-student-attendance-record-ii">552. Student Attendance Record II</a></li>
+<li><a href="#554-brick-wall">554. Brick Wall</a></li>
+<li><a href="#556-next-greater-element-iii">556. Next Greater Element III</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="189-rotate-array">189. Rotate Array</h2>
+
+<p>link: <a href="https://leetcode.com/problems/rotate-array/description/">https://leetcode.com/problems/rotate-array/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    void rotate(vector&lt;int&gt;&amp; nums, int k) {
+        int len = nums.size();
+        vector&lt;int&gt; tmp(len, 0);
+        for (int i=0, j=k%len; i&lt;len; i++, j=(i+k)%len) tmp[j] = nums[i];
+        nums.swap(tmp);
+    }
+};
+</code></pre>
+
+<h2 id="212-word-search-ii">212. Word Search II</h2>
+
+<p>link: <a href="https://leetcode.com/problems/word-search-ii/description/">https://leetcode.com/problems/word-search-ii/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    struct TrieNode {
+        char flag; TrieNode* next[26];
+        TrieNode() { flag = 0; fill_n(next, 26, nullptr); }
+        ~TrieNode() { for (auto p : next) if (p) delete p; }
+    };
+    
+    vector&lt;string&gt; findWords(vector&lt;vector&lt;char&gt;&gt;&amp; board, vector&lt;string&gt;&amp; words) {
+        if (board.empty()) return vector&lt;string&gt;();
+        TrieNode *root = buildTrie(words);
+        vector&lt;string&gt; result; string word;
+        for (int x=0; x&lt;board.size(); x++) for (int y=0; y&lt;board[0].size(); y++)
+            DFS(board, x, y, root, word, result);
+        delete root;
+        return result;
+    }
+    
+    void DFS(vector&lt;vector&lt;char&gt;&gt;&amp; board, int x, int y, TrieNode* node, string&amp; word, vector&lt;string&gt;&amp; result) {
+        if (board[x][y] == '*') return ;
+        char c = board[x][y]; char index = c - 'a';
+        node = node-&gt;next[index]; 
+        if (node == nullptr) return ;
+        board[x][y] = '*'; word.push_back(c);
+        if (node-&gt;flag == 1) { result.push_back(word); node-&gt;flag = 0; };
+        if (x-1 &gt;= 0)              DFS(board, x-1, y,   node, word, result);
+        if (x+1 &lt; board.size())    DFS(board, x+1, y,   node, word, result);
+        if (y-1 &gt;= 0)              DFS(board, x,   y-1, node, word, result);
+        if (y+1 &lt; board[0].size()) DFS(board, x,   y+1, node, word, result);
+        board[x][y] = c;   word.pop_back();
+        return ; 
+    }
+    
+    TrieNode *buildTrie(vector&lt;string&gt;&amp; words) {
+        TrieNode *root = new TrieNode();
+        for (auto&amp; word : words) {
+            TrieNode *node = root;
+            for (int i=0; i&lt;word.size(); i++) {
+                char index = word[i] - 'a';
+                if (node-&gt;next[index] == nullptr) node-&gt;next[index] = new TrieNode();
+                node = node-&gt;next[index];
+            }
+            node-&gt;flag = 1;
+        }
+        return root;
+    }
+};
+</code></pre>
+
+<h2 id="218-the-skyline-problem">218. The Skyline Problem</h2>
+
+<p>link: <a href="https://leetcode.com/problems/the-skyline-problem/description/">https://leetcode.com/problems/the-skyline-problem/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;pair&lt;int, int&gt;&gt; getSkyline(vector&lt;vector&lt;int&gt;&gt;&amp; LRH) {
+        struct RH { 
+            int R, H;
+            bool operator()(RH&amp; l, RH&amp; r) { return l.H &lt; r.H; } // lessthan
+            RH() {};
+            RH(int r, int h) : R(r), H(h) {}
+        };
+        priority_queue&lt;RH, vector&lt;RH&gt;, RH&gt; RHq;
+        vector&lt;pair&lt;int, int&gt;&gt; result; int len = LRH.size();
+        int x, y, i=0, Li=0, Ri=1, Hi=2;
+        while (i&lt;len || !RHq.empty()) {
+            if (RHq.empty() || i&lt;len &amp;&amp; LRH[i][Li]&lt;=RHq.top().R) {
+                x = LRH[i][Li]; 
+                while (i&lt;len &amp;&amp; LRH[i][Li]==x) { RHq.push(RH(LRH[i][Ri], LRH[i][Hi])); i++; }
+            } else {
+                x = RHq.top().R;
+                while (!RHq.empty() &amp;&amp; RHq.top().R&lt;=x) { RHq.pop(); }
+            }
+            y = RHq.empty() ? 0 : RHq.top().H;
+            if (result.empty() || result.back().second!=y) {
+                result.push_back({x, y});
+            }
+        }
+        return move(result);
+    }
+};
+</code></pre>
+
+<h2 id="233-number-of-digit-one">233. Number of Digit One</h2>
+
+<p>link: <a href="https://leetcode.com/problems/number-of-digit-one/description/">https://leetcode.com/problems/number-of-digit-one/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    unordered_map&lt;int, int&gt; tbl;
+    
+    Solution() {
+        int i = 9; tbl[9] = 1;
+        while (i*10+9 &lt; INT_MAX) { tbl[i*10+9] = tbl[i]*10 + i+1; i = i*10 + 9; }
+    }
+    
+    int countDigitOne(int n) {
+        if (n &lt;= 0) return 0; if (n &lt;= 9) return 1;
+        int divisor = 1; while (n/divisor &gt;= 10) divisor *= 10;
+        int result = 0;
+        result += n / divisor * tbl[divisor-1];
+        result += n/divisor &gt; 1 ? divisor : n-divisor+1;
+        result += countDigitOne(n%divisor);
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="295-find-median-from-data-stream">295. Find Median from Data Stream</h2>
+
+<p>link: <a href="https://leetcode.com/problems/find-median-from-data-stream/description/">https://leetcode.com/problems/find-median-from-data-stream/description/</a></p>
+
+<pre><code class="language-cpp">// Your MedianFinder object will be instantiated and called as such:
+// MedianFinder mf;
+// mf.addNum(1);
+// mf.findMedian();
+class MedianFinder {
+    priority_queue&lt;int, vector&lt;int&gt;, less&lt;int&gt;&gt;    l;
+    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; r;
+public:
+    // Adds a number into the data structure.
+    void addNum(int num) {
+        if (l.empty() || num &lt;= l.top()) l.push(num); else r.push(num);
+        if      (l.size() &gt; r.size()+1) { r.push(l.top()); l.pop(); }
+        else if (r.size() &gt; l.size())   { l.push(r.top()); r.pop(); }
+    }
+
+    // Returns the median of current data stream
+    double findMedian() {
+        return l.size()==r.size() ? double(l.top()+r.top())/2 : l.top();
+    }
+};
+</code></pre>
+
+<h2 id="304-range-sum-query-2d-immutable">304. Range Sum Query 2D - Immutable</h2>
+
+<p>link: <a href="https://leetcode.com/problems/range-sum-query-2d-immutable/description/">https://leetcode.com/problems/range-sum-query-2d-immutable/description/</a></p>
+
+<pre><code class="language-cpp">class NumMatrix {
+    vector&lt;vector&lt;int&gt;&gt; summat;
+public:
+    NumMatrix(vector&lt;vector&lt;int&gt;&gt; &amp;matrix) {
+        if (matrix.empty()) return ;
+        const int ROW = matrix.size(), COL = matrix[0].size();
+        summat = vector&lt;vector&lt;int&gt;&gt;(ROW, vector&lt;int&gt;(COL, 0));
+        for (int i=0; i&lt;ROW; i++) {
+            int sumrow=0; vector&lt;int&gt;&amp; row = matrix[i];
+            for (int j=0; j&lt;COL; j++) {
+                sumrow += row[j];
+                summat[i][j] = sumrow + (i&gt;0 ? summat[i-1][j] : 0);
+            }
+        }
+    }
+
+    int sumRegion(int row1, int col1, int row2, int col2) {
+        if (summat.empty()) return 0;
+        int a = summat[row2][col2];
+        int b = col1&gt;0 ? summat[row2  ][col1-1] : 0;
+        int c = row1&gt;0 ? summat[row1-1][col2  ] : 0;
+        int d = row1&gt;0&amp;&amp;col1&gt;0 ? summat[row1-1][col1-1] : 0;
+        return a - b - c + d;
+    }
+};
+
+// Your NumMatrix object will be instantiated and called as such:
+// NumMatrix numMatrix(matrix);
+// numMatrix.sumRegion(0, 1, 2, 3);
+// numMatrix.sumRegion(1, 2, 3, 4);
+</code></pre>
+
+<h2 id="307-range-sum-query-mutable">307. Range Sum Query - Mutable</h2>
+
+<p>link: <a href="https://leetcode.com/problems/range-sum-query-mutable/description/">https://leetcode.com/problems/range-sum-query-mutable/description/</a></p>
+
+<pre><code class="language-cpp">class NumArray {
+public:
+    NumArray(vector&lt;int&gt; &amp;nums) {
+        this-&gt;nums = nums; tree = nums; tree.insert(tree.begin(), 0);
+        for (int i=tree.size()-1; i&gt;=0; --i) for (int j=i-(i&amp;-i)+1; j&lt;i; j++) {
+            tree[i] += tree[j];
+        }
+    }
+
+    void update(int i, int val) {
+        int delta = val - nums[i]; nums[i] = val; i++;
+        while (i &lt; tree.size()) tree[i] += delta, i += i&amp;-i;
+    }
+
+    int sumRange(int i, int j) {
+        // result = tree[1,j+1] - tree[1,i+1] + nums[i]; 
+        int result = nums[i]; j++; i++;
+        while (j &gt;= 1) result += tree[j], j -= j&amp;-j;
+        while (i &gt;= 1) result -= tree[i], i -= i&amp;-i;
+        return result;
+    }
+
+private:
+    vector&lt;int&gt; nums;
+    vector&lt;int&gt; tree;
+};
+
+
+// Your NumArray object will be instantiated and called as such:
+// NumArray numArray(nums);
+// numArray.sumRange(0, 1);
+// numArray.update(1, 10);
+// numArray.sumRange(1, 2);
+</code></pre>
+
+<h2 id="321-create-maximum-number">321. Create Maximum Number</h2>
+
+<p>link: <a href="https://leetcode.com/problems/create-maximum-number/description/">https://leetcode.com/problems/create-maximum-number/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; maxNumber(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2, int k) {
+        vector&lt;int&gt; result;
+        for (int i=0; i&lt;=k; i++) {
+            if (i  &gt;nums1.size()) break;
+            if (k-i&gt;nums2.size()) continue;
+            vector&lt;int&gt; s1 = maxSubarray(nums1, i), s2 = maxSubarray(nums2, k-i);
+            vector&lt;int&gt; s  = mergeArray(s1, s2);
+            if (greaterThen(s, 0, result, 0)) result.swap(s);
+        }
+        return result;
+    }
+    
+    vector&lt;int&gt; maxSubarray(vector&lt;int&gt;&amp; nums, int k) {
+        vector&lt;int&gt; result; int len=nums.size();
+        for (int i=0; i&lt;len; ++i) {
+            while (!result.empty()&amp;&amp;len-i&gt;k-result.size()&amp;&amp;result.back()&lt;nums[i]) result.pop_back();
+            if (result.size()&lt;k) result.push_back(nums[i]);
+        }
+        return move(result);
+    }
+    
+    vector&lt;int&gt; mergeArray(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        vector&lt;int&gt; result;
+        int i1=0, i2=0;
+        while (i1&lt;nums1.size() &amp;&amp; i2&lt;nums2.size()) {
+            if   (greaterThen(nums1, i1, nums2, i2)) result.push_back(nums1[i1++]);
+            else                                     result.push_back(nums2[i2++]);
+        }
+        while (i1&lt;nums1.size()) result.push_back(nums1[i1++]);
+        while (i2&lt;nums2.size()) result.push_back(nums2[i2++]);
+        return move(result);
+    }
+    
+    bool greaterThen(vector&lt;int&gt;&amp; nums1, int i1, vector&lt;int&gt;&amp; nums2, int i2) {
+        int n = min(nums1.size()-i1, nums2.size()-i2);
+        for (int i=0; i&lt;n; i++) if (nums1[i1+i]!=nums2[i2+i]) return nums1[i1+i]&gt;nums2[i2+i];
+        return nums1.size()-i1 &gt; nums2.size()-i2;
+    }
+};
+</code></pre>
+
+<h2 id="324-wiggle-sort-ii">324. Wiggle Sort II</h2>
+
+<p>link: <a href="https://leetcode.com/problems/wiggle-sort-ii/description/">https://leetcode.com/problems/wiggle-sort-ii/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    void wiggleSort(vector&lt;int&gt;&amp; nums) {
+        int len = nums.size();
+        auto p  = nums.begin() + len/2;
+        nth_element(nums.begin(), p, nums.end());
+        #define NUMS(i) nums[(2*i+1)%(len|1)]
+        int m = *p, i = 0, l = 0, h = len-1;
+        while (i &lt;= h) {
+            if      (NUMS(i) &gt; m) swap(NUMS(i++), NUMS(l++));
+            else if (NUMS(i) &lt; m) swap(NUMS(i)  , NUMS(h--));
+            else                  i++;
+        }
+        #undef NUMS
+    }
+};
+</code></pre>
+
+<h2 id="552-student-attendance-record-ii">552. Student Attendance Record II</h2>
+
+<p>link: <a href="https://leetcode.com/problems/student-attendance-record-ii/description/">https://leetcode.com/problems/student-attendance-record-ii/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int checkRecord(int n) {
+        long a0l0 = 1, a0l1 = 1, a0l2 = 0;
+        long a1l0 = 1, a1l1 = 0, a1l2 = 0;
+        long long tmp = 0, M = 1000000007;
+        for (int i=1; i&lt;n; i++) {
+            tmp = (a0l0 + a0l1 + a0l2) % M;
+            a0l2 = a0l1;
+            a0l1 = a0l0;
+            a0l0 = tmp;
+            tmp = (a1l0 + a1l1 + a1l2 + tmp) % M;
+            a1l2 = a1l1;
+            a1l1 = a1l0;
+            a1l0 = tmp;
+        }
+        return (a0l0 + a0l1 + a0l2 + a1l0 + a1l1 + a1l2) % M;
+    }
+};
+</code></pre>
+
+<h2 id="554-brick-wall">554. Brick Wall</h2>
+
+<p>link: <a href="https://leetcode.com/problems/brick-wall/">https://leetcode.com/problems/brick-wall/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int leastBricks(vector&lt;vector&lt;int&gt;&gt;&amp; wall) {
+        int L = wall.size(), result = 0; map&lt;int, int&gt; tbl;
+        
+        for (int i = 0; i &lt; L; ++i) {
+            int space = 0, len = wall[i].size();
+            for (int j = 0; j &lt;= len-2; ++j) {
+                space += wall[i][j];
+                if (tbl.find(space) == tbl.end())  tbl[space] = 1;
+                else tbl[space]++;
+                result = max(result, tbl[space]);
+            }
+        }
+        
+        return L - result;
+    }
+};
+</code></pre>
+
+<h2 id="556-next-greater-element-iii">556. Next Greater Element III</h2>
+
+<p>link: <a href="https://leetcode.com/problems/next-greater-element-iii/description/">https://leetcode.com/problems/next-greater-element-iii/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int nextGreaterElement(int n) {
+        vector&lt;int&gt; digits;
+        while (n &gt; 0) { digits.push_back(n % 10); n = n / 10; }
+        
+        int i, j, L = digits.size();
+        for (j = 1; j &lt; L; ++j) if (digits[j-1] &gt; digits[j]) break; 
+        if  (j == L) return -1;
+        for (i = 0; i &lt; j; ++i) if (digits[i] &gt; digits[j]) break;
+        
+        swap(digits[i], digits[j]);
+        reverse(digits.begin(), digits.begin() + j);
+        
+        long long nn = 0;
+        for (int i = L-1; i &gt;= 0; --i) nn = nn * 10 + digits[i];
+            
+        return nn &gt; INT_MAX ? -1 : int(nn);
+    }
+};
+</code></pre>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">amendgit</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-02-02</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/leetcode/">leetcode</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/leetcode/leetcode-solutions-001-020/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Leetcode Solutions 001-020</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/cs224n/cs224n-assignment-2/">
+            <span class="next-text nav-default">cs224n assignment 2</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:shijian0912@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">amendgit</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

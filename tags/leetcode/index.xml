@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Leetcode on amendgit`s blog</title>
+    <link>http://localhost:1313/tags/leetcode/</link>
+    <description>Recent content in Leetcode on amendgit`s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 21 Aug 2018 14:21:12 +0800</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Leetcode Solutions 081 100</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-081-100/</link>
+      <pubDate>Tue, 21 Aug 2018 14:21:12 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-081-100/</guid>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions Index</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions/</link>
+      <pubDate>Mon, 06 Aug 2018 23:27:54 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions/</guid>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习，这里是解题索引。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions 061 080</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-061-080/</link>
+      <pubDate>Thu, 02 Aug 2018 11:33:25 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-061-080/</guid>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第80题。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions 041 060</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-041-060/</link>
+      <pubDate>Wed, 01 Aug 2018 11:33:16 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-041-060/</guid>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第41题到第60题。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions 021 040</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-021-040/</link>
+      <pubDate>Sun, 01 Jul 2018 11:33:03 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-021-040/</guid>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第21题到第40题。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions 001-020</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-001-020/</link>
+      <pubDate>Fri, 01 Jun 2018 15:34:45 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-001-020/</guid>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions Others</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-others/</link>
+      <pubDate>Fri, 02 Feb 2018 09:49:48 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-others/</guid>
+      <description>189. Rotate Array link: https://leetcode.com/problems/rotate-array/description/
+class Solution { public: void rotate(vector&amp;lt;int&amp;gt;&amp;amp; nums, int k) { int len = nums.size(); vector&amp;lt;int&amp;gt; tmp(len, 0); for (int i=0, j=k%len; i&amp;lt;len; i++, j=(i+k)%len) tmp[j] = nums[i]; nums.swap(tmp); } };  212. Word Search II link: https://leetcode.com/problems/word-search-ii/description/
+class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNode() { flag = 0; fill_n(next, 26, nullptr); } ~TrieNode() { for (auto p : next) if (p) delete p; } }; vector&amp;lt;string&amp;gt; findWords(vector&amp;lt;vector&amp;lt;char&amp;gt;&amp;gt;&amp;amp; board, vector&amp;lt;string&amp;gt;&amp;amp; words) { if (board.</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions 141 160</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-141-160/</link>
+      <pubDate>Sat, 02 Sep 2017 08:31:29 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-141-160/</guid>
+      <description>141. Linked List Cycle link: https://leetcode.com/problems/linked-list-cycle/description/
+/** * Definition for singly-linked list. * struct ListNode { * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) {} * }; */ class Solution { public: bool hasCycle(ListNode *head) { if (head == NULL) { return false; } ListNode *iter = head, *double_iter = head; while (true) { if (iter-&amp;gt;next) { iter = iter-&amp;gt;next; } else { return false; } if (double_iter-&amp;gt;next &amp;amp;&amp;amp; double_iter-&amp;gt;next-&amp;gt;next) { double_iter = double_iter-&amp;gt;next-&amp;gt;next; } else { return false; } if (iter == double_iter) { return true; } } } };  142.</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions 121 140</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-121-140/</link>
+      <pubDate>Tue, 02 May 2017 08:31:24 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-121-140/</guid>
+      <description>121. Best Time to Buy and Sell Stock 链接：https://leetcode.com/problems/best-time-to-buy-and-sell-sto</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions 101 120</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-101-120/</link>
+      <pubDate>Sun, 02 Apr 2017 08:30:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-101-120/</guid>
+      <description>101. Symmetric Tree 链接：https://leetcode.com/problems/symmetric-tree/description/ #include &amp;lt;queue&amp;gt; typedef std::queue&amp;lt;TreeNode*&amp;gt; TreeNodeQueue; /** *</description>
+    </item>
+    
+  </channel>
+</rss>
