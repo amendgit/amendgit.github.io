@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-08-21T14:21:12&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-21T14:21:12&#43;08:00" />
-<meta itemprop="wordCount" content="3893">
+<meta itemprop="wordCount" content="5583">
 
 
 
@@ -176,8 +176,12 @@
 <li><a href="#92-reverse-linked-list-ii">92. Reverse Linked List II</a></li>
 <li><a href="#93-restore-ip-addresses">93. Restore IP Addresses</a></li>
 <li><a href="#94-binary-tree-inorder-traversal">94. Binary Tree Inorder Traversal</a></li>
+<li><a href="#95-unique-binary-search-trees-ii">95. Unique Binary Search Trees II</a></li>
+<li><a href="#96-unique-binary-search-trees">96. Unique Binary Search Trees</a></li>
 <li><a href="#97-interleaving-string">97. Interleaving String</a></li>
 <li><a href="#98-validate-binary-search-tree">98. Validate Binary Search Tree</a></li>
+<li><a href="#99-recover-binary-search-tree">99. Recover Binary Search Tree</a></li>
+<li><a href="#100-same-tree">100. Same Tree</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -584,7 +588,35 @@ public:
 
 <p>链接：<a href="https://leetcode.com/problems/binary-tree-inorder-traversal/description/">https://leetcode.com/problems/binary-tree-inorder-traversal/description/</a></p>
 
-<p>思路：先遍历完左子节点，压入当前值，用p记录右子节点。</p>
+<p>递归遍历</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) {
+        vector&lt;int&gt; result; if (root == NULL) return result;
+        inorderTraversal(root, result);
+        return move(result);
+    }
+    
+    void inorderTraversal(TreeNode *node, vector&lt;int&gt; &amp;result) {
+        if (!node) return;
+        inorderTraversal(node-&gt;left , result);
+        result.push_back(node-&gt;val);
+        inorderTraversal(node-&gt;right, result);
+    }
+};
+</code></pre>
+
+<p>循环遍历，利用栈，先遍历完左子节点，压入当前值，用p记录右子节点。</p>
 
 <pre><code class="language-cpp">/**
  * Definition for a binary tree node.
@@ -606,6 +638,109 @@ public:
             p = t-&gt;right;
         }
         return move(result);
+    }
+};
+</code></pre>
+
+<p>Morris遍历，参考：<a href="https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/">https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/</a></p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) {
+        vector&lt;int&gt; result; 
+        morrisTravesal(root, result);
+        return move(result);
+    }
+    
+    void morrisTravesal(TreeNode *root, vector&lt;int&gt; &amp;result) {
+        TreeNode *prev, *curr = root;
+        while (curr) {
+            if (!curr-&gt;left) {      // curr's left is null, so it can be push to the result.
+                result.push_back(curr-&gt;val);
+                curr = curr-&gt;right;
+            } else {               
+                // before curr go to left, find a way back, or we back from a rightmost index.
+                prev = curr-&gt;left; while (prev-&gt;right &amp;&amp; prev-&gt;right != curr) prev = prev-&gt;right;
+                if (!prev-&gt;right) { // make a index form the rightmost to curr.
+                    prev-&gt;right = curr; 
+                    curr = curr-&gt;left; 
+                } else {            // prev-&gt;right == curr, means curr was just backed from a rightmost, recover the index.
+                    result.push_back(curr-&gt;val);
+                    prev-&gt;right = NULL;
+                    curr = curr-&gt;right;
+                }
+            }
+        }
+    }
+};
+</code></pre>
+
+<h2 id="95-unique-binary-search-trees-ii">95. Unique Binary Search Trees II</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/unique-binary-search-trees-ii/description/">https://leetcode.com/problems/unique-binary-search-trees-ii/description/</a></p>
+
+<p>思路：分别生成左右子树，然后和当前节点进行组合，left * 1 * right，这里利用了题目没有说明不能复用节点的这一点。所以，其实很多结果的左右子树是重复利用的，这样做其实有瑕疵。应该还有一种做法是，枚举生成左右子树的数组，然后每次生成新树时，进行拷贝。最后根据数组生成树才对。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;TreeNode*&gt; generateTrees(int n) {
+        vector&lt;TreeNode*&gt; result; if (n == 0) return result;
+        vector&lt;int&gt; nums; for (int i=1; i&lt;=n; i++) nums.push_back(i);
+        dfs(nums, 0, n, result);
+        return move(result);
+    }
+
+    void dfs(const vector&lt;int&gt; &amp;nums, int begin, int len, vector&lt;TreeNode*&gt; &amp;result) {
+        if (len == 0) { result.push_back(new TreeNode(      0    )); return; }
+        if (len == 1) { result.push_back(new TreeNode(nums[begin])); return; }
+        for (int i=0; i&lt;len; i++) {
+            vector&lt;TreeNode*&gt; left, right;
+            dfs(nums, begin    , i      , left );
+            dfs(nums, begin+i+1, len-1-i, right);
+            for (auto l : left) for (auto r : right) {
+                auto n = new TreeNode(nums[begin+i]);
+                (l-&gt;val) &amp;&amp; (n-&gt;left =l); 
+                (r-&gt;val) &amp;&amp; (n-&gt;right=r);
+                result.push_back(n);
+            }
+        }
+    }
+};
+</code></pre>
+
+<h2 id="96-unique-binary-search-trees">96. Unique Binary Search Trees</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/unique-binary-search-trees/description/">https://leetcode.com/problems/unique-binary-search-trees/description/</a></p>
+
+<p>思路：一遍过，感觉越来越顺手了，f[n]表示第n个数的BST数，已知<code>f[0] == 1, f[1] == 1, f[2] == 3</code>, 推 <code>f[3] = f[0]*f[2] + f[1]*f[1] + f[2]*f[0]</code>，再推 <code>f[4] = f[0]*f[3] + f[1]*f[2] + f[2]*f[1] + f[3]*f[0]</code>。就是分别把左子树的所有可能乘以右子树的所有可能，再遍历左子树和右子树的各种节点数组合即可。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int numTrees(int n) {
+        static vector&lt;int&gt; f = {1, 1, 2};
+        for (int i=f.size(); i&lt;=n; i++) {
+            f.push_back(0); 
+            for (int j=0; j&lt;i; j++) f.back() += f[j]*f[i-1-j];
+        }
+        return f[n];
     }
 };
 </code></pre>
@@ -659,6 +794,121 @@ public:
         max = std::max(node-&gt;val, rmax); 
         min = std::min(node-&gt;val, lmin);
         return true;
+    }
+};
+</code></pre>
+
+<h2 id="99-recover-binary-search-tree">99. Recover Binary Search Tree</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/recover-binary-search-tree/description/">https://leetcode.com/problems/recover-binary-search-tree/description/</a></p>
+
+<p>思路：用morrisTraversal进行遍历，然后找出节点中的逆序，区分相邻和不相邻的情况，再交换回来。下面是我能想到的最简洁的方式了。</p>
+
+<p>当节点出现逆序时，
+    - 如果是相邻的情况，那么prev是第一个错误节点，curr是第二个错误节点。
+    - 如果是不相邻的情况，那么第一次逆序prev是第一个错误节点，第二次逆序curr是第二个错误节点。通过first是不是为空来判断是第一次还是第二次逆序。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void recoverTree(TreeNode* root) {
+        TreeNode *prev = NULL, *first = NULL, *second = NULL;
+        morrisTraversal(root, [&amp;](TreeNode *curr) {
+            if (prev &amp;&amp; prev-&gt;val &gt; curr-&gt;val) {
+                if (!first) first  = prev; 
+                second = curr;
+            }
+            prev = curr;
+        });
+        swap(first-&gt;val, second-&gt;val);
+    }
+    
+    void morrisTraversal(TreeNode *root, function&lt;void(TreeNode*)&gt; iterator) {
+        TreeNode *prev, *curr = root;
+        while (curr) {
+            if (!curr-&gt;left) {
+                iterator(curr);
+                curr = curr-&gt;right;
+            } else {
+                prev = curr-&gt;left;
+                while (prev-&gt;right &amp;&amp; prev-&gt;right != curr) prev = prev-&gt;right;
+                if (!prev-&gt;right) {
+                    prev-&gt;right = curr;
+                    curr = curr-&gt;left;
+                } else {
+                    iterator(curr);
+                    prev-&gt;right = NULL;
+                    curr = curr-&gt;right;
+                }
+            }   
+        }
+    }
+};
+</code></pre>
+
+<h2 id="100-same-tree">100. Same Tree</h2>
+
+<p>链接：<a href="https://leetcode.com/problems/same-tree/description/">https://leetcode.com/problems/same-tree/description/</a></p>
+
+<p>思路1：迭代的方式，注意这一行 <code>if (!a-&gt;left  != !b-&gt;left ) return false;</code>，直接比较会导致比较两者的指针<code>a-&gt;left</code>和<code>b-&gt;left</code>。所以，先用<code>!</code>转换为bool值再比较。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* a, TreeNode* b) {
+        if (!a &amp;&amp; !b) return true;
+        if (!a || !b) return false;
+        queue&lt;TreeNode*&gt; p({a}), q({b});
+        while (!p.empty() &amp;&amp; !q.empty()) {
+            a = p.front(); b = q.front();
+            if (a-&gt;val != b-&gt;val) return false;
+            p.pop(); q.pop();
+            if (!a-&gt;left  != !b-&gt;left ) return false;
+            if (a-&gt;left ) { p.push(a-&gt;left ); q.push(b-&gt;left ); }
+            if (!a-&gt;right != !b-&gt;right) return false;
+            if (a-&gt;right) { p.push(a-&gt;right); q.push(b-&gt;right); }
+        }
+        return true;
+    }
+};
+</code></pre>
+
+<p>思路2：递归求解，简单多了。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* a, TreeNode* b) {
+        if (!a &amp;&amp; !b) return true;
+        if (!a || !b) return false;
+        if (a-&gt;val != b-&gt;val) return false;
+        bool left  = isSameTree(a-&gt;left , b-&gt;left );
+        bool right = isSameTree(a-&gt;right, b-&gt;right);
+        return left &amp;&amp; right;
     }
 };
 </code></pre>
