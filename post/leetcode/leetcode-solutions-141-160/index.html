@@ -17,8 +17,9 @@
 
 
 <meta name="author" content="amendgit" />
-  <meta name="description" content="141. Linked List Cycle link: https://leetcode.com/problems/linked-list-cycle/description/
-/** * Definition for singly-linked list. * struct ListNode { * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) {} * }; */ class Solution { public: bool hasCycle(ListNode *head) { if (head == NULL) { return false; } ListNode *iter = head, *double_iter = head; while (true) { if (iter-&amp;gt;next) { iter = iter-&amp;gt;next; } else { return false; } if (double_iter-&amp;gt;next &amp;amp;&amp;amp; double_iter-&amp;gt;next-&amp;gt;next) { double_iter = double_iter-&amp;gt;next-&amp;gt;next; } else { return false; } if (iter == double_iter) { return true; } } } };  142." />
+  <meta name="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第141题到第160题。部分答案是以前的答案。
+
+" />
 
   <meta name="keywords" content="amendgit, blog" />
 
@@ -51,27 +52,30 @@
 
 
 <meta property="og:title" content="Leetcode Solutions 141 160" />
-<meta property="og:description" content="141. Linked List Cycle link: https://leetcode.com/problems/linked-list-cycle/description/
-/** * Definition for singly-linked list. * struct ListNode { * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) {} * }; */ class Solution { public: bool hasCycle(ListNode *head) { if (head == NULL) { return false; } ListNode *iter = head, *double_iter = head; while (true) { if (iter-&gt;next) { iter = iter-&gt;next; } else { return false; } if (double_iter-&gt;next &amp;&amp; double_iter-&gt;next-&gt;next) { double_iter = double_iter-&gt;next-&gt;next; } else { return false; } if (iter == double_iter) { return true; } } } };  142." />
+<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第141题到第160题。部分答案是以前的答案。
+
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-141-160/" /><meta property="article:published_time" content="2017-09-02T08:31:29&#43;08:00"/>
 <meta property="article:modified_time" content="2017-09-02T08:31:29&#43;08:00"/>
 <meta itemprop="name" content="Leetcode Solutions 141 160">
-<meta itemprop="description" content="141. Linked List Cycle link: https://leetcode.com/problems/linked-list-cycle/description/
-/** * Definition for singly-linked list. * struct ListNode { * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) {} * }; */ class Solution { public: bool hasCycle(ListNode *head) { if (head == NULL) { return false; } ListNode *iter = head, *double_iter = head; while (true) { if (iter-&gt;next) { iter = iter-&gt;next; } else { return false; } if (double_iter-&gt;next &amp;&amp; double_iter-&gt;next-&gt;next) { double_iter = double_iter-&gt;next-&gt;next; } else { return false; } if (iter == double_iter) { return true; } } } };  142.">
+<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第141题到第160题。部分答案是以前的答案。
+
+">
 
 
 <meta itemprop="datePublished" content="2017-09-02T08:31:29&#43;08:00" />
 <meta itemprop="dateModified" content="2017-09-02T08:31:29&#43;08:00" />
-<meta itemprop="wordCount" content="1211">
+<meta itemprop="wordCount" content="1330">
 
 
 
 <meta itemprop="keywords" content="leetcode," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode Solutions 141 160"/>
-<meta name="twitter:description" content="141. Linked List Cycle link: https://leetcode.com/problems/linked-list-cycle/description/
-/** * Definition for singly-linked list. * struct ListNode { * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) {} * }; */ class Solution { public: bool hasCycle(ListNode *head) { if (head == NULL) { return false; } ListNode *iter = head, *double_iter = head; while (true) { if (iter-&gt;next) { iter = iter-&gt;next; } else { return false; } if (double_iter-&gt;next &amp;&amp; double_iter-&gt;next-&gt;next) { double_iter = double_iter-&gt;next-&gt;next; } else { return false; } if (iter == double_iter) { return true; } } } };  142."/>
+<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第141题到第160题。部分答案是以前的答案。
+
+"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -180,7 +184,9 @@
 
     
     <div class="post-content">
-      
+      <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第141题到第160题。部分答案是以前的答案。</p>
+
+<p></p>
 
 <h2 id="141-linked-list-cycle">141. Linked List Cycle</h2>
 
@@ -615,7 +621,6 @@ public:
     }
 };
 </code></pre>
-
     </div>
 
     

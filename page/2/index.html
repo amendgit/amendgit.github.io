@@ -210,8 +210,9 @@ class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNo
   
   <div class="post-content">
     <div class="post-summary">
-      141. Linked List Cycle link: https://leetcode.com/problems/linked-list-cycle/description/
-/** * Definition for singly-linked list. * struct ListNode { * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) {} * }; */ class Solution { public: bool hasCycle(ListNode *head) { if (head == NULL) { return false; } ListNode *iter = head, *double_iter = head; while (true) { if (iter-&gt;next) { iter = iter-&gt;next; } else { return false; } if (double_iter-&gt;next &amp;&amp; double_iter-&gt;next-&gt;next) { double_iter = double_iter-&gt;next-&gt;next; } else { return false; } if (iter == double_iter) { return true; } } } };  142.
+      <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第141题到第160题。部分答案是以前的答案。</p>
+
+<p></p>
     </div>
     <div class="read-more">
       <a href="/post/leetcode/leetcode-solutions-141-160/" class="read-more-link">Read more..</a>

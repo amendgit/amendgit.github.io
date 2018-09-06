@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-08-21T14:21:12&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-21T14:21:12&#43;08:00" />
-<meta itemprop="wordCount" content="5715">
+<meta itemprop="wordCount" content="5714">
 
 
 
@@ -858,7 +858,7 @@ public:
 
 <p>链接：<a href="https://leetcode.com/problems/same-tree/description/">https://leetcode.com/problems/same-tree/description/</a></p>
 
-<p>思路1：迭代的方式，注意这一行 <code>if (!a-&gt;left  != !b-&gt;left ) return false;</code>，直接比较会导致比较两者的指针<code>a-&gt;left</code>和<code>b-&gt;left</code>。所以，先用<code>!</code>转换为bool值再比较。</p>
+<p>思路1：迭代的方式，注意这一行 <code>if (!a  != !b) return false;</code>，直接比较会导致比较两者的指针<code>a</code>和<code>b</code>。所以，先用<code>!</code>转换为bool值再比较。由于前面已经判断力 <code>if (!a &amp;&amp; !b)</code> 所以这里也可以把 <code>if (!a != !b</code> 换成 <code>if (!a || !b)</code>，效果是一样的。</p>
 
 <pre><code class="language-cpp">/**
  * Definition for a binary tree node.
@@ -872,17 +872,14 @@ public:
 class Solution {
 public:
     bool isSameTree(TreeNode* a, TreeNode* b) {
-        if (!a &amp;&amp; !b) return true;
-        if (!a || !b) return false;
         queue&lt;TreeNode*&gt; p({a}), q({b});
         while (!p.empty() &amp;&amp; !q.empty()) {
-            a = p.front(); b = q.front();
+            a = p.front(); b = q.front(); p.pop(); q.pop();
+            if (!a &amp;&amp; !b) continue;
+            if (!a != !b) return false;
             if (a-&gt;val != b-&gt;val) return false;
-            p.pop(); q.pop();
-            if (!a-&gt;left  != !b-&gt;left ) return false;
-            if (a-&gt;left ) { p.push(a-&gt;left ); q.push(b-&gt;left ); }
-            if (!a-&gt;right != !b-&gt;right) return false;
-            if (a-&gt;right) { p.push(a-&gt;right); q.push(b-&gt;right); }
+            p.push(a-&gt;left ); q.push(b-&gt;left );
+            p.push(a-&gt;right); q.push(b-&gt;right);
         }
         return true;
     }

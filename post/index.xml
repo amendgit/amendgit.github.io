@@ -105,8 +105,9 @@ class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNo
       <pubDate>Sat, 02 Sep 2017 08:31:29 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-141-160/</guid>
-      <description>141. Linked List Cycle link: https://leetcode.com/problems/linked-list-cycle/description/
-/** * Definition for singly-linked list. * struct ListNode { * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) {} * }; */ class Solution { public: bool hasCycle(ListNode *head) { if (head == NULL) { return false; } ListNode *iter = head, *double_iter = head; while (true) { if (iter-&amp;gt;next) { iter = iter-&amp;gt;next; } else { return false; } if (double_iter-&amp;gt;next &amp;amp;&amp;amp; double_iter-&amp;gt;next-&amp;gt;next) { double_iter = double_iter-&amp;gt;next-&amp;gt;next; } else { return false; } if (iter == double_iter) { return true; } } } };  142.</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第141题到第160题。部分答案是以前的答案。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -135,7 +136,9 @@ class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNo
       <pubDate>Tue, 02 May 2017 08:31:24 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-121-140/</guid>
-      <description>121. Best Time to Buy and Sell Stock 链接：https://leetcode.com/problems/best-time-to-buy-and-sell-sto</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第121题到第140题。部分答案是以前的答案。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -153,7 +156,9 @@ class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNo
       <pubDate>Sun, 02 Apr 2017 08:30:56 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-101-120/</guid>
-      <description>101. Symmetric Tree 链接：https://leetcode.com/problems/symmetric-tree/description/ #include &amp;lt;queue&amp;gt; typedef std::queue&amp;lt;TreeNode*&amp;gt; TreeNodeQueue; /** *</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>

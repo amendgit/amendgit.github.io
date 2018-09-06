@@ -17,7 +17,9 @@
 
 
 <meta name="author" content="amendgit" />
-  <meta name="description" content="101. Symmetric Tree 链接：https://leetcode.com/problems/symmetric-tree/description/ #include &amp;lt;queue&amp;gt; typedef std::queue&amp;lt;TreeNode*&amp;gt; TreeNodeQueue; /** *" />
+  <meta name="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。
+
+" />
 
   <meta name="keywords" content="amendgit, blog" />
 
@@ -50,24 +52,30 @@
 
 
 <meta property="og:title" content="Leetcode Solutions 101 120" />
-<meta property="og:description" content="101. Symmetric Tree 链接：https://leetcode.com/problems/symmetric-tree/description/ #include &lt;queue&gt; typedef std::queue&lt;TreeNode*&gt; TreeNodeQueue; /** *" />
+<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。
+
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-101-120/" /><meta property="article:published_time" content="2017-04-02T08:30:56&#43;08:00"/>
 <meta property="article:modified_time" content="2017-04-02T08:30:56&#43;08:00"/>
 <meta itemprop="name" content="Leetcode Solutions 101 120">
-<meta itemprop="description" content="101. Symmetric Tree 链接：https://leetcode.com/problems/symmetric-tree/description/ #include &lt;queue&gt; typedef std::queue&lt;TreeNode*&gt; TreeNodeQueue; /** *">
+<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。
+
+">
 
 
 <meta itemprop="datePublished" content="2017-04-02T08:30:56&#43;08:00" />
 <meta itemprop="dateModified" content="2017-04-02T08:30:56&#43;08:00" />
-<meta itemprop="wordCount" content="2136">
+<meta itemprop="wordCount" content="4794">
 
 
 
 <meta itemprop="keywords" content="leetcode," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode Solutions 101 120"/>
-<meta name="twitter:description" content="101. Symmetric Tree 链接：https://leetcode.com/problems/symmetric-tree/description/ #include &lt;queue&gt; typedef std::queue&lt;TreeNode*&gt; TreeNodeQueue; /** *"/>
+<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。
+
+"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -156,12 +164,19 @@
 <ul>
 <li><a href="#101-symmetric-tree">101. Symmetric Tree</a></li>
 <li><a href="#102-binary-tree-level-order-traversal">102. Binary Tree Level Order Traversal</a></li>
+<li><a href="#103-binary-tree-zigzag-level-order-traversal">103. Binary Tree Zigzag Level Order Traversal</a></li>
 <li><a href="#104-maximum-depth-of-binary-tree">104. Maximum Depth of Binary Tree</a></li>
+<li><a href="#105-construct-binary-tree-from-preorder-and-inorder-traversal">105. Construct Binary Tree from Preorder and Inorder Traversal</a></li>
+<li><a href="#106-construct-binary-tree-from-inorder-and-postorder-traversal">106. Construct Binary Tree from Inorder and Postorder Traversal</a></li>
 <li><a href="#107-binary-tree-level-order-traversal-ii">107. Binary Tree Level Order Traversal II</a></li>
 <li><a href="#108-convert-sorted-array-to-binary-search-tree">108. Convert Sorted Array to Binary Search Tree</a></li>
+<li><a href="#109-convert-sorted-list-to-binary-search-tree">109. Convert Sorted List to Binary Search Tree</a></li>
 <li><a href="#110-balanced-binary-tree">110. Balanced Binary Tree</a></li>
 <li><a href="#111-minimum-depth-of-binary-tree">111. Minimum Depth of Binary Tree</a></li>
 <li><a href="#112-path-sum">112. Path Sum</a></li>
+<li><a href="#113-path-sum-ii">113. Path Sum II</a></li>
+<li><a href="#114-flatten-binary-tree-to-linked-list">114. Flatten Binary Tree to Linked List</a></li>
+<li><a href="#115-distinct-subsequences">115. Distinct Subsequences</a></li>
 <li><a href="#116-populating-next-right-pointers-in-each-node">116. Populating Next Right Pointers in Each Node</a></li>
 <li><a href="#117-populating-next-right-pointers-in-each-node-ii">117. Populating Next Right Pointers in Each Node II</a></li>
 <li><a href="#118-pascal-s-triangle">118. Pascal&rsquo;s Triangle</a></li>
@@ -177,11 +192,72 @@
 
     
     <div class="post-content">
-      
+      <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。</p>
+
+<p></p>
 
 <h2 id="101-symmetric-tree">101. Symmetric Tree</h2>
 
 <p>链接：<a href="https://leetcode.com/problems/symmetric-tree/description/">https://leetcode.com/problems/symmetric-tree/description/</a></p>
+
+<p>recursive version，注意<code>if (!a != !b) ...</code>是先对节点取反转换成bool，然后用<code>!=</code>比较，等价于做异或操作，逻辑上是如果a和b中一方是NULl另一方非空，则&hellip;。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if (!root) return true;
+        return isSymmetric(root-&gt;left, root-&gt;right);
+    }
+    
+    bool isSymmetric(TreeNode *a, TreeNode *b) {
+        if (!a &amp;&amp; !b) return true;
+        if (!a != !b) return false;
+        if (a-&gt;val != b-&gt;val) return false;
+        return isSymmetric(a-&gt;right, b-&gt;left ) 
+            &amp;&amp; isSymmetric(a-&gt;left , b-&gt;right);
+    }
+};
+</code></pre>
+
+<p>iterative version，神奇的发现stl的queue<Type\*>是可以存放NULL值的。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if (!root) return true;
+        queue&lt;TreeNode *&gt; p({root-&gt;left}), q({root-&gt;right});
+        while (!p.empty() &amp;&amp; !q.empty()) {
+            TreeNode *a = p.front(), *b = q.front(); p.pop(); q.pop(); 
+            if (!a &amp;&amp; !b) continue;
+            if (!a != !b) return false;
+            if (a-&gt;val != b-&gt;val) return false;
+            p.push(a-&gt;left ); q.push(b-&gt;right);
+            p.push(a-&gt;right); q.push(b-&gt;left );
+        } 
+        return true;
+    }
+};
+</code></pre>
+
+<p>4 years前的答案。</p>
 
 <pre><code class="language-cpp">#include &lt;queue&gt;
 
@@ -261,6 +337,39 @@ public:
 
 <p>链接：<a href="https://leetcode.com/problems/binary-tree-level-order-traversal/description/">https://leetcode.com/problems/binary-tree-level-order-traversal/description/</a></p>
 
+<p>思路：用queue记录下一层的nodes。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode* root) {
+        queue&lt;TreeNode *&gt; q({root}); vector&lt;vector&lt;int&gt;&gt; result;
+        while (!q.empty()) {
+            queue&lt;TreeNode *&gt; p; vector&lt;int&gt; level;
+            while (!q.empty()) {
+                TreeNode *n = q.front(); q.pop();
+                if (!n) continue;
+                level.push_back(n-&gt;val);
+                p.push(n-&gt;left); p.push(n-&gt;right);
+            }
+            if (!level.empty()) result.push_back(level);
+            q.swap(p);
+        }
+        return move(result);
+    }
+};
+</code></pre>
+
+<p>4年前的答案</p>
+
 <pre><code class="language-cpp">/**
  * Definition for binary tree
  * struct TreeNode {
@@ -296,9 +405,114 @@ public:
 };
 </code></pre>
 
+<h2 id="103-binary-tree-zigzag-level-order-traversal">103. Binary Tree Zigzag Level Order Traversal</h2>
+
+<p>link: <a href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/">https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/</a></p>
+
+<p>层序遍历，然后交替将当前层反转。效率不太高，4ms，beat 30.43%。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; zigzagLevelOrder(TreeNode* root) {
+        queue&lt;TreeNode *&gt; q({root}); bool flag = false;
+        vector&lt;vector&lt;int&gt;&gt; result;
+        while (!q.empty()) {
+            queue&lt;TreeNode *&gt; p; vector&lt;int&gt; level;
+            while (!q.empty()) {
+                TreeNode *n = q.front(); q.pop();
+                if (!n) continue;
+                level.push_back(n-&gt;val);
+                p.push(n-&gt;left); p.push(n-&gt;right);
+            }
+            q.swap(p);
+            if (level.empty()) continue;
+            result.push_back(level);
+            if (flag) reverse(begin(result.back()), end(result.back()));
+            flag = !flag;
+        }
+        return move(result);
+    }
+};
+</code></pre>
+
+<p>用栈代替队列，还是4ms，不知道还有什么提高效率的方法。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; zigzagLevelOrder(TreeNode* root) {
+        stack&lt;TreeNode*&gt; q({root}); bool flag = true;
+        vector&lt;vector&lt;int&gt;&gt; result;
+        while (!q.empty()) {
+            stack&lt;TreeNode*&gt; p; vector&lt;int&gt; level;
+            while (!q.empty()) {
+                TreeNode *n = q.top(); q.pop();
+                if (!n) continue;
+                level.push_back(n-&gt;val);
+                if (flag) p.push(n-&gt;left ), p.push(n-&gt;right);
+                else      p.push(n-&gt;right), p.push(n-&gt;left );
+            }
+            q.swap(p); flag = !flag;
+            if (!level.empty()) result.push_back(level);
+        }
+        return move(result);
+    }
+};
+</code></pre>
+
 <h2 id="104-maximum-depth-of-binary-tree">104. Maximum Depth of Binary Tree</h2>
 
 <p>链接：<a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/description/">https://leetcode.com/problems/maximum-depth-of-binary-tree/description/</a></p>
+
+<p>层序遍历，记录深度。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        queue&lt;TreeNode*&gt; q({root});
+        int depth = 0; bool flag = false;
+        while (!q.empty()) {
+            queue&lt;TreeNode*&gt; p;
+            while (!q.empty()) {
+                auto n = q.front(); q.pop();
+                if (n) flag = true; else continue;
+                p.push(n-&gt;left); p.push(n-&gt;right);
+            }
+            q.swap(p);
+            if (flag) depth++; flag = false;
+        }
+        return depth;
+    }
+};
+</code></pre>
+
+<p>4年前的答案。</p>
 
 <pre><code class="language-cpp">/**
  * Definition for binary tree
@@ -338,9 +552,109 @@ public:
 };
 </code></pre>
 
+<h2 id="105-construct-binary-tree-from-preorder-and-inorder-traversal">105. Construct Binary Tree from Preorder and Inorder Traversal</h2>
+
+<p>link: <a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/">https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/</a></p>
+
+<p>思路：前序确定当前节点，中序确定左右子树。深度优先遍历即可。注意第一行消费了一个节点，i别忘记加1。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* buildTree(vector&lt;int&gt;&amp; preorder, vector&lt;int&gt;&amp; inorder) {
+        int i = 0, len = inorder.size();
+        return DFS(preorder, i, inorder, 0, len);
+    }
+    
+    TreeNode* DFS(vector&lt;int&gt;&amp; preorder, int&amp; i, vector&lt;int&gt;&amp; inorder, int lo, int hi) {
+        if (lo   &gt;= hi) return NULL;
+        if (lo+1 == hi) return new TreeNode(preorder[i++]);
+        TreeNode *n = new TreeNode(preorder[i++]);
+        int mi; for (mi=lo; mi&lt;hi; mi++) if (inorder[mi] == n-&gt;val) break;
+        n-&gt;left  = DFS(preorder, i, inorder, lo  , mi);
+        n-&gt;right = DFS(preorder, i, inorder, mi+1, hi);
+        return n;
+    }
+};
+</code></pre>
+
+<h2 id="106-construct-binary-tree-from-inorder-and-postorder-traversal">106. Construct Binary Tree from Inorder and Postorder Traversal</h2>
+
+<p>link: <a href="https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/description/">https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/description/</a></p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* buildTree(vector&lt;int&gt;&amp; inorder, vector&lt;int&gt;&amp; postorder) {
+        int len = inorder.size(), i = len-1;
+        return DFS(inorder, 0, len, postorder, i);
+    }
+
+    TreeNode* DFS(vector&lt;int&gt;&amp; inorder, int lo, int hi, vector&lt;int&gt;&amp; postorder, int&amp; i) {
+        if (lo   &gt;= hi) return NULL;
+        if (lo+1 == hi) return new TreeNode(postorder[i--]);
+        TreeNode *n = new TreeNode(postorder[i--]);
+        int mi; for (mi=lo; mi&lt;hi; mi++) if (inorder[mi] == n-&gt;val) break;
+        n-&gt;right = DFS(inorder, mi+1, hi, postorder, i);
+        n-&gt;left  = DFS(inorder, lo  , mi, postorder, i);
+        return n;
+    }
+};
+</code></pre>
+
 <h2 id="107-binary-tree-level-order-traversal-ii">107. Binary Tree Level Order Traversal II</h2>
 
 <p>链接：<a href="https://leetcode.com/problems/binary-tree-level-order-traversal-ii/">https://leetcode.com/problems/binary-tree-level-order-traversal-ii/</a></p>
+
+<p>层序遍历，最后反转。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; levelOrderBottom(TreeNode* root) {
+        queue&lt;TreeNode*&gt; q({root}); vector&lt;vector&lt;int&gt;&gt; result;
+        while (!q.empty()) {
+            queue&lt;TreeNode*&gt; p; vector&lt;int&gt; level;
+            while (!q.empty()) {
+                auto n = q.front(); q.pop();
+                if (!n) continue;
+                level.push_back(n-&gt;val);
+                p.push(n-&gt;left); p.push(n-&gt;right);
+            }
+            q.swap(p);
+            if (!level.empty()) result.push_back(level);
+        }
+        reverse(begin(result), end(result));
+        return move(result);
+    }
+};
+</code></pre>
+
+<p>4年前的答案，递归求解。</p>
 
 <pre><code class="language-cpp">#include &lt;stack&gt;
 #include &lt;queue&gt;
@@ -400,6 +714,37 @@ public:
 
 <p>链接：<a href="https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/">https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/</a></p>
 
+<p>深度遍历，计算mi，将数组分成两部分，然后分别计算左右子节点的区间。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector&lt;int&gt;&amp; nums) {
+        return DFS(nums, 0, nums.size());
+    }
+    
+    TreeNode* DFS(vector&lt;int&gt;&amp; nums, int lo, int hi) {
+        if (lo   &gt;= hi) return NULL;
+        if (lo+1 == hi) return new TreeNode(nums[lo]);
+        int mi = (hi - lo) / 2 + lo;
+        TreeNode* n = new TreeNode(nums[mi]);
+        n-&gt;left  = DFS(nums, lo  , mi);
+        n-&gt;right = DFS(nums, mi+1, hi);
+        return n;
+    }
+};
+</code></pre>
+
+<p>4年前的答案</p>
+
 <pre><code class="language-cpp">/**
  * Definition for binary tree
  * struct TreeNode {
@@ -431,9 +776,82 @@ public:
 };
 </code></pre>
 
+<h2 id="109-convert-sorted-list-to-binary-search-tree">109. Convert Sorted List to Binary Search Tree</h2>
+
+<p>link: <a href="https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/description/">https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/description/</a></p>
+
+<p>思路，跟108题类似，不过数组操作，换成了链表操作。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        int len=0; for (auto p=head; p; p=p-&gt;next) len++;
+        return DFS(head, len);
+    }
+    
+    TreeNode* DFS(ListNode *head, int len) {
+        if (len &lt;= 0) return NULL;
+        if (len == 1) return new TreeNode(head-&gt;val);
+        int mi = len / 2;
+        ListNode* p = head; for (int i=0; i&lt;mi; i++) p = p-&gt;next;
+        TreeNode *n = new TreeNode(p-&gt;val);
+        n-&gt;left  = DFS(head   , mi);
+        n-&gt;right = DFS(p-&gt;next, len-mi-1);
+        return n;
+    }
+};
+</code></pre>
+
 <h2 id="110-balanced-binary-tree">110. Balanced Binary Tree</h2>
 
 <p>链接：<a href="https://leetcode.com/problems/balanced-binary-tree/">https://leetcode.com/problems/balanced-binary-tree/</a></p>
+
+<p>深度遍历左右子节点</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        int d = 0; return DFS(root, d);
+    }
+    
+    bool DFS(TreeNode* root, int&amp; d) {
+        if (!root) { d++; return true; }
+        int ld = 0, rd = 0;
+        if (!DFS(root-&gt;left , ld)) return false;
+        if (!DFS(root-&gt;right, rd)) return false;
+        d = max(ld, rd) + 1;
+        return abs(ld - rd) &lt;= 1;
+    }
+};
+</code></pre>
+
+<p>4YA</p>
 
 <pre><code class="language-cpp">/**
  * Definition for binary tree
@@ -491,6 +909,37 @@ public:
 <p>链接：<a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/description/">https://leetcode.com/problems/minimum-depth-of-binary-tree/description/</a></p>
 
 <pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if (!root) return 0;
+        queue&lt;TreeNode*&gt; q({root}); int depth = 0;
+        while (!q.empty()) {
+            queue&lt;TreeNode*&gt; p; depth++;
+            while (!q.empty()) {
+                TreeNode *n = q.front(); q.pop();
+                if (!n-&gt;left &amp;&amp; !n-&gt;right) return depth;
+                if (n-&gt;left ) p.push(n-&gt;left ); 
+                if (n-&gt;right) p.push(n-&gt;right);
+            }
+            q.swap(p);
+        }
+        return depth;
+    }
+};
+</code></pre>
+
+<p>4YA</p>
+
+<pre><code class="language-cpp">/**
  * Definition for binary tree
  * struct TreeNode {
  *     int val;
@@ -529,6 +978,28 @@ public:
 <p>链接：<a href="https://leetcode.com/problems/path-sum/description/">https://leetcode.com/problems/path-sum/description/</a></p>
 
 <pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int sum) {
+        if (!root) return false;
+        if (!root-&gt;left &amp;&amp; !root-&gt;right) 
+            if (sum - root-&gt;val == 0) return true; else return false;
+        if (hasPathSum(root-&gt;left , sum-root-&gt;val)) return true;
+        if (hasPathSum(root-&gt;right, sum-root-&gt;val)) return true;
+        return false;
+    }
+};
+</code></pre>
+
+<pre><code class="language-cpp">/**
  * Definition for binary tree
  * struct TreeNode {
  *     int val;
@@ -555,9 +1026,131 @@ public:
 };
 </code></pre>
 
+<h2 id="113-path-sum-ii">113. Path Sum II</h2>
+
+<p>link: <a href="https://leetcode.com/problems/path-sum-ii/description/">https://leetcode.com/problems/path-sum-ii/description/</a></p>
+
+<p>思路深度优先遍历</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; pathSum(TreeNode* root, int sum) {
+        vector&lt;vector&lt;int&gt;&gt; result; vector&lt;int&gt; path;
+        pathSum(root, sum, path, result);
+        return result;
+    }
+    
+    void pathSum(TreeNode *node, int sum, vector&lt;int&gt;&amp; path, vector&lt;vector&lt;int&gt;&gt;&amp; result) {
+        if (!node) return;
+        path.push_back(node-&gt;val);
+        if (!node-&gt;left &amp;&amp; !node-&gt;right) {
+            if (node-&gt;val == sum) result.push_back(path); path.pop_back();
+            return;
+        }
+        pathSum(node-&gt;left , sum - node-&gt;val, path, result);
+        pathSum(node-&gt;right, sum - node-&gt;val, path, result);
+        path.pop_back();
+    }
+};
+</code></pre>
+
+<h2 id="114-flatten-binary-tree-to-linked-list">114. Flatten Binary Tree to Linked List</h2>
+
+<p>link: <a href="https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/">https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/</a></p>
+
+<p>注意要将<code>node-&gt;left = NULL;</code></p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void flatten(TreeNode* node) {
+        if (!node) return;
+        flatten(node-&gt;left); flatten(node-&gt;right);
+        if (!node-&gt;left) return;
+        auto p = node-&gt;left; while (p-&gt;right) p = p-&gt;right;
+        auto tmp    = node-&gt;right;
+        node-&gt;right = node-&gt;left;
+        p-&gt;right    = tmp;
+        node-&gt;left  = NULL;
+    }
+};
+</code></pre>
+
+<h2 id="115-distinct-subsequences">115. Distinct Subsequences</h2>
+
+<p>link: <a href="https://leetcode.com/problems/distinct-subsequences/description/">https://leetcode.com/problems/distinct-subsequences/description/</a></p>
+
+<p>思路：f[i+1,j+1] 表示 s[0&hellip;i] t[0&hellip;j] 的有多少distinct subsequences，所以
+ * 当s[i] == t[j]时，f[i+1,j+1] = f[i,j+1] + f[i,j]。
+ * 当s[i] != t[j]时，f[i+1,j+1] = f[i,j+1]</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int numDistinct(string s, string t) {
+        int m = s.length(), n = t.length();
+        vector&lt;vector&lt;int&gt;&gt; f(m+1, vector&lt;int&gt;(n+1, 0));
+        for (int i=0; i&lt;m; i++) 
+            if (s[i] == t[0]) f[i+1][1] = f[i][1] + 1; 
+            else              f[i+1][1] = f[i][1];
+        for (int i=1; i&lt;m; i++) for (int j=1; j&lt;n; j++) {
+            if (s[i] == t[j]) f[i+1][j+1] = f[i][j];
+            f[i+1][j+1] += f[i][j+1];
+        }
+        return f.back().back();
+    }
+};
+</code></pre>
+
 <h2 id="116-populating-next-right-pointers-in-each-node">116. Populating Next Right Pointers in Each Node</h2>
 
 <p>链接：<a href="https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/">https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/</a></p>
+
+<p>思路：注意要判断 <code>while (curr-&gt;left)</code>，因为当前level已经connect完成了。可以依托于next节点进行逐层遍历，所以可以按照题目的要求用常量空间。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for binary tree with next pointer.
+ * struct TreeLinkNode {
+ *  int val;
+ *  TreeLinkNode *left, *right, *next;
+ *  TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void connect(TreeLinkNode *root) {
+        if (!root) return;
+        TreeLinkNode *prev = NULL, *curr = root, *left = NULL;
+        while (curr-&gt;left) {
+            left = curr-&gt;left;
+            while (curr) {
+                if (prev) prev-&gt;right-&gt;next = curr-&gt;left;
+                curr-&gt;left-&gt;next = curr-&gt;right;
+                prev = curr; curr = curr-&gt;next;
+            }
+            curr = left; prev = NULL;
+        }
+    }
+};
+</code></pre>
+
+<p>4年前的答案</p>
 
 <pre><code class="language-cpp">#include &lt;queue&gt;
 
@@ -626,6 +1219,78 @@ public:
 <h2 id="117-populating-next-right-pointers-in-each-node-ii">117. Populating Next Right Pointers in Each Node II</h2>
 
 <p>链接：<a href="https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/description/">https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/description/</a></p>
+
+<p>思路：p节点遍历当前层，记录下一层链表的prev节点，然后记录下一层遇到的第一个非空节点next。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for binary tree with next pointer.
+ * struct TreeLinkNode {
+ *  int val;
+ *  TreeLinkNode *left, *right, *next;
+ *  TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void connect(TreeLinkNode *root) {
+        if (!root) return;
+        TreeLinkNode *prev = NULL, *p = root, *next = NULL;
+        while (true) {
+            while (p) {
+                if (p-&gt;left) {
+                    if (!next) next = p-&gt;left;
+                    if (prev)  prev-&gt;next = p-&gt;left;
+                    if (p-&gt;right) prev = p-&gt;left-&gt;next = p-&gt;right;
+                    else          prev = p-&gt;left;
+                } else if (p-&gt;right) {
+                    if (!next) next = p-&gt;right;
+                    if (prev)  prev-&gt;next = p-&gt;right;
+                    prev = p-&gt;right;
+                }
+                p = p-&gt;next; 
+            }
+            if (!next) return;
+            p = next; prev = NULL; next = NULL;
+        }
+    }
+};
+</code></pre>
+
+<p>将right节点的处理统一，能更简单一点。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for binary tree with next pointer.
+ * struct TreeLinkNode {
+ *  int val;
+ *  TreeLinkNode *left, *right, *next;
+ *  TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void connect(TreeLinkNode *root) {
+        if (!root) return;
+        TreeLinkNode *prev = NULL, *p = root, *next = NULL;
+        while (true) {
+            while (p) {
+                if (p-&gt;left) {
+                    if (!next) next = p-&gt;left;
+                    if (prev)  prev-&gt;next = p-&gt;left;
+                    prev = p-&gt;left;
+                }
+                if (p-&gt;right) {
+                    if (!next) next = p-&gt;right;
+                    if (prev)  prev-&gt;next = p-&gt;right;
+                    prev = p-&gt;right;
+                }
+                p = p-&gt;next; 
+            }
+            if (!next) return;
+            p = next; prev = NULL; next = NULL;
+        }
+    }
+};
+</code></pre>
 
 <pre><code class="language-cpp">/**
  * Definition for binary tree with next pointer.
@@ -716,7 +1381,6 @@ public:
     }
 };
 </code></pre>
-
     </div>
 
     

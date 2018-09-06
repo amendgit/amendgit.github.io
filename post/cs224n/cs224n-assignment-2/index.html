@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2017-09-12T22:52:06&#43;08:00" />
 <meta itemprop="dateModified" content="2017-09-12T22:52:06&#43;08:00" />
-<meta itemprop="wordCount" content="2375">
+<meta itemprop="wordCount" content="3171">
 
 
 
@@ -580,13 +580,98 @@ Running basic tests...
 Basic (non-exhaustive) Xavier initialization tests pass
 </code></pre>
 
-<p>(f) 使用Dropout对神经网络进行正则化 (题目详见pdf)</p>
+<p>(f) 使用Dropout对神经网络进行正则化，证明为什么$gamma$ 等于 $P_{drop}$ (题目详见pdf)</p>
 
 <p>$$
 E_{P_{drop}}[h_{drop}]_i = E_{P_{drop}}[\gamma d_i h_i] = P_{drop}(0) + (1 - P_{drop}) \gamma h_i = (1 - P_{drop}) \gamma h_i = h_i
 $$</p>
 
 <p>所以，常数gamma的值为 $1 / (1 - P_{drop}) $</p>
+
+<p>(g) 通常我们都使用SGD，这里我们使用Adam的optimizer</p>
+
+<p>(i) Adam使用了叫momentum的trick，直观的阐述一下，为什么Adam能防止更新变化过大，以及为什么这样能帮助学习？</p>
+
+<p>Adam的方法相当于为变化率做了加权，第n次的变化率和前面n-1次的变化率做了 0.9 * m + 0.1 * delta。所以，当某次迭代得到的delta过大时，可以通过Adam来防止更新变化过大。对于学习的好处在于，防止收到某次迭代的delta的影响，导致theta变化太大，而偏离最小值。</p>
+
+<p>(ii) Adam还采用了一种叫做adapter learning rate的方法，由于Adam会将更新除以根号v，那么那些模型参数会获得更大的更新？为什么这个对学习有好处？</p>
+
+<p>计算出的delta中数值较小的获得较大的更新，这样可以快速逃离高原。</p>
+
+<pre><code class="language-sh"> 2018-09-03 22:10:10 ⌚  |2.2.2| erxiangbo in ~/courses/cs224n/github.com/amendgit/assignment2
+± |master {1} U:1 ✗| → python q2_parser_model.py
+================================================================================
+INITIALIZING
+================================================================================
+Loading data... took 2.67 seconds
+Building parser... took 1.38 seconds
+Loading pretrained embeddings... took 2.79 seconds
+Vectorizing data... took 1.91 seconds
+Preprocessing training data...
+39832/39832 [==============================] - 56s
+Building model... took 0.38 seconds
+
+2018-09-04 10:38:46.862715: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-09-04 10:38:46.862765: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2018-09-04 10:38:46.862772: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-09-04 10:38:46.862778: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+================================================================================
+TRAINING
+================================================================================
+Epoch 1 out of 10
+924/924 [==============================] - 139s - train loss: 0.1968
+Evaluating on dev set - dev UAS: 83.40
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 2 out of 10
+924/924 [==============================] - 126s - train loss: 0.1104
+Evaluating on dev set - dev UAS: 86.19
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 3 out of 10
+924/924 [==============================] - 126s - train loss: 0.0953
+Evaluating on dev set - dev UAS: 87.18
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 4 out of 10
+924/924 [==============================] - 126s - train loss: 0.0865
+Evaluating on dev set - dev UAS: 87.80
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 5 out of 10
+924/924 [==============================] - 144s - train loss: 0.0799
+Evaluating on dev set - dev UAS: 87.57
+
+Epoch 6 out of 10
+924/924 [==============================] - 148s - train loss: 0.0750
+Evaluating on dev set - dev UAS: 88.23
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 7 out of 10
+924/924 [==============================] - 138s - train loss: 0.0704
+Evaluating on dev set - dev UAS: 88.06
+
+Epoch 8 out of 10
+924/924 [==============================] - 143s - train loss: 0.0665
+Evaluating on dev set - dev UAS: 88.23
+
+Epoch 9 out of 10
+924/924 [==============================] - 144s - train loss: 0.0631
+Evaluating on dev set - dev UAS: 88.50
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 10 out of 10
+924/924 [==============================] - 147s - train loss: 0.0603
+Evaluating on dev set - dev UAS: 88.37
+
+================================================================================
+TESTING
+================================================================================
+Restoring the best model weights found on the dev set
+Final evaluation on test set - test UAS: 88.60
+Writing predictions
+Done!
+</code></pre>
     </div>
 
     
