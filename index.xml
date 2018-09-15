@@ -23,6 +23,17 @@ It makes use of a variety of open source projects including:
     </item>
     
     <item>
+      <title>Leetcode Solutions 101 120</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-101-120/</link>
+      <pubDate>Sun, 02 Sep 2018 08:30:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-101-120/</guid>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Leetcode Solutions 081 100</title>
       <link>http://localhost:1313/post/leetcode/leetcode-solutions-081-100/</link>
       <pubDate>Tue, 21 Aug 2018 14:21:12 +0800</pubDate>
@@ -94,9 +105,9 @@ It makes use of a variety of open source projects including:
       <pubDate>Fri, 02 Feb 2018 09:49:48 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-others/</guid>
-      <description>189. Rotate Array link: https://leetcode.com/problems/rotate-array/description/
-class Solution { public: void rotate(vector&amp;lt;int&amp;gt;&amp;amp; nums, int k) { int len = nums.size(); vector&amp;lt;int&amp;gt; tmp(len, 0); for (int i=0, j=k%len; i&amp;lt;len; i++, j=(i+k)%len) tmp[j] = nums[i]; nums.swap(tmp); } };  212. Word Search II link: https://leetcode.com/problems/word-search-ii/description/
-class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNode() { flag = 0; fill_n(next, 26, nullptr); } ~TrieNode() { for (auto p : next) if (p) delete p; } }; vector&amp;lt;string&amp;gt; findWords(vector&amp;lt;vector&amp;lt;char&amp;gt;&amp;gt;&amp;amp; board, vector&amp;lt;string&amp;gt;&amp;amp; words) { if (board.</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是180题之后的答案。部分答案是以前的答案。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -142,34 +153,12 @@ class Solution { public: struct TrieNode { char flag; TrieNode* next[26]; TrieNo
     </item>
     
     <item>
-      <title>Leetcode Solutions 121 140</title>
-      <link>http://localhost:1313/post/leetcode/leetcode-solutions-121-140/</link>
-      <pubDate>Tue, 02 May 2017 08:31:24 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-121-140/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第121题到第140题。部分答案是以前的答案。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>深入理解Linux之操作系统是如何工作的</title>
       <link>http://localhost:1313/post/linux/linux-how-os-works/</link>
       <pubDate>Wed, 12 Apr 2017 22:54:25 +0800</pubDate>
       
       <guid>http://localhost:1313/post/linux/linux-how-os-works/</guid>
       <description>一、操作系统的基础 1.存储程序计算机 由美籍匈牙利数学家冯·诺依曼于1946年提出的，把程序本身当作数据来对待，程序和该程序处理的数据用同样的</description>
-    </item>
-    
-    <item>
-      <title>Leetcode Solutions 101 120</title>
-      <link>http://localhost:1313/post/leetcode/leetcode-solutions-101-120/</link>
-      <pubDate>Sun, 02 Apr 2017 08:30:56 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-101-120/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>

@@ -28,7 +28,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.47.1" />
+<meta name="generator" content="Hugo 0.48" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-141-160/" />
@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2017-09-02T08:31:29&#43;08:00" />
 <meta itemprop="dateModified" content="2017-09-02T08:31:29&#43;08:00" />
-<meta itemprop="wordCount" content="1330">
+<meta itemprop="wordCount" content="2335">
 
 
 
@@ -168,11 +168,17 @@
 <li><a href="#144-binary-tree-preorder-traversal">144. Binary Tree Preorder Traversal</a></li>
 <li><a href="#145-binary-tree-postorder-traversal">145. Binary Tree Postorder Traversal</a></li>
 <li><a href="#146-lru-cache">146. LRU Cache</a></li>
+<li><a href="#147-insertion-sort-list">147. Insertion Sort List</a></li>
 <li><a href="#148-sort-list">148. Sort List</a></li>
 <li><a href="#149-max-points-on-a-line">149. Max Points on a Line</a></li>
+<li><a href="#150-evaluate-reverse-polish-notation">150. Evaluate Reverse Polish Notation</a></li>
 <li><a href="#151-reverse-words-in-a-string">151. Reverse Words in a String</a></li>
 <li><a href="#152-maximum-product-subarray">152. Maximum Product Subarray</a></li>
+<li><a href="#153-find-minimum-in-rotated-sorted-array">153. Find Minimum in Rotated Sorted Array</a></li>
+<li><a href="#154-find-minimum-in-rotated-sorted-array-ii">154. Find Minimum in Rotated Sorted Array II</a></li>
 <li><a href="#155-min-stack">155. Min Stack</a></li>
+<li><a href="#156-159">156 ~ 159</a></li>
+<li><a href="#160-intersection-of-two-linked-lists">160. Intersection of Two Linked Lists</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -191,6 +197,28 @@
 <h2 id="141-linked-list-cycle">141. Linked List Cycle</h2>
 
 <p>link: <a href="https://leetcode.com/problems/linked-list-cycle/description/">https://leetcode.com/problems/linked-list-cycle/description/</a></p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if (!head) return false;
+        auto p = head, q = head;
+        while (1) {
+            if (!p-&gt;next || !q-&gt;next || !q-&gt;next-&gt;next) return false;
+            p = p-&gt;next; q = q-&gt;next-&gt;next;
+            if (p == q) return true;
+        }
+    }
+};
+</code></pre>
 
 <pre><code class="language-cpp">/**
  * Definition for singly-linked list.
@@ -233,6 +261,33 @@ public:
 <h2 id="142-linked-list-cycle-ii">142. Linked List Cycle II</h2>
 
 <p>link: <a href="https://leetcode.com/problems/linked-list-cycle-ii/description/">https://leetcode.com/problems/linked-list-cycle-ii/description/</a></p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if (!head) return NULL;
+        auto p = head, q = head;
+        while (1) {
+            if (!p-&gt;next || !q-&gt;next || !q-&gt;next-&gt;next) return NULL;
+            p = p-&gt;next; q = q-&gt;next-&gt;next;
+            if (p == q) break;
+        }
+        int n = 1; p = p-&gt;next; while (p != q) { p = p-&gt;next; n++; } 
+        p = q = head;
+        for (int i=0; i&lt;n; i++) q = q-&gt;next;
+        while (p != q) { p = p-&gt;next; q = q-&gt;next; }
+        return p;
+    }
+};
+</code></pre>
 
 <pre><code class="language-cpp">/**
  * Definition for singly-linked list.
@@ -344,18 +399,19 @@ public:
 class Solution {
 public:
     vector&lt;int&gt; preorderTraversal(TreeNode* root) {
-        stack&lt;TreeNode *&gt; s; vector&lt;int&gt; r; TreeNode *p = root;
-        while (!s.empty() || p != nullptr) {
+        stack&lt;TreeNode *&gt; s; vector&lt;int&gt; result; auto p = root;
+        while (!s.empty() || !p) {
             if (p) {
-                r.push_back(p-&gt;val);
+                result.push_back(p-&gt;val);
                 s.push(p);
                 p = p-&gt;left;
             } else {
-                p = s.top(); p = p-&gt;right;
+                p = s.top(); 
+                p = p-&gt;right;
                 s.pop();
             }
         }
-        return r;
+        return result;
     }
 };
 </code></pre>
@@ -375,23 +431,17 @@ public:
  */
 class Solution {
 public:
-    void postorder(TreeNode *node, vector&lt;int&gt; *out) {
-        if (node) {
-            postorder(node-&gt;left, out);
-            postorder(node-&gt;right, out);
-            out-&gt;push_back(node-&gt;val);
-        }
+    void postorderTraversal(TreeNode *node, vector&lt;int&gt;&amp; result) {
+        if (!node) return;
+        postorderTraversal(node-&gt;left , result);
+        postorderTraversal(node-&gt;right, result);
+        result.push_back(node-&gt;val);
     }
     
     vector&lt;int&gt; postorderTraversal(TreeNode *root) {
-        vector&lt;int&gt; vi;
-        if (!root) {
-            return vi;
-        }
-        
-        postorder(root, &amp;vi);
-        
-        return vi;
+        vector&lt;int&gt; result; if (!root) return result;
+        postorderTraversal(root, &amp;result);
+        return result;
     }
 };
 </code></pre>
@@ -407,25 +457,25 @@ public:
     }
     
     int get(int key) {
-        auto it = cacheMap.find(key);
-        if (it == cacheMap.end()) return -1;
-        cacheLst.splice(cacheLst.begin(), cacheLst, it-&gt;second);
+        auto it = tbl_.find(key);
+        if (it == end(tbl_)) return -1;
+        lst_.splice(lst_.begin(), lst_, it-&gt;second);
         return it-&gt;second-&gt;val;
     }
     
-    void set(int key, int val) {
-        auto it = cacheMap.find(key);
-        if (it == cacheMap.end()) {
-            if (cacheLst.size() &gt;= capacity) {
-                cacheMap.erase(cacheLst.back().key);
-                cacheLst.pop_back();
+    void put(int key, int val) {
+        auto it = tbl_.find(key);
+        if (it == end(tbl_)) {
+            if (lst_.size() &gt;= capacity) {
+                tbl_.erase(lst_.back().key);
+                lst_.pop_back();
             }
-            cacheLst.push_front(Node(key, val));
-            cacheMap.insert({key, cacheLst.begin()});
+            lst_.emplace_front(key, val);
+            tbl_.insert({key, lst_.begin()});
         } else {
             it-&gt;second-&gt;val = val;
-            cacheLst.splice(cacheLst.begin(), cacheLst, it-&gt;second);
-            cacheMap[key] = cacheLst.begin();
+            lst_.splice(lst_.begin(), lst_, it-&gt;second);
+            tbl_[key] = lst_.begin();
         }
     }
 private:
@@ -433,15 +483,87 @@ private:
         int key, val;
         Node(int k, int v) : key(k), val(v) {}
     };
-    list&lt;Node&gt; cacheLst;
-    unordered_map&lt;int, list&lt;Node&gt;::iterator&gt; cacheMap;
+    list&lt;Node&gt; lst_;
+    unordered_map&lt;int, list&lt;Node&gt;::iterator&gt; tbl_;
     int capacity;
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
+</code></pre>
+
+<h2 id="147-insertion-sort-list">147. Insertion Sort List</h2>
+
+<p>link: <a href="https://leetcode.com/problems/insertion-sort-list/description/">https://leetcode.com/problems/insertion-sort-list/description/</a></p>
+
+<p>用链表实现插入排序，要注意用<code>p-&gt;next</code>和<code>q-&gt;next</code>，因为需要移动节点。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        if (!head || !head-&gt;next) return head;
+        ListNode dummy(0); dummy.next = head;
+        auto q = head, p = &amp;dummy;
+        while (q-&gt;next) {
+            for (p = &amp;dummy; p-&gt;next != q-&gt;next; p = p-&gt;next) 
+                if (p-&gt;next-&gt;val &gt; q-&gt;next-&gt;val) break;
+            if (p-&gt;next == q-&gt;next) { q = q-&gt;next; continue; }
+            auto tmp = q-&gt;next; q-&gt;next = q-&gt;next-&gt;next;
+            tmp-&gt;next = p-&gt;next; p-&gt;next = tmp;
+        }
+        return dummy.next;
+    }
 };
 </code></pre>
 
 <h2 id="148-sort-list">148. Sort List</h2>
 
 <p>link: <a href="https://leetcode.com/problems/sort-list/description/">https://leetcode.com/problems/sort-list/description/</a></p>
+
+<p>quicksort，list版本的快排，用的算法导论的版本，不过将尾部取x值改成从第一个位置取x值。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        sortList(head, NULL);
+        return head;
+    }
+
+    void sortList(ListNode *head, ListNode *rear) {
+        if (head == rear || head-&gt;next == rear) return;
+        int x = head-&gt;val; auto q = head;
+        for (auto p = head; p != rear; p = p-&gt;next) {
+            if (p-&gt;val &lt; x) {
+                q = q-&gt;next;
+                swap(p-&gt;val, q-&gt;val);
+            }
+        }
+        swap(head-&gt;val, q-&gt;val);
+        sortList(head   , q   );
+        sortList(q-&gt;next, rear);
+    }
+};
+</code></pre>
 
 <pre><code class="language-cpp">/**
  * Definition for singly-linked list.
@@ -535,6 +657,42 @@ public:
 };
 </code></pre>
 
+<h2 id="150-evaluate-reverse-polish-notation">150. Evaluate Reverse Polish Notation</h2>
+
+<p>link: <a href="https://leetcode.com/problems/evaluate-reverse-polish-notation/description/">https://leetcode.com/problems/evaluate-reverse-polish-notation/description/</a></p>
+
+<p>注意a和b的顺序，是b先出栈，a后出栈。注意存在&rdquo;-11&rdquo;这种数字。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int evalRPN(vector&lt;string&gt;&amp; tokens) {
+        if (tokens.empty()) return 0;
+        stack&lt;int&gt; s;
+        for (string&amp; token : tokens) {
+            char ch = token[0];
+            if (token.length() &gt; 1 || isdigit(ch)) {
+                int i = 0; if (ch == '-') i = 1;
+                int n = 0; for (;i&lt;token.length(); i++) n = n*10 + token[i]-'0';
+                if (ch == '-') n = -n;
+                s.push(n);
+                continue;
+            }
+            int b = s.top(); s.pop();
+            int a = s.top(); s.pop();
+            int c;
+            switch(ch) {
+                case '+': c = a + b; break;
+                case '-': c = a - b; break;
+                case '*': c = a * b; break;
+                case '/': c = a / b; break;
+            }
+            s.push(c);
+        }
+        return s.top();
+    }
+};
+</code></pre>
+
 <h2 id="151-reverse-words-in-a-string">151. Reverse Words in a String</h2>
 
 <p>link: <a href="https://leetcode.com/problems/reverse-words-in-a-string/description/">https://leetcode.com/problems/reverse-words-in-a-string/description/</a></p>
@@ -582,6 +740,53 @@ public:
 };
 </code></pre>
 
+<h2 id="153-find-minimum-in-rotated-sorted-array">153. Find Minimum in Rotated Sorted Array</h2>
+
+<p>link: <a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/">https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int findMin(vector&lt;int&gt;&amp; nums) {
+        if (nums.empty()) return 0;
+        int lo = 0, hi = nums.size()-1, mi = 0;
+        while (lo &lt; hi) {
+            if (nums[lo] &lt; nums[hi]) break;
+            mi = (lo + hi) &gt;&gt; 1;
+            if (nums[mi] &gt;= nums[lo]) {
+                lo = mi+1;
+            } else {
+                hi = mi;
+            }
+        }
+        return nums[lo];
+    }
+};
+</code></pre>
+
+<h2 id="154-find-minimum-in-rotated-sorted-array-ii">154. Find Minimum in Rotated Sorted Array II</h2>
+
+<p>link: <a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/description/">https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int findMin(vector&lt;int&gt;&amp; nums) {
+        int lo = 0, hi = nums.size()-1, mi;
+        while (lo &lt; hi) {
+            if (nums[lo] &lt; nums[hi]) break;
+            mi = (lo + hi) &gt;&gt; 1;
+            if (nums[mi] == nums[lo]) {
+                lo++;
+            } else if (nums[mi] &gt; nums[lo]) {
+                lo = mi+1;
+            } else {
+                hi = mi;
+            }
+        }
+        return nums[lo];
+    }
+};
+</code></pre>
+
 <h2 id="155-min-stack">155. Min Stack</h2>
 
 <p>link: <a href="https://leetcode.com/problems/min-stack/description/">https://leetcode.com/problems/min-stack/description/</a></p>
@@ -618,6 +823,40 @@ public:
     
     int getMin() {
         return ms.top();
+    }
+};
+</code></pre>
+
+<h2 id="156-159">156 ~ 159</h2>
+
+<p>四题是加锁的题目，做不了。</p>
+
+<h2 id="160-intersection-of-two-linked-lists">160. Intersection of Two Linked Lists</h2>
+
+<p>link: <a href="https://leetcode.com/problems/intersection-of-two-linked-lists/description/">https://leetcode.com/problems/intersection-of-two-linked-lists/description/</a></p>
+
+<p>一遍过，计算二者的长度，然后根据尾部是否相等来判断是否存在交叉节点，最后根据m-n的差值对齐位置，在通过p == q就能找到交叉节点了。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *p = headA, *q = headB;
+        int m = 0; while (p) p = p-&gt;next, m++;
+        int n = 0; while (q) q = q-&gt;next, n++;
+        if (p != q) return NULL;
+        p = headA, q = headB;
+        if (m &lt; n) swap(p, q), swap(m, n);
+        for (int i=0; i&lt;m-n; i++) p = p-&gt;next;
+        while (p != q) p = p-&gt;next, q = q-&gt;next;
+        return p;
     }
 };
 </code></pre>

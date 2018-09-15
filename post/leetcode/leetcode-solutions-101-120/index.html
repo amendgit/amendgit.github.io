@@ -28,7 +28,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.47.1" />
+<meta name="generator" content="Hugo 0.48" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-101-120/" />
@@ -56,17 +56,17 @@
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-101-120/" /><meta property="article:published_time" content="2017-04-02T08:30:56&#43;08:00"/>
-<meta property="article:modified_time" content="2017-04-02T08:30:56&#43;08:00"/>
+<meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-101-120/" /><meta property="article:published_time" content="2018-09-02T08:30:56&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-02T08:30:56&#43;08:00"/>
 <meta itemprop="name" content="Leetcode Solutions 101 120">
 <meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。
 
 ">
 
 
-<meta itemprop="datePublished" content="2017-04-02T08:30:56&#43;08:00" />
-<meta itemprop="dateModified" content="2017-04-02T08:30:56&#43;08:00" />
-<meta itemprop="wordCount" content="4794">
+<meta itemprop="datePublished" content="2018-09-02T08:30:56&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-02T08:30:56&#43;08:00" />
+<meta itemprop="wordCount" content="5120">
 
 
 
@@ -145,7 +145,7 @@
       <h1 class="post-title">Leetcode Solutions 101 120</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2017-04-02 </span>
+        <span class="post-time"> 2018-09-02 </span>
         
         
         
@@ -181,6 +181,7 @@
 <li><a href="#117-populating-next-right-pointers-in-each-node-ii">117. Populating Next Right Pointers in Each Node II</a></li>
 <li><a href="#118-pascal-s-triangle">118. Pascal&rsquo;s Triangle</a></li>
 <li><a href="#119-pascal-s-triangle-ii">119. Pascal&rsquo;s Triangle II</a></li>
+<li><a href="#120-triangle">120. Triangle</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1330,6 +1331,46 @@ public:
 
 <p>链接：<a href="https://leetcode.com/problems/pascals-triangle/description/">https://leetcode.com/problems/pascals-triangle/description/</a></p>
 
+<p>beat 12.3%, 4ms</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; generate(int numRows) {
+        vector&lt;vector&lt;int&gt;&gt; result; if (numRows == 0) return result;
+        result.push_back({1});
+        for (int i=1; i&lt;numRows; i++) {
+            vector&lt;int&gt;&amp; last = result.back();
+            vector&lt;int&gt; curr(last.size()+1, 1);
+            for (int j=1; j&lt;curr.size()-1; j++) {
+                curr[j] = last[j-1] + last[j];
+            }
+            result.push_back(move(curr));
+        }
+        return move(result);
+    }
+};
+</code></pre>
+
+<p>beat 100%, 0ms</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; generate(int numRows) {
+        vector&lt;vector&lt;int&gt;&gt; result; if (numRows == 0) return result;
+        result.push_back({1});
+        for (int i=1; i&lt;numRows; i++) {
+            vector&lt;int&gt;&amp; last = result.back();
+            vector&lt;int&gt; curr(last.size()+1, 1);
+            for (int j=1; j&lt;curr.size()-1; j++) {
+                curr[j] = last[j-1] + last[j];
+            }
+            result.push_back(move(curr));
+        }
+        return move(result);
+    }
+};
+</code></pre>
+
 <pre><code class="language-cpp">class Solution {
 public:
     vector&lt;vector&lt;int&gt; &gt; generate(int numRows) {
@@ -1361,6 +1402,22 @@ public:
 <pre><code class="language-cpp">class Solution {
 public:
     vector&lt;int&gt; getRow(int rowIndex) {
+        vector&lt;int&gt; last = {1}; 
+        for (int i=0; i&lt;rowIndex; i++) {
+            vector&lt;int&gt; curr(last.size()+1, 1);
+            for (int j=1; j&lt;curr.size()-1; j++) {
+                curr[j] = last[j-1] + last[j];
+            }
+            swap(last, curr);
+        }
+        return move(last);
+    }
+};
+</code></pre>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; getRow(int rowIndex) {
         vector&lt;int&gt; pascal;
         pascal.assign(rowIndex+1, 0);
         
@@ -1381,6 +1438,51 @@ public:
     }
 };
 </code></pre>
+
+<h2 id="120-triangle">120. Triangle</h2>
+
+<p>link: <a href="https://leetcode.com/problems/triangle/description/">https://leetcode.com/problems/triangle/description/</a></p>
+
+<p>深搜</p>
+
+<p>超时了。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int minimumTotal(vector&lt;vector&lt;int&gt;&gt;&amp; triangle) {
+        if (triangle.empty()) return 0;
+        vector&lt;int&gt; path; int result = INT_MAX;
+        DFS(triangle, 0, 0, path, result);
+        return result;
+    }
+    
+    void DFS(vector&lt;vector&lt;int&gt;&gt;&amp; triangle, int i, int j, vector&lt;int&gt;&amp; path, int&amp; result) {
+        if (i == triangle.size()) {
+            int sum = 0; for (auto n : path) sum += n;
+            result = min(sum, result);
+            return;
+        }
+        path.push_back(triangle[i][j]);
+        DFS(triangle, i+1, j  , path, result);
+        DFS(triangle, i+1, j+1, path, result);
+        path.pop_back();
+    }
+};
+</code></pre>
+
+<p>自底向上就可以用贪心算法来做了，每次找level+1层相邻节点中较小的一个与level的节点相加，来计算level层所有的最小值。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int minimumTotal(vector&lt;vector&lt;int&gt;&gt;&amp; triangle) {
+        vector&lt;int&gt; nums(triangle.back().size()+1, 0);
+        for (int i=triangle.size()-1; i&gt;=0; i--) for (int j=0; j&lt;triangle[i].size(); j++) {
+            nums[j] = min(nums[j], nums[j+1]) + triangle[i][j];
+        }
+        return nums[0];
+    }
+};
+</code></pre>
     </div>
 
     
@@ -1391,7 +1493,7 @@ public:
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2017-04-02</span>
+    <span class="item-content">2018-09-02</span>
   </p>
   
   
@@ -1410,14 +1512,9 @@ public:
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/linux/linux-how-os-works/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">深入理解Linux之操作系统是如何工作的</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
         
-          <a class="next" href="/post/linux/linux-how-computer-works/">
-            <span class="next-text nav-default">深入理解Linux之计算机是怎样工作的</span>
+          <a class="next" href="/post/leetcode/leetcode-solutions-081-100/">
+            <span class="next-text nav-default">Leetcode Solutions 081 100</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
