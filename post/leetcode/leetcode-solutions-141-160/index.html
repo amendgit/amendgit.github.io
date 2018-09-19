@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2017-09-02T08:31:29&#43;08:00" />
 <meta itemprop="dateModified" content="2017-09-02T08:31:29&#43;08:00" />
-<meta itemprop="wordCount" content="2335">
+<meta itemprop="wordCount" content="2619">
 
 
 
@@ -744,6 +744,8 @@ public:
 
 <p>link: <a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/">https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/</a></p>
 
+<p>每次折半查找都会有三种情况，第一[lo, hi]是顺序的，那么直接去nums[lo]即可。第二当前处于前半部分，那么最小值在[mi+1, hi]中，第三当前处于后半部分，那么最小值存在在[lo, mi]当中，注意这时是不能排除mi的，因为可能mi就是最小值。这也是为什么边界用闭闭区间的原因。其实用开闭区间也可以的，只是要判断<code>while (lo &lt; hi-1)</code>。</p>
+
 <pre><code class="language-cpp">class Solution {
 public:
     int findMin(vector&lt;int&gt;&amp; nums) {
@@ -766,6 +768,8 @@ public:
 <h2 id="154-find-minimum-in-rotated-sorted-array-ii">154. Find Minimum in Rotated Sorted Array II</h2>
 
 <p>link: <a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/description/">https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/description/</a></p>
+
+<p>一遍过，类似153的思路，进行搜索，唯一要注意的是如果nums[mi] == nums[lo]是无法判断当前是在前半部分还是后半部分的，这时把lo++就行了，发展nums[mi] == nums[lo]，不用担心把最小值给排除在外了。</p>
 
 <pre><code class="language-cpp">class Solution {
 public:

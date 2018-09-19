@@ -23,6 +23,46 @@ It makes use of a variety of open source projects including:
     </item>
     
     <item>
+      <title>Spring in Action</title>
+      <link>http://localhost:1313/post/read/spring-in-action/</link>
+      <pubDate>Wed, 19 Sep 2018 10:08:14 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/read/spring-in-action/</guid>
+      <description>5.4 Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动放到model中。例如：将Fo</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions 121 140</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-121-140/</link>
+      <pubDate>Tue, 18 Sep 2018 08:31:24 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-121-140/</guid>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第121题到第140题。部分答案是以前的答案。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>信息安全之缓存区溢出漏洞</title>
+      <link>http://localhost:1313/post/security/buffer-overflow/</link>
+      <pubDate>Sun, 16 Sep 2018 22:12:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/security/buffer-overflow/</guid>
+      <description>&lt;p&gt;这是SEED项目中的第二个实验，缓存区溢出漏洞，这是我的实验报告。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Leetcode Solutions 161 180</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-161-180/</link>
+      <pubDate>Sat, 15 Sep 2018 20:23:45 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-161-180/</guid>
+      <description>162. Find Peak Element link: https://leetcode.com/problems/find-peak-element/description/ 一遍过，类似二分的思路，如果右边有必当前值大的，那么右边就存在peak，同理左边也是，反正只要搜一边就可以了。如果两边都比当前小</description>
+    </item>
+    
+    <item>
       <title>Leetcode Solutions 101 120</title>
       <link>http://localhost:1313/post/leetcode/leetcode-solutions-101-120/</link>
       <pubDate>Sun, 02 Sep 2018 08:30:56 +0800</pubDate>

