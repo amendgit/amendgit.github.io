@@ -60,7 +60,7 @@
 
 <meta itemprop="datePublished" content="2018-09-15T20:23:45&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-15T20:23:45&#43;08:00" />
-<meta itemprop="wordCount" content="1669">
+<meta itemprop="wordCount" content="1879">
 
 
 
@@ -164,6 +164,7 @@
 <li><a href="#171-excel-sheet-column-number">171. Excel Sheet Column Number</a></li>
 <li><a href="#172-factorial-trailing-zeroes">172. Factorial Trailing Zeroes</a></li>
 <li><a href="#173-binary-search-tree-iterator">173. Binary Search Tree Iterator</a></li>
+<li><a href="#174-dungeon-game">174. Dungeon Game</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -472,6 +473,32 @@ public:
  * BSTIterator i = BSTIterator(root);
  * while (i.hasNext()) cout &lt;&lt; i.next();
  */
+</code></pre>
+
+<h2 id="174-dungeon-game">174. Dungeon Game</h2>
+
+<p>link: <a href="https://leetcode.com/problems/dungeon-game/description/">https://leetcode.com/problems/dungeon-game/description/</a></p>
+
+<p>f[i][j]表示从f[i][j]到rightbottom需要的最少hp值，注意f[i][j]不能为负值，所以每次当发现f[i][j]为负值时就要纠正。</p>
+
+<p>从左上向右下计算的问题在于，不能判断是以路劲最小hp值为判断依据，还是以当前的hp值大小为判断依据。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int calculateMinimumHP(vector&lt;vector&lt;int&gt;&gt;&amp; D) {
+        if (D.empty() || D[0].empty()) return 0;
+        int m = D.size(), n = D[0].size();
+        vector&lt;vector&lt;int&gt;&gt; f(m, vector&lt;int&gt;(n, 0));
+        f[m-1][n-1] = max(-D[m-1][n-1], 0);
+        for (int i=m-2; i&gt;=0; i--) f[i][n-1] = max(f[i+1][n-1] - D[i][n-1], 0);
+        for (int j=n-2; j&gt;=0; j--) f[m-1][j] = max(f[m-1][j+1] - D[m-1][j], 0);
+        for (int i=m-2; i&gt;=0; i--) for (int j=n-2; j&gt;=0; j--) {
+            f[i][j] = min(f[i+1][j], f[i][j+1]) - D[i][j];
+            f[i][j] = max(f[i][j], 0);
+        }
+        return f[0][0] + 1;
+    }
+};
 </code></pre>
 
     </div>
