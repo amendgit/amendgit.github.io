@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-02-02T09:49:48&#43;08:00" />
 <meta itemprop="dateModified" content="2018-02-02T09:49:48&#43;08:00" />
-<meta itemprop="wordCount" content="1420">
+<meta itemprop="wordCount" content="1035">
 
 
 
@@ -162,9 +162,6 @@
 <ul>
 <li>
 <ul>
-<li><a href="#189-rotate-array">189. Rotate Array</a></li>
-<li><a href="#212-word-search-ii">212. Word Search II</a></li>
-<li><a href="#218-the-skyline-problem">218. The Skyline Problem</a></li>
 <li><a href="#233-number-of-digit-one">233. Number of Digit One</a></li>
 <li><a href="#295-find-median-from-data-stream">295. Find Median from Data Stream</a></li>
 <li><a href="#304-range-sum-query-2d-immutable">304. Range Sum Query 2D - Immutable</a></li>
@@ -188,108 +185,6 @@
       <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是180题之后的答案。部分答案是以前的答案。</p>
 
 <p></p>
-
-<h2 id="189-rotate-array">189. Rotate Array</h2>
-
-<p>link: <a href="https://leetcode.com/problems/rotate-array/description/">https://leetcode.com/problems/rotate-array/description/</a></p>
-
-<pre><code class="language-cpp">class Solution {
-public:
-    void rotate(vector&lt;int&gt;&amp; nums, int k) {
-        int len = nums.size();
-        vector&lt;int&gt; tmp(len, 0);
-        for (int i=0, j=k%len; i&lt;len; i++, j=(i+k)%len) tmp[j] = nums[i];
-        nums.swap(tmp);
-    }
-};
-</code></pre>
-
-<h2 id="212-word-search-ii">212. Word Search II</h2>
-
-<p>link: <a href="https://leetcode.com/problems/word-search-ii/description/">https://leetcode.com/problems/word-search-ii/description/</a></p>
-
-<pre><code class="language-cpp">class Solution {
-public:
-    struct TrieNode {
-        char flag; TrieNode* next[26];
-        TrieNode() { flag = 0; fill_n(next, 26, nullptr); }
-        ~TrieNode() { for (auto p : next) if (p) delete p; }
-    };
-    
-    vector&lt;string&gt; findWords(vector&lt;vector&lt;char&gt;&gt;&amp; board, vector&lt;string&gt;&amp; words) {
-        if (board.empty()) return vector&lt;string&gt;();
-        TrieNode *root = buildTrie(words);
-        vector&lt;string&gt; result; string word;
-        for (int x=0; x&lt;board.size(); x++) for (int y=0; y&lt;board[0].size(); y++)
-            findWords(board, x, y, root, word, result);
-        delete root;
-        return result;
-    }
-    
-    void findWords(vector&lt;vector&lt;char&gt;&gt;&amp; board, int x, int y, TrieNode* node, string&amp; word, vector&lt;string&gt;&amp; result) {
-        if (board[x][y] == '*') return ;
-        char c = board[x][y]; char index = c - 'a';
-        node = node-&gt;next[index]; 
-        if (node == nullptr) return ;
-        board[x][y] = '*'; word.push_back(c);
-        if (node-&gt;flag == 1) { result.push_back(word); node-&gt;flag = 0; };
-        if (x-1 &gt;= 0)              findWords(board, x-1, y,   node, word, result);
-        if (x+1 &lt; board.size())    findWords(board, x+1, y,   node, word, result);
-        if (y-1 &gt;= 0)              findWords(board, x,   y-1, node, word, result);
-        if (y+1 &lt; board[0].size()) findWords(board, x,   y+1, node, word, result);
-        board[x][y] = c;   word.pop_back();
-        return ; 
-    }
-    
-    TrieNode *buildTrie(vector&lt;string&gt;&amp; words) {
-        TrieNode *root = new TrieNode();
-        for (auto&amp; word : words) {
-            TrieNode *node = root;
-            for (int i=0; i&lt;word.size(); i++) {
-                char index = word[i] - 'a';
-                if (node-&gt;next[index] == nullptr) node-&gt;next[index] = new TrieNode();
-                node = node-&gt;next[index];
-            }
-            node-&gt;flag = 1;
-        }
-        return root;
-    }
-};
-</code></pre>
-
-<h2 id="218-the-skyline-problem">218. The Skyline Problem</h2>
-
-<p>link: <a href="https://leetcode.com/problems/the-skyline-problem/description/">https://leetcode.com/problems/the-skyline-problem/description/</a></p>
-
-<pre><code class="language-cpp">class Solution {
-public:
-    vector&lt;pair&lt;int, int&gt;&gt; getSkyline(vector&lt;vector&lt;int&gt;&gt;&amp; LRH) {
-        struct RH { 
-            int R, H;
-            bool operator()(RH&amp; l, RH&amp; r) { return l.H &lt; r.H; } // lessthan
-            RH() {};
-            RH(int r, int h) : R(r), H(h) {}
-        };
-        priority_queue&lt;RH, vector&lt;RH&gt;, RH&gt; RHq;
-        vector&lt;pair&lt;int, int&gt;&gt; result; int len = LRH.size();
-        int x, y, i=0, Li=0, Ri=1, Hi=2;
-        while (i&lt;len || !RHq.empty()) {
-            if (RHq.empty() || i&lt;len &amp;&amp; LRH[i][Li]&lt;=RHq.top().R) {
-                x = LRH[i][Li]; 
-                while (i&lt;len &amp;&amp; LRH[i][Li]==x) { RHq.push(RH(LRH[i][Ri], LRH[i][Hi])); i++; }
-            } else {
-                x = RHq.top().R;
-                while (!RHq.empty() &amp;&amp; RHq.top().R&lt;=x) { RHq.pop(); }
-            }
-            y = RHq.empty() ? 0 : RHq.top().H;
-            if (result.empty() || result.back().second!=y) {
-                result.push_back({x, y});
-            }
-        }
-        return move(result);
-    }
-};
-</code></pre>
 
 <h2 id="233-number-of-digit-one">233. Number of Digit One</h2>
 

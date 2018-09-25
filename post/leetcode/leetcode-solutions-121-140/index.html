@@ -66,7 +66,7 @@
 
 <meta itemprop="datePublished" content="2018-09-18T08:31:24&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-18T08:31:24&#43;08:00" />
-<meta itemprop="wordCount" content="3483">
+<meta itemprop="wordCount" content="3629">
 
 
 
@@ -350,7 +350,22 @@ public:
 };
 </code></pre>
 
-<pre><code class="language-cpp"></code></pre>
+<p>discuss里的思路，初始为0，a表示[0, i) buy一股最多剩余的钱数，b表示[0, i) buy sell一股最多剩余的钱数，c表示[0, i) buy sell buy一股最多剩余的钱数，d表示[0, i) buy sell buy sell剩余最多的钱数。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int maxProfit(vector&lt;int&gt;&amp; prices) {
+        int len = prices.size(), a=INT_MIN, b=0, c=INT_MIN, d=0;
+        for (int i=0; i&lt;len; i++) {
+            d = max(d, c+prices[i]);
+            c = max(c, b-prices[i]);
+            b = max(b, a+prices[i]);
+            a = max(a, 0-prices[i]);
+        }
+        return d;
+    }
+};
+</code></pre>
 
 <h2 id="124-binary-tree-maximum-path-sum">124. Binary Tree Maximum Path Sum</h2>
 

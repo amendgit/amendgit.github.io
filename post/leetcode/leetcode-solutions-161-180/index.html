@@ -17,7 +17,9 @@
 
 
 <meta name="author" content="amendgit" />
-  <meta name="description" content="162. Find Peak Element link: https://leetcode.com/problems/find-peak-element/description/ 一遍过，类似二分的思路，如果右边有必当前值大的，那么右边就存在peak，同理左边也是，反正只要搜一边就可以了。如果两边都比当前小" />
+  <meta name="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第161题到第180题。部分答案是以前的答案。
+
+" />
 
   <meta name="keywords" content="amendgit, blog" />
 
@@ -50,24 +52,30 @@
 
 
 <meta property="og:title" content="Leetcode Solutions 161 180" />
-<meta property="og:description" content="162. Find Peak Element link: https://leetcode.com/problems/find-peak-element/description/ 一遍过，类似二分的思路，如果右边有必当前值大的，那么右边就存在peak，同理左边也是，反正只要搜一边就可以了。如果两边都比当前小" />
+<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第161题到第180题。部分答案是以前的答案。
+
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-161-180/" /><meta property="article:published_time" content="2018-09-15T20:23:45&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-15T20:23:45&#43;08:00"/>
 <meta itemprop="name" content="Leetcode Solutions 161 180">
-<meta itemprop="description" content="162. Find Peak Element link: https://leetcode.com/problems/find-peak-element/description/ 一遍过，类似二分的思路，如果右边有必当前值大的，那么右边就存在peak，同理左边也是，反正只要搜一边就可以了。如果两边都比当前小">
+<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第161题到第180题。部分答案是以前的答案。
+
+">
 
 
 <meta itemprop="datePublished" content="2018-09-15T20:23:45&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-15T20:23:45&#43;08:00" />
-<meta itemprop="wordCount" content="1879">
+<meta itemprop="wordCount" content="2081">
 
 
 
 <meta itemprop="keywords" content="leetcode," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode Solutions 161 180"/>
-<meta name="twitter:description" content="162. Find Peak Element link: https://leetcode.com/problems/find-peak-element/description/ 一遍过，类似二分的思路，如果右边有必当前值大的，那么右边就存在peak，同理左边也是，反正只要搜一边就可以了。如果两边都比当前小"/>
+<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第161题到第180题。部分答案是以前的答案。
+
+"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -165,6 +173,9 @@
 <li><a href="#172-factorial-trailing-zeroes">172. Factorial Trailing Zeroes</a></li>
 <li><a href="#173-binary-search-tree-iterator">173. Binary Search Tree Iterator</a></li>
 <li><a href="#174-dungeon-game">174. Dungeon Game</a></li>
+<li><a href="#175-178">175 ~ 178</a></li>
+<li><a href="#179-largest-number">179. Largest Number</a></li>
+<li><a href="#180">180</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -176,7 +187,9 @@
 
     
     <div class="post-content">
-      
+      <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第161题到第180题。部分答案是以前的答案。</p>
+
+<p></p>
 
 <h2 id="162-find-peak-element">162. Find Peak Element</h2>
 
@@ -501,6 +514,44 @@ public:
 };
 </code></pre>
 
+<h2 id="175-178">175 ~ 178</h2>
+
+<p>SQL题目，跳过</p>
+
+<h2 id="179-largest-number">179. Largest Number</h2>
+
+<p>link: <a href="https://leetcode.com/problems/largest-number/description/">https://leetcode.com/problems/largest-number/description/</a></p>
+
+<p>注意点：</p>
+
+<ul>
+<li>根据a+b和b+a的大小判断谁在前，谁在后。</li>
+<li>使用do while是为了考虑n等于0的情况。</li>
+</ul>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    string largestNumber(vector&lt;int&gt;&amp; nums) {
+        if (nums.empty()) return &quot;0&quot;;
+        vector&lt;string&gt; ss;
+        for (int n : nums) {
+            string s; do { s.push_back(n%10+'0'), n=n/10; } while (n&gt;0); 
+            reverse(begin(s), end(s));
+            ss.push_back(s);
+        }
+        sort(begin(ss), end(ss), [](string&amp; a, string&amp; b) {
+            return a+b &gt; b+a;
+        });
+        if (ss[0][0] == '0') return &quot;0&quot;; 
+        string result; for (string&amp; s : ss) result.append(s);
+        return move(result);
+    }
+};
+</code></pre>
+
+<h2 id="180">180</h2>
+
+<p>是SQL的题目，跳过。</p>
     </div>
 
     
