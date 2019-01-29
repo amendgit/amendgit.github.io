@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Leetcode Solutions 221 240 - amendgit`s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="amendgit" />
+  <meta name="description" content="221. Maximal Square link: https://leetcode.com/problems/maximal-square/description/ 动态规划，f[i][j]表示以(i,j)为rightbottom节点的最大矩形大小 a表示当前节点的右上角节点，b表示当前的上方一个" />
+
+  <meta name="keywords" content="amendgit, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-221-240/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Leetcode Solutions 221 240" />
+<meta property="og:description" content="221. Maximal Square link: https://leetcode.com/problems/maximal-square/description/ 动态规划，f[i][j]表示以(i,j)为rightbottom节点的最大矩形大小 a表示当前节点的右上角节点，b表示当前的上方一个" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-221-240/" /><meta property="article:published_time" content="2018-10-01T12:06:27&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-01T12:06:27&#43;08:00"/>
+
+<meta itemprop="name" content="Leetcode Solutions 221 240">
+<meta itemprop="description" content="221. Maximal Square link: https://leetcode.com/problems/maximal-square/description/ 动态规划，f[i][j]表示以(i,j)为rightbottom节点的最大矩形大小 a表示当前节点的右上角节点，b表示当前的上方一个">
+
+
+<meta itemprop="datePublished" content="2018-10-01T12:06:27&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-01T12:06:27&#43;08:00" />
+<meta itemprop="wordCount" content="3062">
+
+
+
+<meta itemprop="keywords" content="leetcode," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode Solutions 221 240"/>
+<meta name="twitter:description" content="221. Maximal Square link: https://leetcode.com/problems/maximal-square/description/ 动态规划，f[i][j]表示以(i,j)为rightbottom节点的最大矩形大小 a表示当前节点的右上角节点，b表示当前的上方一个"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">amendgit&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">amendgit&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Leetcode Solutions 221 240</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-10-01 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#221-maximal-square">221. Maximal Square</a></li>
+<li><a href="#222-count-complete-tree-nodes">222. Count Complete Tree Nodes</a></li>
+<li><a href="#223-rectangle-area">223. Rectangle Area</a></li>
+<li><a href="#224-basic-calculator">224. Basic Calculator</a></li>
+<li><a href="#225-implement-stack-using-queues">225. Implement Stack using Queues</a></li>
+<li><a href="#226-invert-binary-tree">226. Invert Binary Tree</a></li>
+<li><a href="#227-basic-calculator-ii">227. Basic Calculator II</a></li>
+<li><a href="#228-summary-ranges">228. Summary Ranges</a></li>
+<li><a href="#229-majority-element-ii">229. Majority Element II</a></li>
+<li><a href="#230-kth-smallest-element-in-a-bst">230. Kth Smallest Element in a BST</a></li>
+<li><a href="#231-power-of-two">231. Power of Two</a></li>
+<li><a href="#232-implement-queue-using-stacks">232. Implement Queue using Stacks</a></li>
+<li><a href="#233-number-of-digit-one">233. Number of Digit One</a></li>
+<li><a href="#235-lowest-common-ancestor-of-a-binary-search-tree">235. Lowest Common Ancestor of a Binary Search Tree</a></li>
+<li><a href="#236-lowest-common-ancestor-of-a-binary-tree">236. Lowest Common Ancestor of a Binary Tree</a></li>
+<li><a href="#237-delete-node-in-a-linked-list">237. Delete Node in a Linked List</a></li>
+<li><a href="#238-product-of-array-except-self">238. Product of Array Except Self</a></li>
+<li><a href="#239-sliding-window-maximum">239. Sliding Window Maximum</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="221-maximal-square">221. Maximal Square</h2>
+
+<p>link: <a href="https://leetcode.com/problems/maximal-square/description/">https://leetcode.com/problems/maximal-square/description/</a></p>
+
+<ul>
+<li>动态规划，<code>f[i][j]</code>表示以(i,j)为rightbottom节点的最大矩形大小</li>
+<li>a表示当前节点的右上角节点，b表示当前的上方一个节点，c表示当前节点左边的一个节点</li>
+<li>只有知道a b c的最小值就可以了。</li>
+</ul>
+
+<p>16 ms</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int maximalSquare(vector&lt;vector&lt;char&gt;&gt;&amp; matrix) {
+        int m = matrix.size();    if (m == 0) return 0;
+        int n = matrix[0].size(); if (n == 0) return 0;
+        vector&lt;vector&lt;int&gt;&gt; f(m, vector&lt;int&gt;(n, 0));
+        int a, b, c, result = 0;
+        for (int i=0; i&lt;m; i++) for (int j=0; j&lt;n; j++) {
+            if (matrix[i][j] == '0') continue;
+            a = b = c = 0;
+            if (i&gt;0 &amp;&amp; j&gt;0) a = f[i-1][j-1];
+            if (i &gt; 0) b      = f[i-1][j  ];
+            if (j &gt; 0) c      = f[i  ][j-1];
+            f[i][j] = min({a, b, c}) + 1;
+            result = max(result, f[i][j] * f[i][j]);
+        }
+        return result;
+    }
+};
+</code></pre>
+
+<p>试试将dp的二维表改成一维表试试效果，12ms。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int maximalSquare(vector&lt;vector&lt;char&gt;&gt;&amp; matrix) {
+        int m = matrix.size();    if (m == 0) return 0;
+        int n = matrix[0].size(); if (n == 0) return 0;
+        vector&lt;int&gt; f(n, 0); 
+        int a = 0, b, c, i, j, result = 0;
+        for (i=0; i&lt;m; i++) for (j=0, a=0; j&lt;n; j++) {
+            if (matrix[i][j] == '0') { f[j] = 0; continue; }
+            a = a;
+            b = f[j];
+            c = 0; if (j &gt; 0) c = f[j-1];
+            f[j] = min({a, b, c}) + 1; 
+            if (i &gt; 0) a = b;
+            result = max(result, f[j]*f[j]);
+        }
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="222-count-complete-tree-nodes">222. Count Complete Tree Nodes</h2>
+
+<p>link: <a href="https://leetcode.com/problems/count-complete-tree-nodes/description/">https://leetcode.com/problems/count-complete-tree-nodes/description/</a></p>
+
+<p>如果leftmost节点和rightmost节点的深度一样，就可以用公式<code>2^n+1</code>来计算节点数。
+如果不相等，则只能继续递归计算左右子树的节点数。</p>
+
+<p>60ms</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        if (root == NULL) return 0;
+        int lh = 0; for (auto p = root; p; p = p-&gt;left ) lh++;
+        int rh = 0; for (auto p = root; p; p = p-&gt;right) rh++;
+        if (lh == rh) return (1 &lt;&lt; lh) - 1;
+        return countNodes(root-&gt;left) + countNodes(root-&gt;right) + 1;
+    }
+};
+</code></pre>
+
+<ul>
+<li>尝试做点优化，把左右子节点的深度复用，防止重复计算每个子树的leftmost和rightmost的深度</li>
+</ul>
+
+<p>40ms</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        return countNodes(root, 0, 0);
+    }
+
+    int countNodes(TreeNode* root, int lh, int rh) {
+        if (root == NULL) return 0;
+        if (lh == 0) for (auto p = root; p; p = p-&gt;left ) lh++;
+        if (rh == 0) for (auto p = root; p; p = p-&gt;right) rh++;
+        if (lh == rh) return (1 &lt;&lt; lh) - 1;
+        return countNodes(root-&gt;left, lh-1, 0) + countNodes(root-&gt;right, 0, rh-1) + 1;
+    }
+};
+</code></pre>
+
+<h2 id="223-rectangle-area">223. Rectangle Area</h2>
+
+<p>link: <a href="https://leetcode.com/problems/rectangle-area/description/">https://leetcode.com/problems/rectangle-area/description/</a></p>
+
+<p>找出重合部分的leftbottom和righttop位置，然后加和两个矩形的面积减去重合部分的面积。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        int a = max(A, E), b = max(B, F), c = min(C, G), d = min(D, H), result = 0;
+        result += (C-A) * (D-B);
+        result += (G-E) * (H-F);
+        if (c&lt;a || d&lt;b) return result;
+        result -= (c-a) * (d-b);
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="224-basic-calculator">224. Basic Calculator</h2>
+
+<p>link: <a href="https://leetcode.com/problems/basic-calculator/description/">https://leetcode.com/problems/basic-calculator/description/</a></p>
+
+<p>当遇到括号时，用栈来暂存当前结果和符号。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int calculate(const string&amp; e) {
+        stack&lt;int&gt; s; int n = 0, op = +1, len = e.length(), i = 0;
+        while (i &lt; len) {
+            switch (e[i]) {
+                case '+':
+                    op = +1; 
+                    i++;
+                    break;
+                case '-':
+                    op = -1; 
+                    i++;
+                    break;
+                case '(':
+                    s.push(n ); n  =  0;
+                    s.push(op); op = +1;
+                    i++;
+                    break;
+                case ')':
+                    op = s.top();        s.pop();
+                    n  = s.top() + op*n; s.pop();
+                    op = +1;
+                    i++;
+                    break;
+                case ' ':
+                    i++;
+                    break;
+                default:
+                    int r = 0; while (isdigit(e[i])) r = r*10 + e[i++] - '0';
+                    n = n + op*r;
+                    break;
+            }
+        }
+        return n;
+    }
+};
+</code></pre>
+
+<h2 id="225-implement-stack-using-queues">225. Implement Stack using Queues</h2>
+
+<p>link: <a href="https://leetcode.com/problems/implement-stack-using-queues/description/">https://leetcode.com/problems/implement-stack-using-queues/description/</a></p>
+
+<p>思路：暴力解决。</p>
+
+<pre><code class="language-cpp">class MyStack {
+private:
+    queue&lt;int&gt; q_;
+public:
+    /** Initialize your data structure here. */
+    MyStack() {}
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        q_.push(x);
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        queue&lt;int&gt; q; q.swap(q_);
+        for (int i = q.size()-1; i &gt; 0; i--) { q_.push(q.front()); q.pop(); }
+        return q.front();
+    }
+    
+    /** Get the top element. */
+    int top() {
+        queue&lt;int&gt; q; q.swap(q_);
+        for (int i = q.size()-1; i &gt; 0; i--) { q_.push(q.front()); q.pop(); }
+        int top = q.front(); q_.push(q.front());
+        return top;
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return q_.empty();
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * bool param_4 = obj.empty();
+ */
+</code></pre>
+
+<h2 id="226-invert-binary-tree">226. Invert Binary Tree</h2>
+
+<p>link: <a href="https://leetcode.com/problems/invert-binary-tree/description/">https://leetcode.com/problems/invert-binary-tree/description/</a></p>
+
+<p>用队列记录。</p>
+
+<pre><code class="language-cpp"> /**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        queue&lt;TreeNode*&gt; q({root});
+        while (!q.empty()) {
+            auto node = q.front(); q.pop();
+            if (node == NULL) continue;
+            auto tmp = node-&gt;left; node-&gt;left = node-&gt;right; node-&gt;right = tmp;
+            q.push(node-&gt;left); q.push(node-&gt;right);
+        }
+        return root;
+    }
+};
+</code></pre>
+
+<h2 id="227-basic-calculator-ii">227. Basic Calculator II</h2>
+
+<p>link: <a href="https://leetcode.com/problems/basic-calculator-ii/description/">https://leetcode.com/problems/basic-calculator-ii/description/</a></p>
+
+<p>细节题</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int calculate(const string&amp; e) {
+        stack&lt;int&gt; s; char op = '+'; int i = 0;
+        while (i &lt; e.length()) {
+            if (isdigit(e[i])) {
+                int n = 0; while (isdigit(e[i])) n = n * 10 + e[i++] - '0';
+                switch (op) {
+                case '+': s.push(+n); break;
+                case '-': s.push(-n); break; 
+                case '*': n = s.top()*n; s.pop(); s.push(n); break;
+                case '/': n = s.top()/n; s.pop(); s.push(n); break;
+                }
+            } 
+            else if (e[i] == ' ') i++;
+            else                  op = e[i++];
+        }
+        int result = 0; while (!s.empty()) { result += s.top(); s.pop(); }
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="228-summary-ranges">228. Summary Ranges</h2>
+
+<p>link: <a href="https://leetcode.com/problems/summary-ranges/description/">https://leetcode.com/problems/summary-ranges/description/</a></p>
+
+<ul>
+<li>注意两个数相减之后溢出</li>
+</ul>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;string&gt; summaryRanges(vector&lt;int&gt;&amp; nums) {
+        const int len = nums.size(); vector&lt;string&gt; result; 
+        if (len == 0) return {};
+        if (len == 1) return { to_string(nums[0]) };
+        int i = 0, lo = nums[0], hi = nums[0];
+        while (i &lt; len) {
+            if (i &gt;= len-1) {
+                if (lo != hi) result.push_back(to_string(lo)+&quot;-&gt;&quot;+to_string(hi));
+                else          result.push_back(to_string(lo));
+                break;
+            } else if ((long)nums[i+1]-nums[i] &gt;  1) {
+                if (lo != hi) result.push_back(to_string(lo)+&quot;-&gt;&quot;+to_string(hi));
+                else          result.push_back(to_string(lo));
+                hi = lo = nums[++i];
+            } else if ((long)nums[i+1]-nums[i] == 1) {
+                hi = nums[++i];
+            }  
+        }
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="229-majority-element-ii">229. Majority Element II</h2>
+
+<p>link: <a href="https://leetcode.com/problems/majority-element-ii/">https://leetcode.com/problems/majority-element-ii/</a></p>
+
+<p>思路：</p>
+
+<p>Boyer-Moore Majority Vote algorithm</p>
+
+<p>假设主要数为num1，次要数为num2</p>
+
+<ul>
+<li>如果当前数字等于主要数num1
+
+<ul>
+<li>增加主要数的计数器cnt1</li>
+</ul></li>
+<li>否则，如果当前数等于次要数num2
+
+<ul>
+<li>增加次要数的计数器cnt2</li>
+</ul></li>
+<li>否则，若主要数为空，则假设当前数为主要数</li>
+<li>否则，若次要数为空，则假设当前数为次要数</li>
+<li>否则，将主要数和次要数跟当前数配对，各自计数器减少1</li>
+</ul>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; majorityElement(vector&lt;int&gt;&amp; nums) {
+        int num1 = 0, cnt1 = 0, num2 = 0, cnt2 = 0;
+        for (int n : nums) {
+            if      (n == num1) cnt1++;
+            else if (n == num2) cnt2++;
+            else if (cnt1 == 0) num1 = n, cnt1 = 1;
+            else if (cnt2 == 0) num2 = n, cnt2 = 1;
+            else                cnt1--  , cnt2--;
+        }
+        cnt1 = 0, cnt2 = 0;
+        for (int n : nums) {
+            if      (n == num1) cnt1++;
+            else if (n == num2) cnt2++;
+        }
+        vector&lt;int&gt; result;
+        if (cnt1 &gt; nums.size() / 3) result.push_back(num1);
+        if (cnt2 &gt; nums.size() / 3) result.push_back(num2);
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="230-kth-smallest-element-in-a-bst">230. Kth Smallest Element in a BST</h2>
+
+<p>link: <a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/">https://leetcode.com/problems/kth-smallest-element-in-a-bst/</a></p>
+
+<p>二叉平衡树排序的思路</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        stack&lt;TreeNode *&gt; s; TreeNode *p = root;
+        while (!s.empty() || p) {
+            while (p) s.push(p), p = p-&gt;left;
+            TreeNode *curr = s.top(); s.pop();
+            if (--k == 0) return curr-&gt;val;
+            p = curr-&gt;right;
+        }
+        return 0;
+    }
+};
+</code></pre>
+
+<h2 id="231-power-of-two">231. Power of Two</h2>
+
+<p>link: <a href="https://leetcode.com/problems/power-of-two/description/">https://leetcode.com/problems/power-of-two/description/</a></p>
+
+<p>位运算，比较简单。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if (n &lt;= 0) return false;
+        return (n &amp; n-1) == 0;
+    }
+};
+</code></pre>
+
+<h2 id="232-implement-queue-using-stacks">232. Implement Queue using Stacks</h2>
+
+<p>link: <a href="https://leetcode.com/problems/implement-queue-using-stacks/">https://leetcode.com/problems/implement-queue-using-stacks/</a></p>
+
+<pre><code class="language-cpp">class MyQueue {
+private:
+    stack&lt;int&gt; s_;
+    bool flag_;
+public:
+    /** Initialize your data structure here. */
+    MyQueue() {
+        flag_ = true;
+    }
+    
+    /** Push element x to the back of queue. */
+    void push(int x) {
+        if (!flag_) {
+            flag_ = true; stack&lt;int&gt; s; s.swap(s_);
+            while (!s.empty()) { s_.push(s.top()); s.pop(); }
+        }
+        s_.push(x);
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    int pop() {
+        if (flag_) {
+            flag_ = false; stack&lt;int&gt; s; s.swap(s_);
+            while (!s.empty()) { s_.push(s.top()); s.pop(); }
+        }
+        int x = s_.top();
+        s_.pop();
+        return x;
+    }
+    
+    /** Get the front element. */
+    int peek() {
+        if (flag_) {
+            flag_ = false; stack&lt;int&gt; s; s.swap(s_);
+            while (!s.empty()) { s_.push(s.top()); s.pop(); }
+        }
+        return s_.top();
+    }
+    
+    /** Returns whether the queue is empty. */
+    bool empty() {
+        return s_.empty();
+    }
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * bool param_4 = obj.empty();
+ */
+</code></pre>
+
+<h2 id="233-number-of-digit-one">233. Number of Digit One</h2>
+
+<p>link: <a href="https://leetcode.com/problems/number-of-digit-one/description/">https://leetcode.com/problems/number-of-digit-one/description/</a></p>
+
+<p>f[9]表示[0,9]的范围内有多少个1。所以，f[99] = 10 * f[9] + 99 + 1，由此可推出f[999]、f[9999]、f[9999&hellip;]</p>
+
+<p>给定任意一个数字，如 23456，计算其包括多少个1应该包含几个部分</p>
+
+<ul>
+<li>[0, 20000]包含
+
+<ul>
+<li>2 * f[9999]</li>
+<li>[10000, 19999]共10000</li>
+</ul></li>
+<li>(20000, 23456]包括 countDigitOne(3456)</li>
+</ul>
+
+<p>如 12345，计算方式如下</p>
+
+<ul>
+<li>[0, 10000]包含 1 * f[9999]</li>
+<li>(1, 12345]包含 2345</li>
+<li>countDigitOne(2345)</li>
+</ul>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    unordered_map&lt;int, int&gt; tbl;
+    
+    Solution() {
+        int i = 9; tbl[9] = 1;
+        while (i*10+9 &lt; INT_MAX) { tbl[i*10+9] = tbl[i]*10 + i + 1; i = i*10 + 9; }
+    }
+    
+    int countDigitOne(int n) {
+        if (n &lt;= 0) return 0; if (n &lt;= 9) return 1;
+        int divisor = 1; while (n/divisor &gt;= 10) divisor *= 10;
+        int result = 0;
+        result += n / divisor * tbl[divisor-1];
+        result += n/divisor &gt; 1 ? divisor : n-divisor+1;
+        result += countDigitOne(n%divisor);
+        return result;
+    }
+};
+</code></pre>
+
+<p>又重新做了一遍</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    unordered_map&lt;int, int&gt; f;
+
+    Solution() {
+        int i = 9; f[9] = 1;
+        while (i &lt; INT_MAX) { f[i*10+9] = 10 * f[i] + i + 1; i = i * 10 + 9; }
+    }
+
+    int countDigitOne(int n) {
+        if (n &lt; 1) return 0;
+        int divisor = 1; while (n / divisor &gt;= 10) divisor = divisor * 10;
+        return countDigitOne(n, divisor);
+    }
+
+    int countDigitOne(int n, int divisor) {
+        if (n &lt;= 0) return 0; if (n &lt;= 9) return 1;
+        int result = 0, d = n / divisor;
+        if (d == 0) return countDigitOne(n, divisor/10);
+        result = d * f[divisor-1];
+        result = result + (d &gt; 1 ? divisor : n%divisor+1);
+        result = result + countDigitOne(n%divisor, divisor/10);
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="235-lowest-common-ancestor-of-a-binary-search-tree">235. Lowest Common Ancestor of a Binary Search Tree</h2>
+
+<p>link: <a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/">https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/</a></p>
+
+<p>比较简单，递归判断两个节点是不是在BST的同一个子树下即可，注意不要溢出。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* a, TreeNode* b) {
+        TreeNode *p = root;
+        while ((p-&gt;val - a-&gt;val) * (p-&gt;val - b-&gt;val) &gt; 0)
+            p = a-&gt;val &lt; p-&gt;val ? p-&gt;left : p-&gt;right;
+        return p;
+    }
+};
+</code></pre>
+
+<h2 id="236-lowest-common-ancestor-of-a-binary-tree">236. Lowest Common Ancestor of a Binary Tree</h2>
+
+<p>link: <a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/">https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/</a></p>
+
+<p>先找到反向的关系，用unordered_map记录。再用set反向查找一下就可以了。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* a, TreeNode* b) {
+        if (!root) return NULL;
+        unordered_map&lt;TreeNode*, TreeNode*&gt; tbl; queue&lt;TreeNode*&gt; q({root});
+        while (!q.empty()) {
+            TreeNode *n = q.front(); q.pop();
+            if (n-&gt;left ) tbl[n-&gt;left ] = n, q.push(n-&gt;left );
+            if (n-&gt;right) tbl[n-&gt;right] = n, q.push(n-&gt;right);
+        }
+        unordered_set&lt;TreeNode*&gt; s;
+        while (a) s.insert(a), a = tbl[a];
+        while (b) if (s.find(b) != s.end()) return b; else b = tbl[b];
+        return NULL;
+    }
+};
+</code></pre>
+
+<pre><code class="language-cpp">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* a, TreeNode* b) {
+        if (!root || root == a || root == b) return root;
+        TreeNode *left  = lowestCommonAncestor(root-&gt;left , a, b);
+        TreeNode *right = lowestCommonAncestor(root-&gt;right, a, b);
+        if (left &amp;&amp; right) return root;
+        return left ? left : right;
+    }
+};
+</code></pre>
+
+<h2 id="237-delete-node-in-a-linked-list">237. Delete Node in a Linked List</h2>
+
+<p>link: <a href="https://leetcode.com/problems/delete-node-in-a-linked-list/description/">https://leetcode.com/problems/delete-node-in-a-linked-list/description/</a></p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        while (node-&gt;next-&gt;next) {
+            node-&gt;val = node-&gt;next-&gt;val;
+            node = node-&gt;next;
+        }
+        node-&gt;val = node-&gt;next-&gt;val;
+        delete node-&gt;next;
+        node-&gt;next = NULL;
+    }
+};
+</code></pre>
+
+<h2 id="238-product-of-array-except-self">238. Product of Array Except Self</h2>
+
+<p>link: <a href="https://leetcode.com/problems/product-of-array-except-self/">https://leetcode.com/problems/product-of-array-except-self/</a></p>
+
+<p>以[a, b, c, d]为例</p>
+
+<ul>
+<li>顺着[1, a, ab, abc]的形式</li>
+<li>反着[bcd, bc, b, 1]的形式</li>
+</ul>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; productExceptSelf(vector&lt;int&gt;&amp; nums) {
+        const int N = nums.size(); vector&lt;int&gt; result(N, 1); 
+        for (int i = 1, n = 1; i &lt; N; i++) {
+            n = n * nums[i-1];
+            result[i] = n;
+        }
+        for (int i = N-2, n = 1; i &gt;= 0; i--) {
+            n = n * nums[i+1];
+            result[i] = result[i] * n;
+        }
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="239-sliding-window-maximum">239. Sliding Window Maximum</h2>
+
+<p>link: <a href="https://leetcode.com/problems/sliding-window-maximum/">https://leetcode.com/problems/sliding-window-maximum/</a></p>
+
+<p>看答案的，不是很好理解。不过貌似是一种专门的数据结构，这种一般比较难搞。</p>
+
+<p><a href="https://abitofcs.blogspot.com/2014/11/data-structure-sliding-window-minimum.html">https://abitofcs.blogspot.com/2014/11/data-structure-sliding-window-minimum.html</a></p>
+
+<p>我的理解是在Sliding Window的区间内，维护一个降序的序列。所有超出范围的去掉，所有逆序的去掉（对后续最大值没有帮助）。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; maxSlidingWindow(vector&lt;int&gt;&amp; nums, int k) {
+        const int N = nums.size();
+        vector&lt;int&gt; result; deque&lt;int&gt; q;
+        for (int i=0; i&lt;N; i++) {
+            if    (!q.empty() &amp;&amp; q.front() == i-k)         q.pop_front();
+            while (!q.empty() &amp;&amp; nums[q.back()] &lt; nums[i]) q.pop_back();
+            q.push_back(i);
+            if (i-k+1 &gt;= 0) result.push_back(nums[q.front()]);
+        }
+        return result;
+    }
+};
+</code></pre>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">amendgit</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-10-01</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/leetcode/">leetcode</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/leetcode/leetcode-solutions-201-220/">
+            <span class="next-text nav-default">Leetcode Solutions 201 220</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:shijian0912@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">amendgit</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

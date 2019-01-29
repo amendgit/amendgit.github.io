@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="amendgit" />
-  <meta name="description" content="5.4 Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动放到model中。例如：将Fo" />
+  <meta name="description" content="Spring in action的阅读笔记 5.4 Processing Forms Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动" />
 
   <meta name="keywords" content="amendgit, blog" />
 
@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.48" />
+<meta name="generator" content="Hugo 0.52" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/read/spring-in-action/" />
@@ -50,24 +50,25 @@
 
 
 <meta property="og:title" content="Spring in Action" />
-<meta property="og:description" content="5.4 Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动放到model中。例如：将Fo" />
+<meta property="og:description" content="Spring in action的阅读笔记 5.4 Processing Forms Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/read/spring-in-action/" /><meta property="article:published_time" content="2018-09-19T10:08:14&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-19T10:08:14&#43;08:00"/>
+
 <meta itemprop="name" content="Spring in Action">
-<meta itemprop="description" content="5.4 Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动放到model中。例如：将Fo">
+<meta itemprop="description" content="Spring in action的阅读笔记 5.4 Processing Forms Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动">
 
 
 <meta itemprop="datePublished" content="2018-09-19T10:08:14&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-19T10:08:14&#43;08:00" />
-<meta itemprop="wordCount" content="308">
+<meta itemprop="wordCount" content="1235">
 
 
 
 <meta itemprop="keywords" content="read," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Spring in Action"/>
-<meta name="twitter:description" content="5.4 Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动放到model中。例如：将Fo"/>
+<meta name="twitter:description" content="Spring in action的阅读笔记 5.4 Processing Forms Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -156,7 +157,12 @@
 <ul>
 <li>
 <ul>
-<li><a href="#5-4">5.4</a></li>
+<li><a href="#5-4-processing-forms">5.4 Processing Forms</a></li>
+</ul></li>
+<li><a href="#6-rendering-web-views">6. Rendering Web views</a>
+<ul>
+<li><a href="#6-1-understanding-view-resolution">6.1 Understanding view resolution</a></li>
+<li><a href="#6-2-creating-jsp-views">6.2 Creating JSP Views</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -171,7 +177,11 @@
     <div class="post-content">
       
 
-<h3 id="5-4">5.4</h3>
+<p>Spring in action的阅读笔记</p>
+
+<!-- more -->
+
+<h3 id="5-4-processing-forms">5.4 Processing Forms</h3>
 
 <p>Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动放到model中。例如：将Form中的fistName、lastName、username和password数据放到Spitter的firstName、lastName、username和password成员中。</p>
 
@@ -186,6 +196,122 @@ class SpitterController {
 </code></pre>
 
 <p>为了防止用户数据反复提交，注册的方法返回时，用了<code>return &quot;redirect:/spitter/username&quot;</code>，这样InternalResouceReslover会将这个请求重定向到用户的Profile页。同时，还支持forward:前缀。</p>
+
+<p>Spring提供了对Java Validation API的支持，只需要保证存在Java API的实现，如<code>Hibernate Validator</code>即可，不需要额外的配置工作。</p>
+
+<p>JVA的注解包括：</p>
+
+<ul>
+<li>@AssertFalse</li>
+<li>@AssertTrue</li>
+<li>@DecimalMax</li>
+<li>@DecimalMin</li>
+<li>@Digits</li>
+<li>@Future</li>
+<li>@Max</li>
+<li>@Min</li>
+<li>@NotNull</li>
+<li>@Null</li>
+<li>@Past</li>
+<li>@Pattern</li>
+<li>@Size</li>
+</ul>
+
+<pre><code class="language-java">public class Spitter {
+	private Long id;
+
+	@NotNull
+	@Size(min=5, max=16)
+	private String username;
+
+	@NotNull
+	@Size(min=5, max=25)
+	private String password;
+
+	@NotNull
+	@Size(min=2, max=30)
+	private String firstName;
+
+	@NotNull
+	@Size(min=2, max=30)
+	private String lastName;
+
+	...
+}
+</code></pre>
+
+<p>使用这些注解进行验证</p>
+
+<pre><code class="language-java">@RequestMapping(value=&quot;/register&quot;, method=POST)
+public String processRegsteration(
+	@Valid Spitter spitter, 
+	Errors errors) {
+	if (errors.hasErrors()) {
+		return &quot;registerForm&quot;;
+	}
+	...
+}
+</code></pre>
+
+<p>参数spitter需要带上@Valid注解，如果校验失败会将错误放到errors中。注意errors要紧跟这被校验的参数转换。</p>
+
+<h2 id="6-rendering-web-views">6. Rendering Web views</h2>
+
+<h3 id="6-1-understanding-view-resolution">6.1 Understanding view resolution</h3>
+
+<p>将请求处理的逻辑解耦到controllers和views是Spring MVC的一个重要feature。</p>
+
+<p>注意view需要和cotroller就model的内容达成共识。</p>
+
+<p>从view的logical view name到对应的view实现，是view resolvers的职责所在。</p>
+
+<p>ViewResolver是一个接口</p>
+
+<pre><code class="language-java">public interface ViewResolver {
+	View resolveViewName(String viewName, Locale locale) throws Exception;
+}
+</code></pre>
+
+<pre><code class="language-java">public interface View {
+	String getContentType();
+	void render(Map&lt;String, ?&gt; model, HttpServletRequest request, HttpServletResponse response) throws Exception;
+}
+</code></pre>
+
+<p>Spring提供了一些拆箱即用的实现</p>
+
+<ul>
+<li>BeanNameViewResolver</li>
+<li>ContentNegotiatingViewResolver</li>
+<li>FreeMarkerViewResolver</li>
+<li>InteralResourceViewResolver</li>
+<li>JasperReportsViewResolver</li>
+<li>ResourceBundleViewResolver</li>
+<li>TilesViewResolver</li>
+<li>UrlBasedViewResolver</li>
+<li>VelocityLayoutViewResolver</li>
+<li>VelocityViewResolver</li>
+<li>XmlViewResolver</li>
+<li>XsltViewResolver</li>
+</ul>
+
+<blockquote>
+<p>思考：这样的方式应该是为请求响应是的web应用设计的。而像React这样的单页web应用，是不会用到这个的。现在的React应
+用应该是用不到这些Spring功能的。反而更像是native的方式，自己管理UI，然后需要数据了就发起请求到服务端。获取数据
+后进行渲染。</p>
+</blockquote>
+
+<h3 id="6-2-creating-jsp-views">6.2 Creating JSP Views</h3>
+
+<ul>
+<li>可以创建一个叫viewResolver的bean，Spring会使用这个id去今夕view resolver</li>
+<li>使用InternalResourceViewResolver可以设置jsp文件的前缀和后缀，然后设置view的基类，比如JSTLView，这样就能支持tag了。</li>
+<li>tags的库有两种：1. 支持form绑定的tag库 2. 辅助form创建的各种各样工具</li>
+<li>form绑定有多种定义的tag支持：sf:form sf:input sf:password等等</li>
+<li>sf:form的commandName属性用于指定相应的model，之后就可以在子节点中用path去指定属性名。</li>
+<li>sf:errors标签用于向用户提示错误。可以单个标签的显示，也可以集中在一起显示。</li>
+<li>cssClass或cssErrorClass可以指定不同的error样式。</li>
+</ul>
 
     </div>
 
@@ -273,7 +399,7 @@ class SpitterController {
     &copy; 
     
       2017 - 
-    2018
+    2019
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

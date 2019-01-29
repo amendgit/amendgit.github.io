@@ -6,10 +6,19 @@
     <description>Recent content in Posts on amendgit`s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 25 Sep 2018 19:39:06 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 01 Oct 2018 12:06:27 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode Solutions 221 240</title>
+      <link>http://localhost:1313/post/leetcode/leetcode-solutions-221-240/</link>
+      <pubDate>Mon, 01 Oct 2018 12:06:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/leetcode-solutions-221-240/</guid>
+      <description>221. Maximal Square link: https://leetcode.com/problems/maximal-square/description/ 动态规划，f[i][j]表示以(i,j)为rightbottom节点的最大矩形大小 a表示当前节点的右上角节点，b表示当前的上方一个</description>
+    </item>
     
     <item>
       <title>Leetcode Solutions 201 220</title>
@@ -17,9 +26,7 @@
       <pubDate>Tue, 25 Sep 2018 19:39:06 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-201-220/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第201题到第220题。部分答案是以前的答案。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第201题到第220题。部分答案是以前的答案。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -28,9 +35,7 @@
       <pubDate>Sat, 22 Sep 2018 18:05:34 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-181-200/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第181题到第200题。部分答案是以前的答案。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第181题到第200题。部分答案是以前的答案。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -39,7 +44,7 @@
       <pubDate>Wed, 19 Sep 2018 10:08:14 +0800</pubDate>
       
       <guid>http://localhost:1313/post/read/spring-in-action/</guid>
-      <description>5.4 Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动放到model中。例如：将Fo</description>
+      <description>Spring in action的阅读笔记 5.4 Processing Forms Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动</description>
     </item>
     
     <item>
@@ -48,9 +53,7 @@
       <pubDate>Tue, 18 Sep 2018 08:31:24 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-121-140/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第121题到第140题。部分答案是以前的答案。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第121题到第140题。部分答案是以前的答案。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -59,9 +62,7 @@
       <pubDate>Sun, 16 Sep 2018 22:12:27 +0800</pubDate>
       
       <guid>http://localhost:1313/post/security/buffer-overflow/</guid>
-      <description>&lt;p&gt;这是SEED项目中的第二个实验，缓存区溢出漏洞，这是我的实验报告。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;这是SEED项目中的第二个实验，缓存区溢出漏洞，这是我的实验报告。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -70,9 +71,7 @@
       <pubDate>Sat, 15 Sep 2018 20:23:45 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-161-180/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第161题到第180题。部分答案是以前的答案。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第161题到第180题。部分答案是以前的答案。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -81,9 +80,7 @@
       <pubDate>Sun, 02 Sep 2018 08:30:56 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-101-120/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第101题到第120题。部分答案是以前的答案。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -92,9 +89,7 @@
       <pubDate>Tue, 21 Aug 2018 14:21:12 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-081-100/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第81题到第100题。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -103,9 +98,7 @@
       <pubDate>Mon, 06 Aug 2018 23:27:54 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习，这里是解题索引。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习，这里是解题索引。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -114,9 +107,7 @@
       <pubDate>Thu, 02 Aug 2018 11:33:25 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-061-080/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第80题。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第61题到第80题。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -125,9 +116,7 @@
       <pubDate>Wed, 01 Aug 2018 11:33:16 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-041-060/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第41题到第60题。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第41题到第60题。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -136,9 +125,7 @@
       <pubDate>Sun, 01 Jul 2018 11:33:03 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-021-040/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第21题到第40题。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第21题到第40题。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -147,9 +134,7 @@
       <pubDate>Fri, 01 Jun 2018 15:34:45 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-001-020/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -158,9 +143,7 @@
       <pubDate>Fri, 02 Feb 2018 09:49:48 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-others/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是180题之后的答案。部分答案是以前的答案。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是180题之后的答案。部分答案是以前的答案。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -169,9 +152,7 @@
       <pubDate>Tue, 12 Sep 2017 22:52:06 +0800</pubDate>
       
       <guid>http://localhost:1313/post/cs224n/cs224n-assignment-2/</guid>
-      <description>&lt;p&gt;自学cs224n（nlp with dl）的assigment 2，纯属个人学习和爱好。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;自学cs224n（nlp with dl）的assigment 2，纯属个人学习和爱好。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -180,9 +161,7 @@
       <pubDate>Sat, 02 Sep 2017 08:31:29 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode-solutions-141-160/</guid>
-      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第141题到第160题。部分答案是以前的答案。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第141题到第160题。部分答案是以前的答案。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -191,9 +170,7 @@
       <pubDate>Wed, 12 Jul 2017 19:43:09 +0800</pubDate>
       
       <guid>http://localhost:1313/post/cs224n/cs224n-assignment-1/</guid>
-      <description>&lt;p&gt;自学cs224n（nlp with dl）的assigment 1，纯属个人学习和爱好。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;自学cs224n（nlp with dl）的assigment 1，纯属个人学习和爱好。&lt;/p&gt;</description>
     </item>
     
     <item>

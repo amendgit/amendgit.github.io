@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Read on amendgit`s blog</title>
+    <title>read on amendgit`s blog</title>
     <link>http://localhost:1313/tags/read/</link>
-    <description>Recent content in Read on amendgit`s blog</description>
+    <description>Recent content in read on amendgit`s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 19 Sep 2018 10:08:14 +0800</lastBuildDate>
@@ -17,7 +17,7 @@
       <pubDate>Wed, 19 Sep 2018 10:08:14 +0800</pubDate>
       
       <guid>http://localhost:1313/post/read/spring-in-action/</guid>
-      <description>5.4 Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动放到model中。例如：将Fo</description>
+      <description>Spring in action的阅读笔记 5.4 Processing Forms Form提交到数据，主要在Controller的方法的参数声明对应的model就可以了，Spring可以自动</description>
     </item>
     
   </channel>

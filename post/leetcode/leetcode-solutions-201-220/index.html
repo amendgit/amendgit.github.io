@@ -18,7 +18,6 @@
 
 <meta name="author" content="amendgit" />
   <meta name="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第201题到第220题。部分答案是以前的答案。
-
 " />
 
   <meta name="keywords" content="amendgit, blog" />
@@ -28,7 +27,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.48" />
+<meta name="generator" content="Hugo 0.52" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-201-220/" />
@@ -52,30 +51,25 @@
 
 
 <meta property="og:title" content="Leetcode Solutions 201 220" />
-<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第201题到第220题。部分答案是以前的答案。
-
-" />
+<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第201题到第220题。部分答案是以前的答案。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-201-220/" /><meta property="article:published_time" content="2018-09-25T19:39:06&#43;08:00"/>
 <meta property="article:modified_time" content="2018-09-25T19:39:06&#43;08:00"/>
-<meta itemprop="name" content="Leetcode Solutions 201 220">
-<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第201题到第220题。部分答案是以前的答案。
 
-">
+<meta itemprop="name" content="Leetcode Solutions 201 220">
+<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第201题到第220题。部分答案是以前的答案。">
 
 
 <meta itemprop="datePublished" content="2018-09-25T19:39:06&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-25T19:39:06&#43;08:00" />
-<meta itemprop="wordCount" content="739">
+<meta itemprop="wordCount" content="3988">
 
 
 
 <meta itemprop="keywords" content="leetcode," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode Solutions 201 220"/>
-<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第201题到第220题。部分答案是以前的答案。
-
-"/>
+<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第201题到第220题。部分答案是以前的答案。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -166,6 +160,22 @@
 <li><a href="#202-happy-number">202. Happy Number</a></li>
 <li><a href="#212-word-search-ii">212. Word Search II</a></li>
 <li><a href="#218-the-skyline-problem">218. The Skyline Problem</a></li>
+<li><a href="#203-remove-linked-list-elements">203. Remove Linked List Elements</a></li>
+<li><a href="#204-count-primes">204. Count Primes</a></li>
+<li><a href="#205-isomorphic-strings">205. Isomorphic Strings</a></li>
+<li><a href="#206-reverse-linked-list">206. Reverse Linked List</a></li>
+<li><a href="#207-course-schedule">207. Course Schedule</a></li>
+<li><a href="#208-implement-trie-prefix-tree">208. Implement Trie (Prefix Tree)</a></li>
+<li><a href="#209-minimum-size-subarray-sum">209. Minimum Size Subarray Sum</a></li>
+<li><a href="#210-course-schedule-ii">210. Course Schedule II</a></li>
+<li><a href="#211-add-and-search-word-data-structure-design">211. Add and Search Word - Data structure design</a></li>
+<li><a href="#213-house-robber-ii">213. House Robber II</a></li>
+<li><a href="#214-shortest-palindrome">214. Shortest Palindrome</a></li>
+<li><a href="#215-kth-largest-element-in-an-array">215. Kth Largest Element in an Array</a></li>
+<li><a href="#216-combination-sum-iii">216. Combination Sum III</a></li>
+<li><a href="#217-contains-duplicate">217. Contains Duplicate</a></li>
+<li><a href="#219-contains-duplicate-ii">219. Contains Duplicate II</a></li>
+<li><a href="#220-contains-duplicate-iii">220. Contains Duplicate III</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -178,8 +188,6 @@
     
     <div class="post-content">
       <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第201题到第220题。部分答案是以前的答案。</p>
-
-<p></p>
 
 <h2 id="201-bitwise-and-of-numbers-range">201. Bitwise AND of Numbers Range</h2>
 
@@ -327,6 +335,662 @@ public:
     }
 };
 </code></pre>
+
+<h2 id="203-remove-linked-list-elements">203. Remove Linked List Elements</h2>
+
+<p>link: <a href="https://leetcode.com/problems/remove-linked-list-elements/description/">https://leetcode.com/problems/remove-linked-list-elements/description/</a></p>
+
+<p>一遍过，注意用dummy节点，和判断p-&gt;next。</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        if (!head) return NULL;
+        ListNode dummy(0), *p = &amp;dummy; dummy.next = head;
+        while (p-&gt;next) {
+            if (p-&gt;next-&gt;val == val) {
+                auto tmp = p-&gt;next;
+                p-&gt;next = tmp-&gt;next;
+                delete tmp;
+            } else {
+                p = p-&gt;next;
+            }
+        }
+        return dummy.next;
+    }
+};
+</code></pre>
+
+<h2 id="204-count-primes">204. Count Primes</h2>
+
+<p>link: <a href="https://leetcode.com/problems/count-primes/description/">https://leetcode.com/problems/count-primes/description/</a></p>
+
+<p>打表法，然后判断一个数是否是prime的时候，从2到sqrt(x)之间的质数都出一遍，就能判断了。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int countPrimes(int n) {
+        static vector&lt;int&gt; f = {2, 3, 5};
+        if (n &lt;= f.back()) for (int i=0; i&lt;f.size(); i++) if (f[i] &gt;= n) return i;
+        for (int x=f.back()+1; x&lt;n; x++) {
+            bool flag = true; int up = sqrt(x);
+            for (int i=0; f[i]&lt;=up; i++) if (x%f[i] == 0) { flag = false; break; }
+            if (flag) f.push_back(x);
+        }
+        return f.size();
+    }
+};
+</code></pre>
+
+<p>Sieve of Eratosthenes 一种用于查找质数的快速算法。</p>
+
+<ul>
+<li>当发现x是质数时，从<code>x*x</code>开始标记，因为<code>[0..x)*x</code>的合数位置都被之前的质数给标记过了。</li>
+<li>在<code>x*x&lt;n</code>时候，就已经将f中所有合数给标记出来了。因为当<code>x*x&gt;=n</code>时，标记的起始位置就已经超过n了。</li>
+</ul>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int countPrimes(int n) {
+        if (n &lt;= 2) return 0;
+        vector&lt;int&gt; f(n, 1); f[0] = f[1] = 0;
+        for (int x=2; x*x&lt;n; x++) 
+            if (f[x]) for (int i=x*x; i&lt;n; i+=x) f[i] = 0;
+        int result = 0; for (int i=0; i&lt;n; i++) if (f[i]) result++;
+        return result;
+    }
+};
+</code></pre>
+
+<h2 id="205-isomorphic-strings">205. Isomorphic Strings</h2>
+
+<p>link: <a href="https://leetcode.com/problems/isomorphic-strings/description/">https://leetcode.com/problems/isomorphic-strings/description/</a></p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        int slen = s.length(), tlen = t.length();
+        if (slen != tlen) return false;
+        if (slen == 0   ) return true;
+        unordered_map&lt;char, char&gt; s2t, t2s;
+        for (int i=0; i&lt;slen; i++) {
+            auto a=s2t.find(s[i]), b=t2s.find(t[i]);
+            if ((a!=end(s2t)) ^ (b!=end(t2s))) return false;
+            if      (a == end(s2t)) s2t[s[i]]=t[i], t2s[t[i]]=s[i];
+            else if (a-&gt;second!=t[i] || b-&gt;second!=s[i]) return false;
+        }
+        return true;
+    }
+};
+</code></pre>
+
+<p>用array，学到了聚合初始化的概念</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        int slen = s.length(), tlen = t.length();
+        if (slen != tlen) return false;
+        if (slen == 0   ) return true;
+        array&lt;char, 256&gt; s2t{0}, t2s{0};
+        for (int i=0; i&lt;slen; i++) {
+            char a = s2t[s[i]], b = t2s[t[i]];
+            if      (a != 0  ^  b != 0 ) return false;
+            if      (a == 0  &amp;&amp; b == 0 ) s2t[s[i]]=t[i], t2s[t[i]]=s[i];
+            else if (a!=t[i] || b!=s[i]) return false;
+        }
+        return true;
+    }
+};
+</code></pre>
+
+<h2 id="206-reverse-linked-list">206. Reverse Linked List</h2>
+
+<p>link: <a href="https://leetcode.com/problems/reverse-linked-list/description/">https://leetcode.com/problems/reverse-linked-list/description/</a></p>
+
+<p>Iteratively</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (!head) return NULL;
+        ListNode *a = NULL, *b = head, *c = b-&gt;next;
+        b-&gt;next = a;
+        while (c) {
+            a = b; b = c; c = c-&gt;next;
+            b-&gt;next = a;
+        }
+        return b;
+    }
+};
+</code></pre>
+
+<p>Recursively</p>
+
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (!head) return NULL;
+        ListNode *rear = NULL, *p = head;
+        reverseList(p, head, rear);
+        return head;
+    }
+
+    void reverseList(ListNode* p, ListNode*&amp; head, ListNode*&amp; rear) {
+        if (p-&gt;next == NULL) {
+            head = p; rear = p; return;
+        }
+        reverseList(p-&gt;next, head, rear);
+        rear-&gt;next = p; rear = p; p-&gt;next = NULL;
+    }
+};
+</code></pre>
+
+<h2 id="207-course-schedule">207. Course Schedule</h2>
+
+<p>link: <a href="https://leetcode.com/problems/course-schedule/description/">https://leetcode.com/problems/course-schedule/description/</a></p>
+
+<p>拓扑排序，60ms，注意在deps.erase之后，不能再继续当前的遍历了，引文deps的内容被改变了。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool canFinish(int n, vector&lt;pair&lt;int, int&gt;&gt;&amp; prerequisites) {
+        if (prerequisites.empty()) return true;
+        unordered_map&lt;int, vector&lt;int&gt;&gt; deps; unordered_set&lt;int&gt; white;
+        for (auto&amp; req : prerequisites) 
+            deps[req.first].push_back(req.second);
+        for (int i=0; i&lt;n; i++) 
+            if (deps.find(i) == end(deps)) white.insert(i);
+        while (!deps.empty()) {
+            bool infinite = true;
+            for (auto&amp; dep : deps) {
+                bool flag = true;
+                for (auto i : dep.second) 
+                    if (white.find(i) == end(white)) { flag = false; break; }
+                if (flag) { 
+                    infinite = false; white.insert(dep.first); deps.erase(dep.first); 
+                    break; 
+                }
+            }
+            if (infinite) return false;
+        }
+        return true;
+    }
+};
+</code></pre>
+
+<p>用BFS搜索一下，indegree表示每个节点的入度，12ms。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool canFinish(int n, vector&lt;pair&lt;int, int&gt;&gt;&amp; prerequisites) {
+        if (prerequisites.empty()) return true;
+        vector&lt;vector&lt;int&gt;&gt; graph(n); vector&lt;int&gt; indegree(n, 0);
+        for (auto preq : prerequisites) {
+            graph[preq.second].push_back(preq.first);
+            indegree[preq.first]++;
+        }
+        int count = 0;
+        while (count != n) {
+            int hold = count;
+            for (int i=0; i&lt;n; i++) {
+                if (indegree[i] == 0) {
+                    for (int j : graph[i]) indegree[j]--;
+                    count++; indegree[i] = -1;
+                }
+            }
+            if (hold == count) return false;
+        }
+        return true;
+    }
+};
+</code></pre>
+
+<p>调整为white、gray、black的思路。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool canFinish(int n, vector&lt;pair&lt;int, int&gt;&gt;&amp; prerequisites) {
+        if (prerequisites.empty()) return true;
+        vector&lt;vector&lt;int&gt;&gt; graph(n); vector&lt;int&gt; indegree(n, 0);
+        for (auto preq : prerequisites) {
+            graph[preq.second].push_back(preq.first);
+            indegree[preq.first]++;
+        }
+        int count = 0; vector&lt;int&gt; gray;
+        for (int i=0; i&lt;n; i++) if (indegree[i] == 0) gray.push_back(i);
+        while (!gray.empty()) {
+            int x = gray.back(); gray.pop_back(); count++;
+            for (int i : graph[x]) if (--indegree[i] == 0) gray.push_back(i);
+        }
+        return count == n;
+    }
+};
+</code></pre>
+
+<p>因为是检测图中是否有环存在，所以反向也是等价的，fun fact。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool canFinish(int n, vector&lt;pair&lt;int, int&gt;&gt;&amp; prerequisites) {
+        if (prerequisites.empty()) return true;
+        vector&lt;vector&lt;int&gt;&gt; graph(n); vector&lt;int&gt; indegree(n, 0);
+        for (auto preq : prerequisites) {
+            graph[preq.first].push_back(preq.second);
+            indegree[preq.second]++;
+        }
+        int count = 0; vector&lt;int&gt; gray;
+        for (int i=0; i&lt;n; i++) if (indegree[i] == 0) gray.push_back(i);
+        while (!gray.empty()) {
+            int x = gray.back(); gray.pop_back(); count++;
+            for (int i : graph[x]) if (--indegree[i] == 0) gray.push_back(i);
+        }
+        return count == n;
+    }
+};
+</code></pre>
+
+<h2 id="208-implement-trie-prefix-tree">208. Implement Trie (Prefix Tree)</h2>
+
+<p>link: <a href="https://leetcode.com/problems/implement-trie-prefix-tree/description/">https://leetcode.com/problems/implement-trie-prefix-tree/description/</a></p>
+
+<p>注意：</p>
+
+<ul>
+<li>next[26]是否存在下一个节点指针。</li>
+<li>flag表示当前节点是不是一个word的终止位置。</li>
+</ul>
+
+<pre><code class="language-cpp">class Trie {
+public:
+    /** Initialize your data structure here. */
+    Trie() {}
+    
+    /** Inserts a word into the trie. */
+    void insert(const string&amp; word) {
+        TrieNode *p = &amp;head;
+        for (char c : word) {
+            auto node = p-&gt;next[c-'a'];
+            if (node == NULL) p-&gt;next[c-'a'] = node = new TrieNode();
+            p = node;
+        }
+        p-&gt;flag = true;
+    }
+    
+    /** Returns if the word is in the trie. */
+    bool search(const string&amp; word) {
+        TrieNode *p = &amp;head; 
+        for (char c : word) {
+            p = p-&gt;next[c-'a'];
+            if (!p) return false;
+        }
+        return p-&gt;flag;
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(const string&amp; prefix) {
+        TrieNode *p = &amp;head; 
+        for (char c : prefix) {
+            p = p-&gt;next[c-'a'];
+            if (!p) return false;
+        }
+        return p != NULL;
+    }
+
+    struct TrieNode {
+        array&lt;TrieNode*, 26&gt; next = { NULL };
+        bool flag = false;
+    };
+
+    TrieNode head;
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie obj = new Trie();
+ * obj.insert(word);
+ * bool param_2 = obj.search(word);
+ * bool param_3 = obj.startsWith(prefix);
+ */
+</code></pre>
+
+<h2 id="209-minimum-size-subarray-sum">209. Minimum Size Subarray Sum</h2>
+
+<p>link: <a href="https://leetcode.com/problems/minimum-size-subarray-sum/description/">https://leetcode.com/problems/minimum-size-subarray-sum/description/</a></p>
+
+<p>用两个指针i j进行计算，如果f[i,j]&gt;=sum, 那么f[p,q]&gt;=sum，当p&lt;=i或q&gt;=j。
+* 当sum &gt;= s时，计算当前的subarraySize，并删除最左边的子数组元素。
+* 当sum &lt;  s时，将子数组向右扩张一个元素。
+* 然后增加result的大小比较，如果result为1直接返回即可，因为不可能比1还小的情况了。同时防止了i超过j的场景。
+* 当j &gt;= len时，表示此时没有更多元素可以进行相加了，直接返回即可。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int minSubArrayLen(int s, vector&lt;int&gt;&amp; nums) {
+        int len = nums.size(); if (len == 0) return 0;
+        int sum = nums[0], i = 0, j = 1, result = INT_MAX;
+        while (true) {
+            if (sum &gt;= s) {
+                if ((result = min(result, j-i)) == 1) return 1;
+                sum -= nums[i++];
+            } else {
+                if (j &gt;= len) return result == INT_MAX ? 0 : result;
+                sum += nums[j++];
+            }
+        }
+        return 0;
+    }
+};
+</code></pre>
+
+<h2 id="210-course-schedule-ii">210. Course Schedule II</h2>
+
+<p>link: <a href="https://leetcode.com/problems/course-schedule-ii/description/">https://leetcode.com/problems/course-schedule-ii/description/</a></p>
+
+<p>拓扑排序，20ms。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; findOrder(int n, vector&lt;pair&lt;int, int&gt;&gt;&amp; prerequisites) {
+        vector&lt;int&gt; result, indegree(n, 0); vector&lt;vector&lt;int&gt;&gt; graph(n);
+        for (auto&amp; preq : prerequisites) {
+            graph[preq.second].push_back(preq.first);
+            indegree[preq.first]++;
+        }
+        int count = 0;
+        while (count != n) {
+            int hold = count;
+            for (int i=0; i&lt;n; i++) {
+                if (indegree[i] == 0) {
+                    for (int j : graph[i]) indegree[j]--;
+                    count++; result.push_back(i); indegree[i]=-1;
+                }
+            }
+            if (hold == count) return {};
+        }
+        return result;
+    }
+};
+</code></pre>
+
+<p>换个思路，用gray记录当前未被访问的节点，16ms。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; findOrder(int n, vector&lt;pair&lt;int, int&gt;&gt;&amp; prerequisites) {
+        vector&lt;int&gt; white, indegree(n, 0); vector&lt;vector&lt;int&gt;&gt; graph(n);
+        for (auto&amp; preq : prerequisites) {
+            graph[preq.second].push_back(preq.first);
+            indegree[preq.first]++;
+        }
+        int count = 0; vector&lt;int&gt; gray;
+        for (int i=0; i&lt;n; i++) if (indegree[i] == 0) gray.push_back(i);
+        while (!gray.empty()) {
+            int x = gray.back(); gray.pop_back();
+            white.push_back(x);
+            for (int i : graph[x]) if (--indegree[i] == 0) gray.push_back(i);
+        }
+        return white.size() == n ? white : vector&lt;int&gt;();
+    }
+};
+</code></pre>
+
+<h2 id="211-add-and-search-word-data-structure-design">211. Add and Search Word - Data structure design</h2>
+
+<p>link: <a href="https://leetcode.com/problems/add-and-search-word-data-structure-design/description/">https://leetcode.com/problems/add-and-search-word-data-structure-design/description/</a></p>
+
+<ul>
+<li>用Trie树</li>
+<li>注意当c == &lsquo;.&lsquo;时，循环当前p-&gt;next的每个节点，但是当p-&gt;next的节点都为空时，表示没有匹配的了，要在最后return false。</li>
+</ul>
+
+<pre><code class="language-cpp">class WordDictionary {
+public:
+    struct TrieNode {
+        array&lt;TrieNode*, 26&gt; next = { NULL };
+        bool flag = false;
+    };
+
+    TrieNode head;
+
+    /** Initialize your data structure here. */
+    WordDictionary() { }
+    
+    /** Adds a word into the data structure. */
+    void addWord(const string&amp; word) {
+        TrieNode *p = &amp;head;
+        for (char c : word) {
+            if (!p-&gt;next[c-'a']) 
+                p-&gt;next[c-'a'] = new TrieNode();
+            p = p-&gt;next[c-'a'];
+        }
+        p-&gt;flag = true;
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    bool search(const string&amp; word) {
+        return search(word, 0, &amp;head);
+    }
+
+    bool search(const string&amp; word, int i, TrieNode* p) {
+        for (; i&lt;word.length(); i++) {
+            char c = word[i];
+            if (c != '.') {
+                p = p-&gt;next[c-'a'];
+                if (!p) return false;
+            } else {
+                for (auto n : p-&gt;next) 
+                    if (n &amp;&amp; search(word, i+1, n)) return true;
+                return false;
+            }
+        }
+        return p-&gt;flag;
+    }
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * bool param_2 = obj.search(word);
+ */
+</code></pre>
+
+<h2 id="213-house-robber-ii">213. House Robber II</h2>
+
+<p>link: <a href="https://leetcode.com/problems/house-robber-ii/description/">https://leetcode.com/problems/house-robber-ii/description/</a></p>
+
+<p>连成圈之后，要么 1. front取，back不取 2. font不取，back取 3. front和back都不取。换个角度，我们可以分别计算[0, len-1)和[1,len)两个区间的最大rob，然后取较大者就是我们想要的了。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int rob(vector&lt;int&gt;&amp; nums) {
+        int len = nums.size();
+        if (len == 0) return 0;
+        if (len == 1) return nums[0];
+        if (len == 2) return max(nums[0], nums[1]);
+        return max(rob(nums, 0, len-1), rob(nums, 1, len));
+    }
+    
+    int rob(vector&lt;int&gt;&amp; nums, int i, int j) {
+        int a = 0, b = 0, c;
+        for (;i &lt; j; i++) c=a, a=b+nums[i], b=max(b,c);
+        return max(a, b);
+    }
+};
+</code></pre>
+
+<h2 id="214-shortest-palindrome">214. Shortest Palindrome</h2>
+
+<p>link: <a href="https://leetcode.com/problems/shortest-palindrome/description/">https://leetcode.com/problems/shortest-palindrome/description/</a></p>
+
+<ul>
+<li>用了kmp计算prefix function的方法，计算每个字符位置的最大匹配前缀后缀的长度。</li>
+<li>通过将字符串反转，中间加上分隔符，这样得到的最后的字符就是以s的首字符为起点的最大回文子串。</li>
+<li>注意计算p的时候，如果j==0，此时ab[i]和ab[j]可能相等，也可能不等。如果相等最p[i]值应该是1，因为最少有一个字符的前后缀相等。所以，最后p[i]要判断下ab[i]==ab[j]。</li>
+</ul>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    string shortestPalindrome(const string&amp; s) {
+        const string &amp;a = s; 
+        string b = s; reverse(begin(b), end(b));
+        string ab = a + &quot;|&quot; + b; 
+        int len = ab.length();
+        vector&lt;int&gt; p(len, 0);
+        for (int i=1; i&lt;len; i++) {
+            int j = p[i-1]; while (j&gt;0 &amp;&amp; ab[i]!=ab[j]) j = p[j-1];
+            p[i] = j + (ab[i] == ab[j]);
+        }
+        return b.substr(0, b.length()-p.back()) + a;
+    }
+};
+</code></pre>
+
+<h2 id="215-kth-largest-element-in-an-array">215. Kth Largest Element in an Array</h2>
+
+<p>link: <a href="https://leetcode.com/problems/kth-largest-element-in-an-array/description/">https://leetcode.com/problems/kth-largest-element-in-an-array/description/</a></p>
+
+<ul>
+<li>priority_queue默认是最大堆。</li>
+<li>将less<int>改为greater<int>来获取最小堆。</li>
+<li>维持堆中的个数为k个，由于较小的数字已经先出去了，那么top就是第k个数字。</li>
+<li>假设第k大的数字是x，那么在数组中任意去k+1个数，肯定至少存在一个数字比x小。否则x就是第k+1大的数了。</li>
+</ul>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    int findKthLargest(vector&lt;int&gt;&amp; nums, int k) {
+        if (nums.size() &lt; k) return 0;
+        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; q;
+        for (int i=0; i&lt;nums.size(); i++) {
+            q.push(nums[i]); if (q.size() &gt; k) q.pop();
+        }
+        return q.top();
+    }
+};
+</code></pre>
+
+<h2 id="216-combination-sum-iii">216. Combination Sum III</h2>
+
+<p>link: <a href="https://leetcode.com/problems/combination-sum-iii/description/">https://leetcode.com/problems/combination-sum-iii/description/</a></p>
+
+<p>深搜，每个数字来或者不来，一遍过。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; combinationSum3(int k, int n) {
+        vector&lt;vector&lt;int&gt;&gt; result; vector&lt;int&gt; path;
+        static array&lt;int, 9&gt; nums = {1, 2, 3, 4, 5, 6, 7, 8, 9}; 
+        combinationSum3(k, n, 0, nums, path, result);
+        return move(result);
+    }
+
+    void combinationSum3(int k, int n, int i, array&lt;int, 9&gt; &amp;nums, vector&lt;int&gt; &amp;path, vector&lt;vector&lt;int&gt;&gt; &amp;result) {
+        if (path.size() == k) {
+            int sum = 0; for (int x : path) sum += x;
+            if (sum == n) result.push_back(path);
+            return;
+        }
+        if (i &gt;= 9) return;
+        path.push_back(nums[i]);
+        combinationSum3(k, n, i+1, nums, path, result);
+        path.pop_back();
+        combinationSum3(k, n, i+1, nums, path, result);
+    }
+};
+</code></pre>
+
+<h2 id="217-contains-duplicate">217. Contains Duplicate</h2>
+
+<p>link: <a href="https://leetcode.com/problems/contains-duplicate/description/">https://leetcode.com/problems/contains-duplicate/description/</a></p>
+
+<p>用unordered_set即可。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool containsDuplicate(vector&lt;int&gt;&amp; nums) {
+        unordered_set&lt;int&gt; tbl;
+        for (auto n : nums) 
+            if (!tbl.insert(n).second)return true;
+        return false;
+    }
+};
+</code></pre>
+
+<h2 id="219-contains-duplicate-ii">219. Contains Duplicate II</h2>
+
+<p>link: <a href="https://leetcode.com/problems/contains-duplicate-ii/description/">https://leetcode.com/problems/contains-duplicate-ii/description/</a></p>
+
+<p>用一个set将区间为k范围内的数字都放进去，进行查重。</p>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool containsNearbyDuplicate(vector&lt;int&gt;&amp; nums, int k) {
+        unordered_set&lt;int&gt; tbl; int i=0;
+        for (int i=0; i&lt;nums.size(); i++) {
+            if (!tbl.insert(nums[i]).second) return true;
+            if (i &gt;= k) tbl.erase(nums[i-k]);
+        }
+        return false;
+    }
+};
+</code></pre>
+
+<h2 id="220-contains-duplicate-iii">220. Contains Duplicate III</h2>
+
+<p>link: <a href="https://leetcode.com/problems/contains-duplicate-iii/description/">https://leetcode.com/problems/contains-duplicate-iii/description/</a></p>
+
+<ul>
+<li>用bucket的思路，桶的映射区间用 t+1。</li>
+<li>每个bucket如果有两个数，则表示return true。</li>
+<li>相邻的bucket则需要通过算差值来判断。</li>
+<li>注意n t bucket都要转换成long，防止溢出。</li>
+</ul>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    bool containsNearbyAlmostDuplicate(vector&lt;int&gt;&amp; nums, int k, int t) {
+        if (k&lt;1 || t&lt;0) return false;
+        unordered_map&lt;long, long&gt; tbl; 
+        for (int i=0; i&lt;nums.size(); i++) {
+            long n = (long)nums[i] - INT_MIN;
+            long bucket = n / ((long)t+1);
+            if (tbl.find(bucket) != end(tbl) || 
+                (tbl.find(bucket-1) != end(tbl) &amp;&amp; n-tbl[bucket-1] &lt;= t) ||
+                (tbl.find(bucket+1) != end(tbl) &amp;&amp; tbl[bucket+1]-n &lt;= t))
+                return true;
+            tbl[bucket] = n;
+            if (i &gt;= k) tbl.erase(((long)nums[i-k] - INT_MIN) / ((long)t+1));
+        }
+        return false;
+    }
+};
+</code></pre>
     </div>
 
     
@@ -356,6 +1020,11 @@ public:
       
       <nav class="post-nav">
         
+          <a class="prev" href="/post/leetcode/leetcode-solutions-221-240/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Leetcode Solutions 221 240</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         
           <a class="next" href="/post/leetcode/leetcode-solutions-181-200/">
             <span class="next-text nav-default">Leetcode Solutions 181 200</span>
@@ -408,7 +1077,7 @@ public:
     &copy; 
     
       2017 - 
-    2018
+    2019
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

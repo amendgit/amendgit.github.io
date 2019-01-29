@@ -18,7 +18,6 @@
 
 <meta name="author" content="amendgit" />
   <meta name="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。
-
 " />
 
   <meta name="keywords" content="amendgit, blog" />
@@ -28,7 +27,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.48" />
+<meta name="generator" content="Hugo 0.52" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/leetcode/leetcode-solutions-001-020/" />
@@ -52,30 +51,25 @@
 
 
 <meta property="og:title" content="Leetcode Solutions 001-020" />
-<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。
-
-" />
+<meta property="og:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/leetcode/leetcode-solutions-001-020/" /><meta property="article:published_time" content="2018-06-01T15:34:45&#43;08:00"/>
 <meta property="article:modified_time" content="2018-06-01T15:34:45&#43;08:00"/>
-<meta itemprop="name" content="Leetcode Solutions 001-020">
-<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。
 
-">
+<meta itemprop="name" content="Leetcode Solutions 001-020">
+<meta itemprop="description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。">
 
 
 <meta itemprop="datePublished" content="2018-06-01T15:34:45&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-01T15:34:45&#43;08:00" />
-<meta itemprop="wordCount" content="4206">
+<meta itemprop="wordCount" content="4210">
 
 
 
 <meta itemprop="keywords" content="leetcode," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode Solutions 001-020"/>
-<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。
-
-"/>
+<meta name="twitter:description" content="本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -195,8 +189,6 @@
     <div class="post-content">
       <p>本文用来记录我的leetcode解题报告，用于之后的代码优化、查阅和复习。这里是第1题到第20题。</p>
 
-<p></p>
-
 <h2 id="1-two-sum">1. Two Sum</h2>
 
 <p>链接：<a href="https://leetcode.com/problems/two-sum/">https://leetcode.com/problems/two-sum/</a></p>
@@ -265,11 +257,12 @@ public:
         int t[256], l=0, r=1, len=s.length();
         fill_n(t, 256, 0); t[s[0]]++;
         for (int i=1; i&lt;len; ++i) {
-            if (t[s[i]] == 0) 
+            if (t[s[i]] == 0) {
                 t[s[i]]++;
-            else {
+            } else {
                 r = max(r, i-l);
-                while (s[l]!=s[i]) t[s[l++]]--; l++;
+                while (s[l] != s[i]) t[s[l++]]--; 
+                l++;
             }
         }
         return max(r, len-l);
@@ -948,7 +941,7 @@ public:
     &copy; 
     
       2017 - 
-    2018
+    2019
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
